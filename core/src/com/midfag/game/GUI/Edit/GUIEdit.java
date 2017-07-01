@@ -10,6 +10,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.midfag.entity.Entity;
 import com.midfag.entity.decorations.DecorBuilding;
 import com.midfag.entity.decorations.DecorBuildingWall;
+import com.midfag.entity.decorations.DecorStoneBarak;
 import com.midfag.entity.decorations.DecorStoneWall;
 import com.midfag.entity.decorations.DecorStonePilon;
 import com.midfag.entity.decorations.DecorStoneWall2;
@@ -98,6 +99,9 @@ public class GUIEdit extends GUI {
 		if (_id.equals("wheel"))
 		{return new EntityWheel(new Vector2(),false);}
 		
+		if (_id.equals("stone_barak"))
+		{return new DecorStoneBarak(new Vector2(),true);}
+		
 		
 		
     	return null;
@@ -185,6 +189,8 @@ public class GUIEdit extends GUI {
 						en.spr.setRotation(indicate_entity.spr.getRotation());
 						en.init();
 						GScreen.add_entity_to_map(en);
+						
+						en.fill_path();
 					}
 				}
 			}

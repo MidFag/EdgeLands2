@@ -6,9 +6,7 @@ package com.midfag.entity.enemies;
 import com.badlogic.gdx.math.Vector2;
 import com.midfag.entity.Entity;
 
-import com.midfag.equip.weapon.WeaponSimpleFirle;
-import com.midfag.equip.weapon.WeaponSimpleLaser;
-import com.midfag.equip.weapon.WeaponSimpleShotgun;
+
 import com.midfag.game.Assets;
 import com.midfag.game.GScreen;
 

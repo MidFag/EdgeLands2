@@ -6,9 +6,10 @@ package com.midfag.entity.enemies;
 import com.badlogic.gdx.math.Vector2;
 import com.midfag.entity.Entity;
 
-import com.midfag.equip.weapon.WeaponSimpleFirle;
-import com.midfag.equip.weapon.WeaponSimpleLaser;
-import com.midfag.equip.weapon.WeaponSimpleShotgun;
+
+import com.midfag.equip.weapon.*;
+
+
 import com.midfag.game.Assets;
 import com.midfag.game.GScreen;
 
@@ -35,7 +36,7 @@ public class EntityPyra extends Entity {
 		
 		id="pyra";
 		
-		armored[0]=new WeaponSimpleFirle();
+		armored[0]=new WeaponRobofirle();
 		armored[0].generate();
 		armored[1]=null;
 		
@@ -55,7 +56,8 @@ public class EntityPyra extends Entity {
 		offset.y=50;
 		can_rotate=false;
 		
-		speed/=2;
+		friction=0.5f;
+		speed/=1.5f;
 	}
 	
 	@Override

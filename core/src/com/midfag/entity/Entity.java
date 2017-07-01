@@ -87,6 +87,8 @@ public class Entity {
 
 	public float friction=0.5f;
 	
+	public boolean path=false;
+	
 	public void init()
 	{
 		
@@ -99,14 +101,14 @@ public class Entity {
 				
 	
 					Phys p=new Phys(new Vector2(pos.x-32f/1,pos.y),new Vector2(pos.x+32f/1,pos.y),false,this,true);
-					if (is_player){p.move_block=false;}
+					{p.move_block=false;}
 					GScreen.cluster[x][y].Phys_list.add(p);
 					Phys_list_local.add(p);
 					
 					
 					
 					p=new Phys(new Vector2(pos.x,pos.y-32f/1),new Vector2(pos.x,pos.y+32f/1),false,this,true);
-					if (is_player){p.move_block=false;}
+					{p.move_block=false;}
 					GScreen.cluster[x][y].Phys_list.add(p);
 					Phys_list_local.add(p);
 				
@@ -420,8 +422,8 @@ public class Entity {
 			
 			armored[_i].add_disp+=armored[_i].total_dispersion_additional;
 			
-			if ((pos.dst(GScreen.pl.pos)<300)&&(armored[_i]!=null))
-			{armored[_i].get_shoot_sound().play((1f-pos.dst(GScreen.pl.pos)/300.0f)*0.15f);}
+			if ((pos.dst(GScreen.pl.pos)<1000)&&(armored[_i]!=null))
+			{armored[_i].get_shoot_sound().play((1f-pos.dst(GScreen.pl.pos)/1000.0f)*0.15f);}
 			
 			armored[_i].ammo--;
 			if (armored[_i].ammo<=0)
@@ -519,9 +521,31 @@ public class Entity {
 		
 		hurt_sound_cooldown-=_d;
 		
+		Phys near_object=null;
+		float spd=(float) (Math.sqrt(impulse.x*impulse.x+impulse.y*impulse.y));
+		
+		float prev_pos_x=pos.x;
+		float prev_pos_y=pos.y;
 		
 		
-		move (impulse.x,impulse.y,_d);
+
+		near_object=GScreen.get_contact(pos.x,pos.y,pos.x+impulse.x*_d,pos.y+impulse.y*_d,(impulse.x)/spd,(impulse.y)/spd,spd*_d,true,false,true);
+		
+		if (near_object==null)
+		{
+			move (impulse.x,impulse.y,_d);
+			
+			//hit_action(99999);
+			
+		}
+		else
+		{
+			System.out.println("###"+near_object.move_block);
+		}
+		
+		
+		
+		
 		impulse.scl((float) Math.pow(friction, _d));
 		
 		if (is_AI)
@@ -618,6 +642,16 @@ public class Entity {
 	public void draw_action(float _d) {
 		// TODO Auto-generated method stub
 		spr.draw(Main.batch);
+	}
+	
+	public void fill_path()
+	{
+		if (path)
+		for (int i=-0; i<=5; i++)
+		for (int j=-5; j<=4; j++)
+		{
+			GScreen.path[Math.round(pos.x/30f)+j][Math.round(pos.y/30f)+i]=900;
+		}
 	}
 	
 }

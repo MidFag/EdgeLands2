@@ -67,12 +67,14 @@ public class Phys {
     	if (_path)
     	for (float i=0; i<=1; i+=ps/len)
     	{
+    		/*
     		if ((Math.round((start.x+(end.x-start.x)*i)/ps)>=0)&&( Math.round((start.x+(end.x-start.x)*i)/ps)<300 ))
     		if (( Math.round((start.y+(end.y-start.y)*i)/ps)>=0 )&&( Math.round((start.y+(end.y-start.y)*i)/ps)<300 ))
     		{
     			
     			GScreen.path[Math.round((start.x+(end.x-start.x)*i)/ps)][Math.round((start.y+(end.y-start.y)*i)/ps)]=999;
     		}
+    		*/
     	}
 		
 		display=_display;
@@ -83,12 +85,14 @@ public class Phys {
 		int ps=GScreen.path_cell;
     	for (float i=0; i<=1; i+=ps/len)
     	{
+    		/*
     		if (( (int)((start.x+(end.x-start.x)*i)/ps)>=0 )&&( (int)((start.x+(end.x-start.x)*i)/ps)<300 ))
     		if (( (int)((start.y+(end.y-start.y)*i)/ps)>=0 )&&( (int)((start.y+(end.y-start.y)*i)/ps)<300 ))
     		{
     			
     			GScreen.path[(int)((start.x+(end.x-start.x)*i)/ps)][(int)((start.y+(end.y-start.y)*i)/ps)]=0;
     		}
+    		*/
     	}
 	}
 	

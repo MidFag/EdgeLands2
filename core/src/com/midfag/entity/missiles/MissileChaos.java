@@ -18,7 +18,7 @@ public class MissileChaos extends Missile {
 	@Override
 	public void preupdate(float _d)
 	{
-		GScreen.tile_map_overlay[(int)(pos.x/30)][(int)(pos.y/30)]=9+(int)(Math.random()*3);
+		//GScreen.tile_map_overlay[(int)(pos.x/30)][(int)(pos.y/30)]=9+(int)(Math.random()*3);
 	}
 
 }

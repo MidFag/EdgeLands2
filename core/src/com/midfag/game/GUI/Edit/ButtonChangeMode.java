@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.midfag.entity.Entity;
 import com.midfag.entity.decorations.DecorBuilding;
 import com.midfag.entity.decorations.DecorBuildingWall;
+import com.midfag.entity.decorations.DecorStoneBarak;
 import com.midfag.entity.decorations.DecorStonePilon;
 import com.midfag.entity.decorations.DecorStoneWall;
 import com.midfag.entity.decorations.DecorStoneWall2;
@@ -116,6 +117,7 @@ public class ButtonChangeMode extends Button {
 	    		GScreen.Button_list.add(new ButtonPutter(450,50,new DecorBuilding(new Vector2(),true),gui));
 	    		GScreen.Button_list.add(new ButtonPutter(550,50,new DecorBuildingWall(new Vector2(),true),gui));
 	    		GScreen.Button_list.add(new ButtonPutter(650,50,new EntityWheel(new Vector2(),false),gui));
+	    		GScreen.Button_list.add(new ButtonPutter(750,50,new DecorStoneBarak(new Vector2(),true),gui));
 			}
 			
 			if ((em==EditMode.PATTERN.ordinal())&&(!gui.pattern_mode))

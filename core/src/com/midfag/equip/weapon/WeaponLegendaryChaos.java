@@ -24,8 +24,8 @@ public class WeaponLegendaryChaos extends Weapon {
 			base_damage=10;
 			base_missile_count=2;
 			base_shoot_cooldown=0.3f;
-			base_dispersion=15;
-			base_dispersion_additional=15;
+			base_dispersion=10;
+			base_dispersion_additional=5;
 			base_ammo_size=20;
 			base_reload_time=3;
 			

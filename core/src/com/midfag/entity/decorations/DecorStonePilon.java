@@ -22,6 +22,8 @@ public class DecorStonePilon extends DecorStoneWall {
 		
 		spr.setSize(23, 70);
 		spr.setOrigin(11.5f, 5);
+		
+		path=true;
 		//spr.setOrigin(80.0f, 10f);
 		
 		//shield=999999;
@@ -41,16 +43,32 @@ public class DecorStonePilon extends DecorStoneWall {
 		int y=(int)(pos.y/300);
 		
 		
-		Phys p=new Phys(new Vector2(pos.x-25,pos.y),new Vector2(pos.x+25,pos.y-0),true,this,true);
-		
-		//System.out.println("X "+x+"; Y "+y);
-		
+		Phys p=new Phys(new Vector2(pos.x-14,pos.y),new Vector2(pos.x+14,pos.y),true,this,true);
 		GScreen.cluster[x][y].Phys_list.add(p);
 		Phys_list_local.add(p);
 		
+		p=new Phys(new Vector2(pos.x+14,pos.y+20),new Vector2(pos.x+14,pos.y),true,this,true);
+		GScreen.cluster[x][y].Phys_list.add(p);
+		Phys_list_local.add(p);
 		
+		p=new Phys(new Vector2(pos.x-14,pos.y+20),new Vector2(pos.x+14,pos.y+20),true,this,true);
+		GScreen.cluster[x][y].Phys_list.add(p);
+		Phys_list_local.add(p);
 		
+		p=new Phys(new Vector2(pos.x-14,pos.y+20),new Vector2(pos.x-14,pos.y),true,this,true);
+		GScreen.cluster[x][y].Phys_list.add(p);
+		Phys_list_local.add(p);
 		
+	}
+	
+	public void fill_path()
+	{
+		if (path)
+		for (int i=0; i<1; i++)
+		for (int j=0; j<1; j++)
+		{
+			GScreen.path[Math.round(pos.x/30f)+j][Math.round(pos.y/30f)+i]=900;
+		}
 	}
 	
 

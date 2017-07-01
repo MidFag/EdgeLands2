@@ -20,10 +20,12 @@ public class WeaponSimpleShotgun extends Weapon {
 			base_damage=7;
 			base_missile_count=10;
 			base_shoot_cooldown=1;
-			base_dispersion=20;
-			base_dispersion_additional=50;
+			base_dispersion=10;
+			base_dispersion_additional=15;
 			base_ammo_size=7;
 			base_reload_time=3;
+			
+			missile_speed=2100;
 			
 			generate();
 			update_attributes_bonus();
@@ -44,15 +46,6 @@ public class WeaponSimpleShotgun extends Weapon {
 			return Assets.shoot02;
 		}
 		
-		@Override
-		public Missile get_missile(Entity pl)
-		{
-			return new MissileSimple(
-					new Vector2(pl.pos.x,pl.pos.y),
-					(float) Math.toRadians(360-pl.rot+get_dispersion()+GScreen.rnd(add_disp)-add_disp/2),
-					(GScreen.rnd(100)+800.0f),
-					pl.is_AI);
-		}
 		
 		//public void
 }

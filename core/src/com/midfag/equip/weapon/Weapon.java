@@ -71,6 +71,7 @@ public class Weapon {
 	public List<WeaponAttribute> Attribute_list = new ArrayList<WeaponAttribute>();
 	
 	public Rarity rarity;
+	public float missile_speed=2000;
 	
 	
 	
@@ -139,7 +140,7 @@ public class Weapon {
 			return new MissileSimple(
 					new Vector2(pl.pos.x+pl.offset.x,pl.pos.y+pl.offset.y),
 					(float) Math.toRadians(360-pl.rot+get_dispersion()+GScreen.rnd(add_disp)-add_disp/2),
-					(GScreen.rnd(250)+1000.0f),
+					(GScreen.rnd(missile_speed/10f)+missile_speed),
 					pl.is_AI);
 		}
 		

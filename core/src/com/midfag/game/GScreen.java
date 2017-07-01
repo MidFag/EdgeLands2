@@ -229,6 +229,12 @@ public class GScreen implements Screen {
         	cluster[j][i]=new Cluster();
         }
     	
+        for (int i=0; i<300; i++)//;
+        for (int j=0; j<300; j++)//;
+        {
+        	path[j][i]=100;
+        }
+        
         temp_vectorA=new Vector2();
         temp_vectorB=new Vector2();
         
@@ -389,7 +395,7 @@ public class GScreen implements Screen {
         	if (rnd(100)<=1){cels[i][j]=10;}
         }
 
-
+        Helper.LoadMap();
 
     }
 
@@ -439,12 +445,12 @@ public class GScreen implements Screen {
     	
 		
     	
-		for (int i=plposy-30; i<plposy+30; i++)
+		for (int i=plposy-60; i<plposy+60; i++)
 		{	
 			//if (overlay_cooldown<=0)
 			//tile_map_overlay[Math.max(0, Math.min(299,(int)(plposx+Math.random()*60-30)))][Math.max(0, Math.min(299,i))]=-1;
 	 		
-			for (int j=plposx-30; j<plposx+30; j++)
+			for (int j=plposx-60; j<plposx+60; j++)
 	 		if ((i>=0)&&(i<300)&&(j>=0)&&(j<300))
 	 		{
 				Main.batch.draw(Assets.tile[tile_map[j][i]], j*30-15, i*30-15);	
@@ -495,6 +501,25 @@ public class GScreen implements Screen {
 			{
 				path[plposx][plposy]=0;
 				path_time[plposx][plposy]=TimeUtils.millis();
+			}
+			else
+			{
+				if (path[plposx+1][plposy]<900)
+				{path[plposx+1][plposy]=0;
+				path_time[plposx+1][plposy]=TimeUtils.millis();}
+				
+				if (path[plposx-1][plposy]<900)
+				{path[plposx-1][plposy]=0;
+				path_time[plposx-1][plposy]=TimeUtils.millis();}
+				
+				if (path[plposx][plposy+1]<900)
+				{path[plposx][plposy+1]=0;
+				path_time[plposx][plposy+1]=TimeUtils.millis();}
+				
+				if (path[plposx][plposy-1]<900)
+				{path[plposx][plposy-1]=0;
+				path_time[plposx][plposy-1]=TimeUtils.millis();}
+				
 			}
 		
 
@@ -623,7 +648,7 @@ public class GScreen implements Screen {
       
        	 boolean is_press=false;
        	
-       	 if (InputHandler.MB){is_press=true; time_speed+=real_delta*2;/* System.out.println("MB");*/}
+       	 if (InputHandler.MB){is_press=true; time_speed+=real_delta*1;/* System.out.println("MB");*/}
        	 
        	 if (pl.armored_shield.value>0)
        	 {
@@ -638,7 +663,7 @@ public class GScreen implements Screen {
        	 
        	 if (!is_press)
 	     {
-       		 time_speed*=(float)Math.pow(0.02f,real_delta);
+       		 time_speed*=(float)Math.pow(0.05f,real_delta);
 	       	 
 	       	 if (time_speed<0.05f){time_speed=0.05f;}
        	 }
@@ -646,15 +671,15 @@ public class GScreen implements Screen {
        	 
        	pl.update(delta);
        	
-       	 
+       	 /*
        	 float move_vector_angle=(float) Math.toDegrees(Math.atan2(pl.pos.x-prev_pos.x, pl.pos.y-prev_pos.y));
        	 move_vector_angle=(float) Math.toRadians(move_vector_angle);
-       	 float move_vector=prev_pos.dst(pl.pos);
-        	
+       	 float move_vector=prev_pos.dst(pl.pos);*/
+        	/*
        	 near_object=null;
 
        	 	
-         	near_object=get_contact(prev_pos.x,prev_pos.y,pl.pos.x,pl.pos.y,(float)Math.sin(move_vector_angle),(float)Math.cos(move_vector_angle),move_vector,false,true,true);
+         	near_object=get_contact(prev_pos.x,prev_pos.y,pl.pos.x,pl.pos.y,(pl.pos.x-prev_pos.x)/move_vector,(float)Math.cos(move_vector_angle),move_vector,false,true,true);
 
          	//if (near_object!=null)
          	//Phys_list.remove(near_object);
@@ -670,7 +695,7 @@ public class GScreen implements Screen {
      		else
      		{pl.hard_move(sinR(near_object.angle)*(near_object.vector_mul-(move_vector+0.52f)), cosR(near_object.angle)*(near_object.vector_mul-(move_vector+0.52f)),1);}	
      		//pl.pos.add((float)Math.sin(Math.toRadians(near_object.angle))*-(near_object.vector_mul-(speed+0.2f)), (float)Math.cos(Math.toRadians(near_object.angle))*-(near_object.vector_mul-(speed+0.2f)));
-     	}
+     	}*/
 
      	
     	@SuppressWarnings("unused")
@@ -789,7 +814,6 @@ public class GScreen implements Screen {
 	        	if ((fx>0)&&(fy>0)&&(fx<299)&&(fy<299))
 	        	{
 	        		if ((path[fx][fy+1]<path[fx][fy-1]-0)&&(path[fx][fy+1]>=5)&&(path[fx][fy+1]<900))
-	        	
 		        	{e.add_impulse(0, e.speed,delta);}
 		        	
 		        	if ((path[fx][fy-1]<path[fx][fy+1]-0)&&(path[fx][fy-1]>=5)&&(path[fx][fy-1]<900))

@@ -58,7 +58,8 @@ public class Assets {
 	
 	public static Texture stone_wall_01=new Texture(Gdx.files.internal("stone_wall_01.png"));
 	public static Texture stone_pilon_01=new Texture(Gdx.files.internal("stone_pilon_01.png"));
-
+	public static Texture stone_barak=new Texture(Gdx.files.internal("decor_stone_barak.png"));
+	
 	public static Texture stone_wall_02=new Texture(Gdx.files.internal("stone_wall_02.png"));;
 	
 	public static Texture building_wall_out=new Texture(Gdx.files.internal("building_01.png"));;

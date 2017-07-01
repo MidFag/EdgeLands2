@@ -15,7 +15,7 @@ public class WeaponSimpleMinigun extends Weapon {
 			base_missile_count=1;
 			base_shoot_cooldown=0.05f;
 			base_dispersion=10;
-			base_dispersion_additional=4;
+			base_dispersion_additional=1;
 			base_ammo_size=100;
 			base_reload_time=7;
 			

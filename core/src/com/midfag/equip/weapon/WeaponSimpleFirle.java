@@ -15,7 +15,7 @@ public class WeaponSimpleFirle extends Weapon {
 			base_missile_count=1;
 			base_shoot_cooldown=0.20f;
 			base_dispersion=10;
-			base_dispersion_additional=10;
+			base_dispersion_additional=5;
 			base_ammo_size=17;
 			base_reload_time=3;
 			
@@ -31,7 +31,7 @@ public class WeaponSimpleFirle extends Weapon {
 		@Override
 		public Sound get_shoot_sound()
 		{
-			return Assets.shoot01;
+			return Assets.shoot00;
 		}
 		
 		//public void

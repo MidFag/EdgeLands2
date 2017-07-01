@@ -1,0 +1,11 @@
+!MANUAL
+dialog_show
+dialog_set_text 0
+dialog_add_button 1 500 200 500 40 CLOSE_DIALOG
+
+
+
+
+
+!CLOSE_DIALOG
+dialog_close

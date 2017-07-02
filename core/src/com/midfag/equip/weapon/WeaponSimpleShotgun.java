@@ -19,9 +19,9 @@ public class WeaponSimpleShotgun extends Weapon {
 		{
 			base_damage=7;
 			base_missile_count=10;
-			base_shoot_cooldown=1;
-			base_dispersion=10;
-			base_dispersion_additional=15;
+			base_shoot_cooldown=1.2f;
+			base_dispersion=20;
+			base_dispersion_additional=30;
 			base_ammo_size=7;
 			base_reload_time=3;
 			

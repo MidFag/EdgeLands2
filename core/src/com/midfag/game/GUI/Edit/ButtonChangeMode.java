@@ -4,15 +4,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
-import com.midfag.entity.Entity;
-import com.midfag.entity.decorations.DecorBuilding;
-import com.midfag.entity.decorations.DecorBuildingWall;
-import com.midfag.entity.decorations.DecorStoneBarak;
-import com.midfag.entity.decorations.DecorStonePilon;
-import com.midfag.entity.decorations.DecorStoneWall;
-import com.midfag.entity.decorations.DecorStoneWall2;
-import com.midfag.entity.enemies.EntityPyra;
-import com.midfag.entity.enemies.EntityWheel;
+
+import com.midfag.entity.decorations.*;
+
+import com.midfag.entity.enemies.*;
+
 
 import com.midfag.game.Enums.EditMode;
 import com.midfag.game.Assets;
@@ -118,6 +114,7 @@ public class ButtonChangeMode extends Button {
 	    		GScreen.Button_list.add(new ButtonPutter(550,50,new DecorBuildingWall(new Vector2(),true),gui));
 	    		GScreen.Button_list.add(new ButtonPutter(650,50,new EntityWheel(new Vector2(),false),gui));
 	    		GScreen.Button_list.add(new ButtonPutter(750,50,new DecorStoneBarak(new Vector2(),true),gui));
+	    		GScreen.Button_list.add(new ButtonPutter(850,50,new EntityEliteWheel(new Vector2(),true),gui));
 			}
 			
 			if ((em==EditMode.PATTERN.ordinal())&&(!gui.pattern_mode))

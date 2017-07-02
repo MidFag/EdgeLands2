@@ -67,13 +67,13 @@ public class EntityPyra extends Entity {
 		{
 			rotate_cooldown=0.1f;
 			
-			float a=GScreen.pl.pos.x-pos.x;
-	    	float b=GScreen.pl.pos.y-pos.y;
-	    	//float c=(float) Math.sqrt((a*a)+(b*b));
-	    	float c=(float) Math.toDegrees(Math.atan2(a, b));
-	    	//spr.setRotation(180-c);
-	    	
-	    	rot=180-c+180;
+			if (is_see)
+			{
+				float a=GScreen.pl.pos.x-pos.x;
+		    	float b=GScreen.pl.pos.y-pos.y;
+		    	//float c=(float) Math.sqrt((a*a)+(b*b));
+		    	float c=(float) Math.toDegrees(Math.atan2(a, b));
+		    	rot=180-c+180;
 			
 				//if ((impulse.x>0)&&(bottom_draw>=0)&&(bottom_draw<=3)){bottom_draw++;}
 				if (c<0){c=360+c;}
@@ -84,7 +84,7 @@ public class EntityPyra extends Entity {
 				{bottom_draw=0;}
 		    	else
 		    	{bottom_draw=(int) Math.round(c/22.5);}
-			
+			}
 			
 			
 		}

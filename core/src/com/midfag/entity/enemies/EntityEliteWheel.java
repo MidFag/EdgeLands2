@@ -5,6 +5,7 @@ package com.midfag.entity.enemies;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
+import com.midfag.entity.AnimationEffectExpl;
 import com.midfag.entity.Entity;
 
 
@@ -15,7 +16,7 @@ import com.midfag.game.Phys;
 import com.midfag.game.Main;
 
 
-public class EntityWheel extends Entity {
+public class EntityEliteWheel extends Entity {
 	
 	//Sprite spr=new Sprite(new Texture(Gdx.files.internal("barrel.png")));
 	
@@ -24,18 +25,20 @@ public class EntityWheel extends Entity {
 	private float body_rotate_cooldown;
 	
 	private float prepare=(float) (Math.random()*2);
+	
+	private float boom_cooldown=5f;
 	//private int body_rotate;
 	
-	public EntityWheel(Vector2 _v,boolean _custom)
+	public EntityEliteWheel(Vector2 _v,boolean _custom)
 	{
 		super (_v, _custom);
 		
-		spr.setTexture(Assets.wheel_body[0]);
+		spr.setTexture(Assets.wheel_elite_body[0]);
 		pos=_v;
 		
 		custom_phys=_custom;
 		
-		id="wheel";
+		id="elite_wheel";
 		
 		
 		armored[0]=null;
@@ -57,12 +60,37 @@ public class EntityWheel extends Entity {
 		offset.y=50;
 		can_rotate=false;
 		
-		speed/=4;
+		
+		armored_shield.total_value*=5;
+		armored_shield.value=armored_shield.total_value;
+		
+		
+		speed=500;
+	}
+	
+	public void boom_check()
+	{
+		
+		
+		
+		if (boom_cooldown<=0)
+		{
+			Assets.expl.play(0.25f);
+			
+			Effect.add(new AnimationEffectExpl(pos,-spr.getOriginX(),-spr.getOriginY()));
+			
+			if (pos.dst(GScreen.pl.pos)<100)
+			{GScreen.pl.buff_burn+=15;}
+			
+			
+			boom_cooldown=5f;
+		}
 	}
 	
 	@Override
 	public void draw_action(float _d) {
 
+		//GL20.glBlendFunc(GL_ONE, GL_ONE); 02.07.2017 06:07:36
 		if ((rotate_cooldown<=0)&&(prepare>0))
 		{
 			rotate_cooldown=0.1f;
@@ -104,20 +132,21 @@ public class EntityWheel extends Entity {
 		
 		if (prepare>0)
 		{
-			speed=50;
+			speed=500;
 		}
 		else
-		if (prepare>-0.25f)
+		if (prepare>-0.1f)
 		{
-			if (speed!=10)
+			if (speed!=500)
 			{
-				rot+=GScreen.rnd(20)-10;
+				rot+=GScreen.rnd(20)-1;
 			}
-			speed=10;
+			speed=500;
 		}
 		else
-		if (prepare>-0.75f)
+		if (prepare>-0.5f)
 		{
+			
 			speed=10;
 			float spd=3000*(1f+(prepare+0.25f)*2f);
 			
@@ -129,24 +158,36 @@ public class EntityWheel extends Entity {
 			
 			if (near_object==null)
 			{move(sx,sy,_d);}
-			
-			if (pos.dst(GScreen.pl.pos)<40)
+			else
 			{
-				speed=50;
+				prepare=1;
+				
+			}
+			
+			
+			
+			if (pos.dst(GScreen.pl.pos)<50)
+			{
+				speed=500;
 				prepare=1;
 				
 				GScreen.pl.hit_action(100,false);
-				Assets.crash.play();
+				
+				Assets.crash.play(0.25f);
 			}
+			
+			boom_check();
 		}
 		else
 		{
-			speed=50;
+			speed=500;
 			prepare=1;
+			
+			boom_check();
 		}
 		
-		if ((!is_see)&&(prepare>0.70))
-		{prepare=1;}
+		boom_cooldown-=_d;
+		
 		prepare-=_d;
 		
 		spr.translate(-5,-50);
@@ -158,11 +199,11 @@ public class EntityWheel extends Entity {
 		spr.setSize(100, 100);
 		
 		spr.setColor(Color.BLACK);
-		spr.setTexture(Assets.wheel_body[bottom_draw]);
+		spr.setTexture(Assets.wheel_elite_body[bottom_draw]);
 		spr.draw(Main.batch);
 		
 		spr.setColor(Color.WHITE);
-		spr.setTexture(Assets.wheel_body[bottom_draw]);
+		spr.setTexture(Assets.wheel_elite_body[bottom_draw]);
 		spr.draw(Main.batch);
 		
 		

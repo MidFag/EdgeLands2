@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
@@ -30,6 +31,7 @@ public class Entity {
 	
 	public List<Phys> Phys_list_local = new ArrayList<Phys>();
 	public List<Skill> Skills_list = new ArrayList<Skill>();
+	public List<AnimationEffect> Effect = new ArrayList<AnimationEffect>();
 
 	public boolean move_vert;
 	
@@ -89,6 +91,12 @@ public class Entity {
 	
 	public boolean path=false;
 	
+	public float buff_burn;
+	public float buff_timer=1;
+	
+	public float look_cooldown=0.5f;
+	public boolean is_see=false;
+	
 	public void init()
 	{
 		
@@ -100,14 +108,14 @@ public class Entity {
 				int y=(int)(pos.y/300);
 				
 	
-					Phys p=new Phys(new Vector2(pos.x-32f/1,pos.y),new Vector2(pos.x+32f/1,pos.y),false,this,true);
+					Phys p=new Phys(new Vector2(pos.x-40f/1,pos.y),new Vector2(pos.x+40f/1,pos.y),false,this,true);
 					{p.move_block=false;}
 					GScreen.cluster[x][y].Phys_list.add(p);
 					Phys_list_local.add(p);
 					
 					
 					
-					p=new Phys(new Vector2(pos.x,pos.y-32f/1),new Vector2(pos.x,pos.y+32f/1),false,this,true);
+					p=new Phys(new Vector2(pos.x,pos.y-40f/1),new Vector2(pos.x,pos.y+40f/1),false,this,true);
 					{p.move_block=false;}
 					GScreen.cluster[x][y].Phys_list.add(p);
 					Phys_list_local.add(p);
@@ -157,6 +165,20 @@ public class Entity {
 	
 	
 	
+	public void effect_draw(float _d)
+	{
+		for (int i=0; i<Effect.size(); i++)
+		{
+			Effect.get(i).do_animation(_d);
+			
+			if (Effect.get(i).frame>=Effect.get(i).max_frame)
+			{
+				Effect.remove(i);
+				i--;
+			}
+		}
+	}
+	
 	public void do_custom_phys() {
 		// TODO Auto-generated method stub
 		
@@ -167,7 +189,7 @@ public class Entity {
 		
 	}
 	
-	public void hit_action(float _damage)
+	public void hit_action(float _damage, boolean _sound)
 	{
 		
 		stun+=1;
@@ -187,7 +209,7 @@ public class Entity {
 		
 		armored_shield.warm=Math.max(0, armored_shield.warm);
 		
-		if (hurt_sound_cooldown<=0)
+		if ((hurt_sound_cooldown<=0)&(_sound))
 		{
 			if (is_AI)
 			{Assets.metal_sound.play(0.05f, (float) (Math.random()*0.2f+1.9f), 0);}
@@ -202,6 +224,9 @@ public class Entity {
 			pre_death_action(true);
 			dead_action(true);
 		}
+		
+		if (!is_decor)
+		Effect.add(new AnimationEffectShield(pos,-spr.getOriginX(),-spr.getOriginY()));
 		
 		
 	}
@@ -451,7 +476,23 @@ public class Entity {
 	}
 	public void update(float _d)
 	{
+		
 		some_update(_d);
+		
+		/*
+		if (
+				((is_see)&&(!is_player))
+			)
+		{
+			float a=GScreen.pl.pos.x-pos.x;
+	    	float b=GScreen.pl.pos.y-pos.y;
+	    	//float c=(float) Math.sqrt((a*a)+(b*b));
+	    	float c=(float) Math.toDegrees(Math.atan2(a, b));
+	    	rot=180-c+180;
+		}*/
+    	//spr.setRotation(180-c);
+    	
+    	
 		
 		for (int j=0; j<2; j++)
 		{
@@ -531,6 +572,8 @@ public class Entity {
 
 		near_object=GScreen.get_contact(pos.x,pos.y,pos.x+impulse.x*_d,pos.y+impulse.y*_d,(impulse.x)/spd,(impulse.y)/spd,spd*_d,true,false,true);
 		
+
+		
 		if (near_object==null)
 		{
 			move (impulse.x,impulse.y,_d);
@@ -543,31 +586,45 @@ public class Entity {
 			System.out.println("###"+near_object.move_block);
 		}
 		
+		float dx=GScreen.pl.pos.x-pos.x;
+		float dy=GScreen.pl.pos.y-pos.y;
+		spd=(float) Math.sqrt(dx*dx+dy*dy);
 		
 		
+		near_object=GScreen.get_contact(pos.x,pos.y,GScreen.pl.pos.x,GScreen.pl.pos.y,dx/spd,dy/spd,spd,true,false,true);
+		
+		if (look_cooldown<=0)
+		{
+			look_cooldown=0.5f;
+			
+			if (near_object==null)
+			{
+				is_see=true;
+				//spr.setColor(Color.WHITE);	
+			}
+			else
+			{
+				is_see=false;
+				//spr.setColor(Color.GRAY);
+			}
+		}
+		
+		look_cooldown-=_d;
 		
 		impulse.scl((float) Math.pow(friction, _d));
 		
 		if (is_AI)
 		{
 			
-			if (can_rotate)
-	    	{
-				float a=pos.x-GScreen.pl.pos.x;
-		    	float b=pos.y-GScreen.pl.pos.y;
-		    	//float c=(float) Math.sqrt((a*a)+(b*b));
-		    	float c=(float) Math.toDegrees(Math.atan2(a, b));
-		    	spr.setRotation(180-c);
-		    	
-		    	rot=180-c;
-	    	}
+
 			
 	    	Phys po=null;
 	    	
 	    	boolean go_shoot=true;
 	    	
-	    	if (armored==null)
+	    	if ((armored==null)||(!is_see))
 	    	{go_shoot=false;}
+	    	
 	    	/*
 	    	Main.shapeRenderer.begin(ShapeType.Filled);
 	    		Main.shapeRenderer.line(pos.x,pos.y,pos.x+(float)Math.sin(Math.toRadians(360-spr.getRotation()))*pos.dst(GScreen.pl.pos),pos.y+(float)Math.cos(Math.toRadians(360-spr.getRotation()))*pos.dst(GScreen.pl.pos));
@@ -625,6 +682,16 @@ public class Entity {
 					if (armored[i].warm<0){armored[i].warm=0;}}
 				}
 			}
+		}
+		
+		buff_timer-=_d;
+		
+		if ((buff_timer<=0)&&(buff_burn>0.1f))
+		{
+			buff_timer+=1;
+			
+			hit_action(buff_burn,false);
+			buff_burn*=0.9f;
 		}
 	}
 

@@ -19,6 +19,7 @@ import com.midfag.entity.enemies.EntityWheel;
 import com.midfag.game.Assets;
 import com.midfag.game.Cluster;
 import com.midfag.game.GScreen;
+import com.midfag.game.Helper;
 import com.midfag.game.InputHandler;
 import com.midfag.game.Main;
 import com.midfag.game.GUI.GUI;
@@ -71,41 +72,7 @@ public class GUIEdit extends GUI {
 	}
 	
 	//@Switcher
-	public static Entity get_object_from_id(String _id)
-    {
-		
-		if (_id.equals("stone_wall"))
-		{return new DecorStoneWall(new Vector2(),true);}
-		
-		if (_id.equals("stone_pilon"))
-		{return new DecorStonePilon(new Vector2(),true);}
-		
-		if (_id.equals("stone_wall2"))
-		{return new DecorStoneWall2(new Vector2(),false);}
-		
-		if (_id.equals("building"))
-		{return new DecorBuilding(new Vector2(),true);}
-		
-		if (_id.equals("building_wall"))
-		{return new DecorBuildingWall(new Vector2(),true);}
-		
-		if (_id.equals("robo"))
-		{return new Entity(new Vector2(),false);}
-		
-		if (_id.equals("pyra"))
-		{return new EntityPyra(new Vector2(),false);}
-		
-		
-		if (_id.equals("wheel"))
-		{return new EntityWheel(new Vector2(),false);}
-		
-		if (_id.equals("stone_barak"))
-		{return new DecorStoneBarak(new Vector2(),true);}
-		
-		
-		
-    	return null;
-    }
+	
 	
 	@Override
 	public void sub_update(float _d) 
@@ -179,7 +146,7 @@ public class GUIEdit extends GUI {
 				
 				if (InputHandler.realx<800)
 				{
-					Entity en=get_object_from_id(indicate_entity.id);
+					Entity en=Helper.get_object_from_id(indicate_entity.id);
 					
 					if (en!=null)
 					{

@@ -75,7 +75,7 @@ public class EntityPlayer extends Entity {
 		//is_player
 		
 		speed=250*5.025f;
-		friction=0.01f;
+		friction=0.005f;
 
 		have_ability=true;
 		
@@ -321,7 +321,7 @@ public class EntityPlayer extends Entity {
 		}
 		if ((teleport_cooldown<=0)&(Gdx.input.isKeyPressed(Keys.E)))
 		{
-			hard_move(GScreen.sinR(360-spr.getRotation())*200,GScreen.cosR(360-spr.getRotation())*200,1);
+			hard_move(GScreen.sinR(360-rot)*200,GScreen.cosR(360-rot)*200,1);
 			
 			teleport_cooldown=3;
 			

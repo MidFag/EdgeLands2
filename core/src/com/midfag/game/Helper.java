@@ -2,7 +2,17 @@ package com.midfag.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.math.Vector2;
 import com.midfag.entity.Entity;
+import com.midfag.entity.decorations.DecorBuilding;
+import com.midfag.entity.decorations.DecorBuildingWall;
+import com.midfag.entity.decorations.DecorStoneBarak;
+import com.midfag.entity.decorations.DecorStonePilon;
+import com.midfag.entity.decorations.DecorStoneWall;
+import com.midfag.entity.decorations.DecorStoneWall2;
+import com.midfag.entity.enemies.EntityEliteWheel;
+import com.midfag.entity.enemies.EntityPyra;
+import com.midfag.entity.enemies.EntityWheel;
 import com.midfag.game.GUI.Edit.GUIEdit;
 
 public class Helper {
@@ -41,7 +51,7 @@ public class Helper {
 				
 				String id=ss[i];
 				
-				e=GUIEdit.get_object_from_id(id);
+				e=get_object_from_id(id);
 				System.out.println("ID="+id);	
 			}
 			
@@ -112,4 +122,43 @@ public class Helper {
 			}
 		}
 	}
+	
+	public static Entity get_object_from_id(String _id)
+    {
+		
+		if (_id.equals("stone_wall"))
+		{return new DecorStoneWall(new Vector2(),true);}
+		
+		if (_id.equals("stone_pilon"))
+		{return new DecorStonePilon(new Vector2(),true);}
+		
+		if (_id.equals("stone_wall2"))
+		{return new DecorStoneWall2(new Vector2(),false);}
+		
+		if (_id.equals("building"))
+		{return new DecorBuilding(new Vector2(),true);}
+		
+		if (_id.equals("building_wall"))
+		{return new DecorBuildingWall(new Vector2(),true);}
+		
+		if (_id.equals("robo"))
+		{return new Entity(new Vector2(),false);}
+		
+		if (_id.equals("pyra"))
+		{return new EntityPyra(new Vector2(),false);}
+		
+		
+		if (_id.equals("wheel"))
+		{return new EntityWheel(new Vector2(),false);}
+		
+		if (_id.equals("stone_barak"))
+		{return new DecorStoneBarak(new Vector2(),true);}
+		
+		if (_id.equals("elite_wheel"))
+		{return new EntityEliteWheel(new Vector2(),false);}
+		
+		
+		
+    	return null;
+    }
 }

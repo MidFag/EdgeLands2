@@ -31,7 +31,7 @@ public class WeaponSimpleFirle extends Weapon {
 		@Override
 		public Sound get_shoot_sound()
 		{
-			return Assets.shoot00;
+			return Assets.shoot04;
 		}
 		
 		//public void

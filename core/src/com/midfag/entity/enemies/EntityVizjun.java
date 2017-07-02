@@ -118,7 +118,7 @@ public class EntityVizjun extends Entity {
 			
 			if (pos.dst(GScreen.pl.pos)<15)
 			{
-				GScreen.pl.hit_action(100*_d);
+				GScreen.pl.hit_action(100*_d,false);
 				
 				//A//ssets.saw.play();
 			}

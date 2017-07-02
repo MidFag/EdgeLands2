@@ -10,6 +10,7 @@ import com.badlogic.gdx.InputProcessor;
 
 
 import com.midfag.entity.Entity;
+import com.midfag.entity.enemies.EntityEliteWheel;
 import com.midfag.entity.enemies.EntityPyra;
 import com.midfag.entity.enemies.EntityWheel;
 import com.midfag.game.Enums.EditMode;
@@ -89,7 +90,10 @@ public class InputHandler implements InputProcessor {
 	    		}
 	    		else
 	    		{
-	    			en=GScreen.add_entity_to_map(new EntityWheel(new Vector2(),false));
+	    			if (Math.random()<0.9f)
+	    			{en=GScreen.add_entity_to_map(new EntityWheel(new Vector2(),false));}
+	    			else
+	    			{en=GScreen.add_entity_to_map(new EntityEliteWheel(new Vector2(),false));}
 	    		}
 	    		
 	    		en.pos.x=(float) (GScreen.pl.pos.x+Math.random()*6000-3000);

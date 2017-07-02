@@ -23,6 +23,9 @@ public class Assets {
 	public static Sound shoot00;
 	public static Sound shoot01;
 	public static Sound shoot02;
+	public static Sound shoot04=Gdx.audio.newSound(Gdx.files.internal("shoot04.wav"));
+	
+	public static Sound expl=Gdx.audio.newSound(Gdx.files.internal("expl.wav"));
 	
 	public static Sound metal_sound;
 
@@ -86,6 +89,10 @@ public class Assets {
 	
 	public static Texture[] wheel_body=new Texture[16];
 	
+	public static Texture[] wheel_elite_body=new Texture[16];
+	public static Texture[] effect_shield=new Texture[13];
+	public static Texture[] effect_explosion=new Texture[6];
+	
 	public Assets()
 	{
 		
@@ -125,6 +132,8 @@ public class Assets {
 		explosion=new Texture(Gdx.files.internal("explosion.png"));
 		missile=new Texture(Gdx.files.internal("missile.png"));
 		
+		
+		
 		tube=new Texture(Gdx.files.internal("decor_tube.png"));
 		tube_carcas=new Texture(Gdx.files.internal("decor_tube_carcas.png"));
 		
@@ -152,8 +161,10 @@ public class Assets {
 		//flash = Gdx.audio.newSound(Gdx.files.internal("flash.wav"));		
 
 		
+		stone_barak.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		
 		music.setLooping(true);
-		music.setVolume(0.95f);
+		music.setVolume(0.5f);
 		music.play();
 		
 	}
@@ -204,6 +215,37 @@ public class Assets {
 			{wheel_body[i]=new Texture(Gdx.files.internal("wheel/body0"+i+".png"));}
 			
 			wheel_body[i].setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		}
+		
+		for (int i=0; i<16; i++)
+		{
+			if (i<10)
+			{wheel_elite_body[i]=new Texture(Gdx.files.internal("elite_wheel/body00"+i+".png"));}
+			else
+			{wheel_elite_body[i]=new Texture(Gdx.files.internal("elite_wheel/body0"+i+".png"));}
+			
+			wheel_elite_body[i].setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		}
+		
+		
+		for (int i=0; i<13; i++)
+		{
+			if (i<10)
+			{effect_shield[i]=new Texture(Gdx.files.internal("effect_shield/shield0"+i+".png"));}
+			else
+			{effect_shield[i]=new Texture(Gdx.files.internal("effect_shield/shield"+i+".png"));}
+			
+			effect_shield[i].setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		}
+		
+		for (int i=0; i<6; i++)
+		{
+			if (i<10)
+			{effect_explosion[i]=new Texture(Gdx.files.internal("effect_explosion/explosion0"+i+".png"));}
+			else
+			{effect_explosion[i]=new Texture(Gdx.files.internal("effect_explosion/explosion"+i+".png"));}
+			
+			effect_explosion[i].setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		}
 	}
 }

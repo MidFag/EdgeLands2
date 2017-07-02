@@ -108,6 +108,8 @@ public class GScreen implements Screen {
     public boolean keypress=false;
 
 	private float wave_time;
+
+	public boolean path_visualisation=false;
     
     public GScreen get_this()
     {
@@ -409,7 +411,8 @@ public class GScreen implements Screen {
     	Draw_list.clear();
     	
     	//delta/=1f;
-    	delta*=time_speed;
+    	delta*=Math.min(1, time_speed);
+    	
     	
     	/*
     	if (!main_control)
@@ -550,7 +553,7 @@ public class GScreen implements Screen {
 	 			
  			}
  			
- 				//game.shapeRenderer.rect(j*path_cell, i*path_cell, path_cell,path_cell);
+ 				if (path_visualisation){game.shapeRenderer.rect(j*path_cell, i*path_cell, path_cell,path_cell);}
 
  			/*
  			 * /=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/
@@ -659,13 +662,14 @@ public class GScreen implements Screen {
 	       	 if (Gdx.input.isKeyPressed(Keys.D)){pl.add_impulse( pl.speed, 0,delta);time_speed+=real_delta*2; is_press=true; pl.move_vert=false; pl.direction=1;}
        	 }
        	 
-       	 if (time_speed>1){time_speed=1;}
+       	 if (time_speed>1.0){time_speed=1.0f;}
        	 
        	 if (!is_press)
 	     {
-       		 time_speed*=(float)Math.pow(0.05f,real_delta);
+       		 time_speed-=1.5f*real_delta;
+       		 if (time_speed<1){time_speed*=(float)Math.pow(0.25f,real_delta);}
 	       	 
-	       	 if (time_speed<0.05f){time_speed=0.05f;}
+	       	 if (time_speed<0.025f){time_speed=0.025f;}
        	 }
        	
        	 
@@ -752,7 +756,7 @@ public class GScreen implements Screen {
 	        			if ((Math.random()<reflect_chance))
 	        			{
 	        				Missile_list.get(i).lifetime=-1;
-	        				((Entity) near_object.parent).hit_action(Missile_list.get(i).damage);
+	        				((Entity) near_object.parent).hit_action(Missile_list.get(i).damage,true);
 	        			}
 	        			else
 	        			{
@@ -800,8 +804,8 @@ public class GScreen implements Screen {
         int cluster_y=(int)(pl.pos.y/300);
       Main.batch.begin();
       
-      	for (int x=cluster_x-3; x<=cluster_x+3; x++)
-      	for (int y=cluster_y-3; y<=cluster_y+3; y++)
+      	for (int x=cluster_x-4; x<=cluster_x+4; x++)
+      	for (int y=cluster_y-4; y<=cluster_y+4; y++)
       	if ((x>=0)&&(y>=0))
         for (int i=0; i<cluster[x][y].Entity_list.size();i++)
         {
@@ -849,14 +853,16 @@ public class GScreen implements Screen {
         }
       
     	for (int order=0; order<=2; order++)
-    	for (int x=cluster_x-3; x<=cluster_x+3; x++)
-    	for (int y=cluster_y-3; y<=cluster_y+3; y++)
+    	for (int x=cluster_x-4; x<=cluster_x+4; x++)
+    	for (int y=cluster_y-4; y<=cluster_y+4; y++)
     	if ((x>=0)&&(y>=0))
     	for (int i=0; i<cluster[x][y].Entity_list.size();i++)
     	{
     		Entity e=cluster[x][y].Entity_list.get(i);
     		if (e.order==order)
     		{e.draw();}
+    		
+    		
     	}
         pl.draw();
         
@@ -880,8 +886,8 @@ public class GScreen implements Screen {
         	for (int i=0; i<Phys_list.size(); i++)
         	{Phys_list.get(i).draw();}
         	
-	      	for (int x=cluster_x-2; x<cluster_x+2; x++)
-	      	for (int y=cluster_y-2; y<cluster_y+2; y++)
+	      	for (int x=cluster_x-3; x<cluster_x+3; x++)
+	      	for (int y=cluster_y-3; y<cluster_y+3; y++)
 	      	if ((x>=0)&&(y>=0))
 	      	{
 	      		for (int i=0; i<cluster[x][y].Phys_list.size(); i++)
@@ -935,7 +941,11 @@ public class GScreen implements Screen {
 	        }
 	        
 	        for (int i=0; i<Draw_list.size(); i++)
-	        {Draw_list.get(i).draw_action(delta);}
+	        {
+	        	Draw_list.get(i).draw_action(delta);
+	        	Draw_list.get(i).effect_draw(delta);
+	        }
+	        game.batch.setColor(Color.WHITE);
         game.batch.end();
         
 		 game.batch_static.begin();
@@ -955,7 +965,7 @@ public class GScreen implements Screen {
 		//game.shapeRenderer_static.begin(ShapeType.Filled);
 			Main.font.draw(Main.batch_static, "FPS: "+Math.round(1.0f/delta), 17, 30);
 			Main.font.draw(Main.batch_static, "LA: "+Math.round(((EntityPlayer)pl).leg1_anim*100f)/100f, 17, 90);
-			Main.font.draw(Main.batch_static, "Shield : "+pl.armored_shield.warm, 17, 60);
+			Main.font.draw(Main.batch_static, "BURN: "+pl.buff_burn, 17, 60);
 			
 		game.batch_static.draw(Assets.panel, 400, 17);
 		

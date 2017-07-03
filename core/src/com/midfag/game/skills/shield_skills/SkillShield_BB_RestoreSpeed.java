@@ -2,6 +2,7 @@ package com.midfag.game.skills.shield_skills;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.midfag.game.skills.Skill;
 
 public class SkillShield_BB_RestoreSpeed extends Skill {
@@ -13,7 +14,7 @@ public class SkillShield_BB_RestoreSpeed extends Skill {
 		pos.y=0;
 		
 		spr.setTexture(new Texture(Gdx.files.internal("skill_shield_regen_restore_speed.png")));
-		spr.setSize(50, 50);
+		spr.getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		
 		name="Нетерпение";
 		info="Увеличивает скорость"+"\n"+"возобновления регенерации на 30%";

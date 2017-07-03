@@ -32,6 +32,7 @@ import com.midfag.game.skills.shield_skills.SkillShield_CB_MoreReflectRegen;
 import com.midfag.game.skills.shield_skills.SkillShield_C_MoreReflect;
 import com.midfag.game.skills.weapon_skills.SkillWeapon;
 import com.midfag.game.skills.weapon_skills.SkillWeapon_AA_ReloadChance;
+import com.midfag.game.skills.weapon_skills.SkillWeapon_AB_AmmoOrReload;
 import com.midfag.game.skills.weapon_skills.SkillWeapon_A_FastReload;
 
 public class EntityPlayer extends Entity {
@@ -109,11 +110,15 @@ public class EntityPlayer extends Entity {
 				armored[1]=null;
 				armored_shield=new EnergoshieldSimple();
 
+				
+				
+				
 			skl=new SkillWeapon();
 			Skills_list.add(skl);	
 				subskl=new SkillWeapon_A_FastReload();
 				Skills_list.add(skl.add_subskill(subskl, GScreen.pl));
 					Skills_list.add(subskl.add_subskill(new SkillWeapon_AA_ReloadChance(), GScreen.pl));
+					Skills_list.add(subskl.add_subskill(new SkillWeapon_AB_AmmoOrReload(), GScreen.pl));
 					
 				
 				

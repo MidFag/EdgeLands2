@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Texture.TextureFilter;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -18,6 +19,7 @@ public class Main extends Game {
     public static SpriteBatch batch;
     public static SpriteBatch batch_static;
     public static BitmapFont font;
+    public static BitmapFont font_big;
     public static ShapeRenderer shapeRenderer;
     public static ShapeRenderer shapeRenderer_static;
     public static ShaderProgram shader;
@@ -60,10 +62,14 @@ public class Main extends Game {
         //shader.setUniformi("u_texture2", 1);
        
         
-        Texture texture = new Texture(Gdx.files.internal("rus.png"));
-        //texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);// true enables mipmaps
+        Texture texture = new Texture(Gdx.files.internal("fonts/big.png"));
+        texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);// true enables mipmaps
+        font_big = new BitmapFont(Gdx.files.internal("fonts/big.fnt"), new TextureRegion(texture), false);
         
+        texture = new Texture(Gdx.files.internal("rus.png"));
+        texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);// true enables mipmaps
         font = new BitmapFont(Gdx.files.internal("rus.fnt"), new TextureRegion(texture), false);
+        
         this.setScreen(new GScreen(this));
         
 

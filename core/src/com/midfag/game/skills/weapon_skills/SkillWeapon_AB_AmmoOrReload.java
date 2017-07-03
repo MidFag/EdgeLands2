@@ -13,26 +13,26 @@ import com.midfag.game.GScreen;
 import com.midfag.game.Main;
 import com.midfag.game.skills.Skill;
 
-public class SkillWeapon_AA_ReloadChance extends Skill {
+public class SkillWeapon_AB_AmmoOrReload extends Skill {
 	
 	public int chance_stack;
 	
 
-	public SkillWeapon_AA_ReloadChance()
+	public SkillWeapon_AB_AmmoOrReload()
 	{
 		super();
 		
-		pos.x=-0;
-		pos.y=70;
+		pos.x=70;
+		pos.y=0;
 		
 		spr.setTexture(new Texture(Gdx.files.internal("skill_reload_chance.png")));
 		spr.getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
 		
 		name="ловкость рук";
-		info=	"При перезарядке оружия вы получаете 10% шанс"+"\n"+
-				"перезарядить оружие мгновенно. Эффект складывается."+"\n"+
-				"Теряет все эффекты при успешном срабатывании";
+		info=	"Увеличивает размер магазина на 20%, если магазин вмещает не менее 5 патронов"+"\n"+
+				"В противном случае увеличивет скорость перезарядки на 20%.";
+
 		
 		need_to_indicate=true;
 		//skill_a=new SkillShield_A_MoreValue();

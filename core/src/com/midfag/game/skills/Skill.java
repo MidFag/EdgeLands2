@@ -7,6 +7,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.midfag.entity.Entity;
@@ -41,6 +42,7 @@ public class Skill {
 	
 	public boolean child_learned=false;
 	public boolean need_to_indicate=false;
+	public boolean locked=false;
 	
 	public float cooldown_base;
 	public float cooldown;
@@ -54,7 +56,10 @@ public class Skill {
 	
 	public Skill()
 	{
+		spr.setSize(44, 44);
 		
+		spr.setOrigin(25, 25);
+		spr.getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 	}
 	
 	public Skill add_sub_skillf(Skill _s)
@@ -67,6 +72,9 @@ public class Skill {
 	{
 		spr.setPosition(pos.x-20, pos.y-20);
 		spr.draw(Main.batch_static);
+		
+		
+
 	}
 	
 	public Skill add_subskill(Skill _s, Entity _e)

@@ -2,6 +2,7 @@ package com.midfag.game.skills.shield_skills;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.midfag.equip.energoshield.Energoshield;
 import com.midfag.game.GScreen;
 import com.midfag.game.skills.Skill;
@@ -14,11 +15,11 @@ public class SkillShield extends Skill {
 	{
 		super();
 		
-		pos.x=110;
-		pos.y=120;
+		pos.x=100;
+		pos.y=100;
 		
 		spr.setTexture(new Texture(Gdx.files.internal("skill_shield.png")));
-		spr.setSize(50, 50);
+		spr.getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		
 		name="Апгрейд щитов";
 		info=	"+50 ёмкость "+"\n"+

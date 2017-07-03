@@ -2,6 +2,7 @@ package com.midfag.game.skills.weapon_skills;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.midfag.equip.energoshield.Energoshield;
 import com.midfag.equip.weapon.Weapon;
 import com.midfag.game.GScreen;
@@ -18,8 +19,8 @@ public class SkillWeapon_A_FastReload extends Skill {
 		pos.x=50;
 		pos.y=50;
 		
-		spr.setTexture(new Texture(Gdx.files.internal("skill_weapon.png")));
-		spr.setSize(50, 50);
+		spr.setTexture(new Texture(Gdx.files.internal("icon_fast_reload.png")));
+		spr.getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		
 		name="»скуссна€ перезар€дка";
 		info=	"+20% скорость перезар€дки";

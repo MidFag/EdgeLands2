@@ -2,6 +2,7 @@ package com.midfag.game.skills.shield_skills;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.midfag.entity.Entity;
 import com.midfag.game.skills.Skill;
 
@@ -13,10 +14,10 @@ public class SkillShield_AA_ValueHalfDamage extends Skill {
 		super();
 		
 		pos.x=-00;
-		pos.y=70;
+		pos.y=75;
 		
 		spr.setTexture(new Texture(Gdx.files.internal("skill_value_half_damage.png")));
-		spr.setSize(50, 50);
+		spr.getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		
 		name="Укрепление";
 		info="Получаемый урон уменьшается вдвое"+"\n"+"если заряд щита превышает 85%";

@@ -61,10 +61,10 @@ public class GScreen implements Screen {
     public static Entity pl;
     
     public float time_speed;
-    public float real_delta;
+    public static float real_delta;
     
     static OrthographicCamera camera;
-    static OrthographicCamera skills_camera;
+    public static OrthographicCamera skills_camera;
 
    // public 
 
@@ -957,7 +957,9 @@ public class GScreen implements Screen {
 				{GUI_list.get(i).update2(real_delta);}
 		game.batch_static.end();
 		
-		Main.batch_static.begin();
+		if (main_control)
+		{
+			Main.batch_static.begin();
 			int pos=0;
 			Main.font.draw(Main.batch_static, "WARM: "+pl.armored_shield.warm, 17, 170);
 			for (int i=0; i<pl.Skills_list.size(); i++)
@@ -974,14 +976,15 @@ public class GScreen implements Screen {
 				
 				}
 			}
-		Main.batch_static.end();
+			
+		
 
 		
 
 
 		
 		
-		game.batch_static.begin();
+		
 		//game.shapeRenderer_static.begin(ShapeType.Filled);
 			Main.font.draw(Main.batch_static, "FPS: "+Math.round(1.0f/delta), 17, 30);
 			Main.font.draw(Main.batch_static, "LA: "+Math.round(((EntityPlayer)pl).leg1_anim*100f)/100f, 17, 90);
@@ -1012,8 +1015,9 @@ public class GScreen implements Screen {
 				{Button_list.remove(i); i--;}
 			}
 			
+			Main.batch_static.end();
+		}
 		//game.shapeRenderer_static.end();
-		game.batch_static.end();
 		
 		
 		if (InputHandler.but==1)

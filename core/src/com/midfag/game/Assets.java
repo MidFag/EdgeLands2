@@ -54,6 +54,7 @@ public class Assets {
 	public static Sound crash=Gdx.audio.newSound(Gdx.files.internal("crash.wav"));;
 	
 	public static Sprite skill_wheel=new Sprite(new Texture(Gdx.files.internal("eye.png")));
+	public static Sprite select_sprite=new Sprite(new Texture(Gdx.files.internal("selected_skill.png")));
 
 	public static Texture missile;
 	
@@ -82,6 +83,8 @@ public class Assets {
 	public static Texture mech_foot=new Texture(Gdx.files.internal("foot.png"));
 	public static Texture point_start=new Texture(Gdx.files.internal("point_start.png"));
 	public static Texture rama=new Texture(Gdx.files.internal("rama.png"));
+	public static Texture text_bg=new Texture(Gdx.files.internal("text_bg.png"));
+	//public static Texture selected_skill=new Texture(Gdx.files.internal("selected_skill.png"));
 	
 	public static Texture mech_foot_shadow=new Texture(Gdx.files.internal("foot_shadow.png"));
 	
@@ -172,8 +175,11 @@ public class Assets {
 		icon_duration.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		
 		music.setLooping(true);
-		music.setVolume(0.5f);
+		music.setVolume(0.05f);
 		music.play();
+		
+		select_sprite.getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		select_sprite.setAlpha(0.15f);
 		
 	}
 	

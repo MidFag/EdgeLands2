@@ -2,6 +2,7 @@ package com.midfag.game.skills.shield_skills;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.midfag.entity.Entity;
 import com.midfag.game.skills.Skill;
 
@@ -14,12 +15,12 @@ public class SkillShield_BA_WarmProtect extends Skill {
 		pos.y=70;
 		
 		spr.setTexture(new Texture(Gdx.files.internal("skill_shield_regen_protect.png")));
-		spr.setSize(50, 50);
+		spr.getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		
 		name="Гарантия";
 		info="Каждые 5 секунд"+"\n"+"регенерация щита не сбивается"+"\n"+"Действует в течении 1й секунды";
 		
-		indicate_tex=new Texture(Gdx.files.internal("icon_regen_warrancy.png"));
+		
 		
 		cooldown_base=5f;
 		duration_base=2f;

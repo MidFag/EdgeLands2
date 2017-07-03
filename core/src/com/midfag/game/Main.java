@@ -17,7 +17,10 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 public class Main extends Game {
 
     public static SpriteBatch batch;
+    
     public static SpriteBatch batch_static;
+    public static SpriteBatch batch_gui;
+    
     public static BitmapFont font;
     public static BitmapFont font_big;
     public static ShapeRenderer shapeRenderer;
@@ -31,8 +34,12 @@ public class Main extends Game {
     	fbo = new FrameBuffer(Pixmap.Format.RGB888, 1000/1, 700/1, false);
     	
         ShaderProgram.pedantic = false;
-		 shader=new ShaderProgram(Gdx.files.internal("d.vert"), 
-				(Gdx.files.internal("d.frag")));
+        
+		 shader=new ShaderProgram
+				 (
+					 Gdx.files.internal("d.vert"), 
+					 Gdx.files.internal("d.frag")
+				 );
 		
 		if (!shader.isCompiled()) {
 			System.err.println(shader.getLog());
@@ -44,8 +51,11 @@ public class Main extends Game {
         
         batch_static = new SpriteBatch();
         //batch_wheel = new SpriteBatch();
-        batch_static.setShader(shader);
+       
         Assets.load_assets();
+        
+        batch_gui = new SpriteBatch();
+        batch_gui.setShader(shader);
         
         //Assets.music.play();
         

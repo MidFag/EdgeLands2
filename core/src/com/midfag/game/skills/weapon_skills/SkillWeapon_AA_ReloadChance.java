@@ -25,7 +25,7 @@ public class SkillWeapon_AA_ReloadChance extends Skill {
 		pos.x=-0;
 		pos.y=70;
 		
-		spr.setTexture(new Texture(Gdx.files.internal("skill_reload_chance.png")));
+		spr.setTexture(new Texture(Gdx.files.internal("icon_reload_chance.png")));
 		spr.getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
 		

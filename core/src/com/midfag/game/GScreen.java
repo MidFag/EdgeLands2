@@ -442,7 +442,7 @@ public class GScreen implements Screen {
     	
     	Main.fbo.begin();
     	Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT | (Gdx.graphics.getBufferFormat().coverageSampling?GL20.GL_COVERAGE_BUFFER_BIT_NV:0));
-    	Main.batch.begin();
+
     	
     	wave_time+=real_delta;
     	
@@ -473,14 +473,16 @@ public class GScreen implements Screen {
 		Main.batch.end();
 		Main.fbo.end();
 		
-
+		Main.batch_gui.begin();
+			Main.shader.setUniformf("x", 0);
+			Main.shader.setUniformf("y", 0);
+			
+			Main.shader.setUniformf("uTime", wave_time*77);
+	    	Main.shader.setUniformf("zoom", 1);
+    	Main.batch_gui.end();
     	
 		Main.batch_static.begin();
-		Main.shader.setUniformf("x", pl.pos.x-camera.position.x+500);
-		Main.shader.setUniformf("y", pl.pos.y-camera.position.y+350);
-		
-		Main.shader.setUniformf("uTime", wave_time*77);
-    	Main.shader.setUniformf("zoom", camera.zoom);
+			
     	
 			Texture t=Main.fbo.getColorBufferTexture();
 			
@@ -949,19 +951,19 @@ public class GScreen implements Screen {
 	        game.batch.setColor(Color.WHITE);
         game.batch.end();
         
-		 game.batch_static.begin();
+        game.batch_static.begin();
 			for (int i=0; i<GUI_list.size(); i++)
 				{GUI_list.get(i).update(real_delta);}
 			
 			for (int i=0; i<GUI_list.size(); i++)
 				{GUI_list.get(i).update2(real_delta);}
 		game.batch_static.end();
-		
+			 
 		if (main_control)
 		{
-			Main.batch_static.begin();
+			game.batch_static.begin();
 			int pos=0;
-			Main.font.draw(Main.batch_static, "WARM: "+pl.armored_shield.warm, 17, 170);
+			//Main.font.draw(Main.batch_static, "WARM: "+pl.armored_shield.warm, 17, 170);
 			for (int i=0; i<pl.Skills_list.size(); i++)
 			{
 				
@@ -1077,6 +1079,8 @@ public class GScreen implements Screen {
         game.shapeRenderer.setProjectionMatrix(camera.combined);
         
         game.shapeRenderer_static.setProjectionMatrix(skills_camera.combined);
+        game.batch_static.setProjectionMatrix(skills_camera.combined);
+        
         game.batch_static.setProjectionMatrix(skills_camera.combined);
       
         

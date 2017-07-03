@@ -67,7 +67,7 @@ public class ButtonSkill extends Button {
 	public void draw_info(String _s1, String _s2,int _h)
 	{
 		layout.setText(Main.font_big,_s1);
-		Main.font_big.draw(Main.batch_static, _s1, info_x-layout.width/2+GScreen.skills_camera.position.x, info_y-mov+GScreen.skills_camera.position.y+160-(_h-layout.height)/2);
+		Main.font_big.draw(Main.batch_gui, _s1, 500-layout.width/2, 260-mov-(_h-layout.height)/2);
 		//Main.font.draw(Main.batch_static, _s2, info_x+100, info_y-mov);
 		
 		mov+=25;
@@ -98,8 +98,6 @@ public class ButtonSkill extends Button {
 		
 		if (skill.parent!=null)
 		{
-			
-			
 			is_active=skill.parent.learned;
 			if (!(((GUISkillsWheel)gui).main_skill_picked)){is_active=false;}
 			
@@ -181,24 +179,43 @@ public class ButtonSkill extends Button {
 	@Override
 	public void after_draw()
 	{
+
 		if (is_active)
 		{skill.spr.setPosition(pos.x-spr.getWidth()/2,pos.y-spr.getHeight()/2);
 		skill.spr.draw(Main.batch_static);}
+
 	}
 	
 	@Override
 	public void second_draw()
 	{
-
-		if (skill.locked)
-		{skill.spr.setColor(Color.DARK_GRAY);}
+		skill.locked=false;
+		skill.spr.setColor(Color.WHITE);
+		
+		
+		if ((!skill.learned)&&(skill.parent!=null)&&(skill.parent.learned))
+		{skill.spr.setColor(Color.GRAY);}
+		if ((!skill.learned)&&(skill.parent!=null)&&(!skill.parent.learned))
+		{
+			skill.spr.setColor(Color.DARK_GRAY);
+		}
 		
 		if ((skill.parent!=null)&&(skill.parent.learned)&&(skill.parent.child_learned)&&(!skill.learned))
 		{skill.locked=true;}
 		
+		
 		if ((skill.parent!=null)&&(skill.parent.locked))
 		{skill.locked=true;}
 		
+		/*
+		if ((skill.parent!=null)&&(!skill.parent.learned))
+		{skill.locked=true;}*/
+		
+		if (skill.locked)
+		{
+			skill.spr.setColor(0.10f,0.08f, 0.076f,1f);
+		//	skill.spr.setAlpha(0.50f);
+		}
 		/*
 		if ((skill.parent!=null)&&(!skill.parent.learned))
 		{skill.spr.setColor(Color.DARK_GRAY);}
@@ -210,7 +227,7 @@ public class ButtonSkill extends Button {
 		{
 			mov=0;
 
-			Main.batch_static.end();
+			 Main.batch_gui.begin();
 			
 		 	Gdx.gl.glEnable(GL20.GL_BLEND);
 	        Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
@@ -221,8 +238,13 @@ public class ButtonSkill extends Button {
 				Main.shapeRenderer_static.rect(info_x-300+GScreen.skills_camera.position.x, info_y-375+300+GScreen.skills_camera.position.y,600,250);
 			Main.shapeRenderer_static.end();*/
 			
-			Main.batch_static.begin();
-			Main.batch_static.draw(Assets.text_bg, info_x-462+GScreen.skills_camera.position.x, info_y-385+300+GScreen.skills_camera.position.y);
+	       
+	        
+	        	Main.batch_gui.draw(Assets.text_bg, 30, 15);
+	        
+	        
+		
+			
 			
 			mov=-5;
 			Main.font_big.setColor(Color.GOLDENROD);
@@ -261,14 +283,16 @@ public class ButtonSkill extends Button {
 					if (!skill.learned){draw_info("Нажмите на умение, что бы изучить его.");}}
 			}
 			Main.font_big.setColor(Color.WHITE);
+			Main.batch_gui.end();
 		}
 		
 		if ((skill.learned)&(is_active))
 		{
-			
-			Assets.select_sprite.setPosition(skill.pos.x-40,skill.pos.y-40);
-			Assets.select_sprite.setRotation(rotate);
-			Assets.select_sprite.draw(Main.batch_static);
+
+				Assets.select_sprite.setPosition(skill.pos.x-40,skill.pos.y-40);
+				Assets.select_sprite.setRotation(rotate);
+				Assets.select_sprite.draw(Main.batch_static);
+
 			
 			rotate+=GScreen.real_delta*5;
 		}
@@ -279,6 +303,7 @@ public class ButtonSkill extends Button {
 			skill.Sub_skill.get(i).spr.setPosition(pos.x-skill.Sub_skill.get(i).spr.getWidth()/2+skill.Sub_skill.get(i).pos.x,pos.y-skill.Sub_skill.get(i).spr.getHeight()/2+skill.Sub_skill.get(i).pos.y);
 			skill.Sub_skill.get(i).spr.draw(Main.batch_static);
 		}*/
+
 	}
 
 }

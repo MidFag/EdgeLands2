@@ -30,7 +30,7 @@ void main(){
 	
 	//dst=pow(dst,2);
 	
-	gl_FragColor.rgb=texture2D(u_texture, v_texCoords)/1;
+	gl_FragColor.rgb=texture2D(u_texture, v_texCoords)/2;
 	/*
 	gl_FragColor.rgb+=texture2D(u_texture, v_texCoords+vec2(0.01*dst,0.01*dst))/13;
 	gl_FragColor.rgb+=texture2D(u_texture, v_texCoords+vec2(-0.01*dst,-0.01*dst))/13;
@@ -74,12 +74,16 @@ void main(){
 	//gl_FragColor-=((texture2D(u_texture, v_texCoords)+(1-texture2D(u_texture, v_texCoords+vec2(0.001/zoom, 0.001/zoom))))/2-0.5)*10;// итоговый цвет пикселя
 	
 	
-	//zoom=sin((gl_FragCoord.y+uTime)/1)+sin((gl_FragCoord.y+uTime)/3)+sin((gl_FragCoord.y+uTime)/11);
+	zoom=sin((gl_FragCoord.y+uTime/1)/1)+cos((gl_FragCoord.y+uTime/2)/2)+sin((gl_FragCoord.y+uTime/3)/3);
 	//zoom=abs(zoom);
-	//zoom=zoom/(zoom+0.005);
-	//gl_FragColor+=(1-zoom)*0.2;
-	//gl_FragColor.r=v_color * texture2D(u_texture, v_texCoords+vec2(0.02, 0.0));// итоговый цвет пикселя
-	//gl_FragColor.g+=v_color * texture2D(u_texture, v_texCoords+vec2(0.00, 0.02));// итоговый цвет пикселя
+	zoom=1-zoom/(zoom+0.5);
+	
+	//zoom=1-zoom;
+	
+	gl_FragColor+=v_color*texture2D(u_texture, v_texCoords+vec2(zoom/500, 0))/2;
+	gl_FragColor.rgb*=1+zoom/50;
+	//gl_FragColor.g+=zoom/10;
+	//gl_FragColor.g*=texture2D(u_texture, v_texCoords+vec2(0.00, zoom/1));// итоговый цвет пикселя
 	
 		//gl_FragColor.b+=v_color * texture2D(u_texture, v_texCoords+vec2(-0.02, 0.0));// итоговый цвет пикселя
 	//gl_FragColor+=v_color * texture2D(u_texture, v_texCoords+vec2(0.00, -0.02))/10;// итоговый цвет пикселя

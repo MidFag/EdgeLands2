@@ -32,6 +32,7 @@ public class Button {
 	public void draw()
 	{
 
+
 		if ((!need_remove)&&(!off_bg)&&(is_active))
 		{
 			spr.setPosition(pos.x-(int)(spr.getWidth()/2),(int)(pos.y-spr.getHeight()/2));
@@ -100,10 +101,10 @@ public class Button {
 	public boolean is_overlap()
 	{	//		0<10						0+40>10
 		
-		spr.setColor(0.5f,0.5f,0.5f,0.5f);
+		//spr.setColor(0.5f,0.5f,0.5f,0.5f);
 		if ((pos.x-size_x/2f<InputHandler.sposx)&&(pos.x+size_x/2f>InputHandler.sposx)&&(pos.y-size_y/2f<InputHandler.sposy)&&(pos.y+size_y/2>InputHandler.sposy))
 		{
-			spr.setColor(Color.GREEN);
+			//spr.setColor(Color.GREEN);
 			return true;
 		}
 		

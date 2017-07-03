@@ -99,6 +99,7 @@ public class ButtonEqWeapon extends Button {
 			/*Main.shapeRenderer_static.setColor(0.1f, 0.12f, 0.15f,0.5f);
 			Main.shapeRenderer_static.rect(info_x-10, info_y-10-200, 300, 220);*/
 			
+
 			Main.font.setColor(1.0f, 1.0f, 1.0f, 1);
 			Main.batch_static.draw(Assets.rect, info_x-10, info_y-10-230);
 			
@@ -210,10 +211,12 @@ public class ButtonEqWeapon extends Button {
 	
 				
 			}
+			
 		}
 		
 		if (!need_remove)
 		{
+
 			if (obj instanceof Energoshield)
 			{
 				((Energoshield)obj).spr.setPosition(pos.x-spr.getWidth()/2,pos.y-spr.getHeight()/2);
@@ -229,6 +232,7 @@ public class ButtonEqWeapon extends Button {
 				
 
 			}
+
 		}
 		
 		

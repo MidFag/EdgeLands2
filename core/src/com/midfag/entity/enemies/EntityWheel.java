@@ -6,6 +6,8 @@ package com.midfag.entity.enemies;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.midfag.entity.Entity;
+import com.midfag.entity.Shd;
+import com.midfag.entity.ShdMove;
 
 
 import com.midfag.game.Assets;
@@ -119,23 +121,31 @@ public class EntityWheel extends Entity {
 		if (prepare>-0.75f)
 		{
 			speed=10;
-			float spd=3000*(1f+(prepare+0.25f)*2f);
+			float spd=2000*(1f+(prepare+0.25f)*2f);
 			
 			float sx=spd*GScreen.sinR(360-rot);
 			float sy=spd*GScreen.cosR(360-rot);
+			
+			Vector2 v=pos;
 			
 			Phys near_object=null;
 			near_object=GScreen.get_contact(pos.x,pos.y,pos.x+sx*_d,pos.y+sy*_d,sx/spd,sy/spd,spd*_d,true,false,true);
 			
 			if (near_object==null)
-			{move(sx,sy,_d);}
+			{
+				move(sx,sy,_d);
+				
+				Shd shd=new ShdMove(new Vector2(pos.x,pos.y),v);
+				shd.lifetime=0.2f;
+				GScreen.Shd_list.add(shd);
+			}
 			
 			if (pos.dst(GScreen.pl.pos)<40)
 			{
 				speed=50;
 				prepare=1;
 				
-				GScreen.pl.hit_action(100,false);
+				GScreen.pl.hit_action(60,false);
 				Assets.crash.play();
 			}
 		}

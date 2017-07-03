@@ -3,6 +3,7 @@ package com.midfag.game.GUI.buttons;
 
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -13,6 +14,8 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.midfag.game.GScreen;
 import com.midfag.game.InputHandler;
 import com.midfag.game.Main;
+import com.midfag.game.GUI.GUI;
+import com.midfag.game.GUI.GUISkillsWheel;
 import com.midfag.game.skills.Skill;
 
 
@@ -22,12 +25,13 @@ public class ButtonSkill extends Button {
 	private static final int info_y = -120;
 	public Skill skill;
 	private int mov;
+	public GUI gui;
 	
 	
 	
 	GlyphLayout layout = new GlyphLayout();
 	//List<skill> skill_list = new ArrayList<Phys>();
-	public ButtonSkill(float _x, float _y, Skill _s)
+	public ButtonSkill(float _x, float _y, Skill _s, GUI _gui)
 	{
 		super (_x, _y);
 		
@@ -35,10 +39,13 @@ public class ButtonSkill extends Button {
 		spr.setSize(50, 50);
 		spr.getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		skill=_s;
+		
+		gui=_gui;
 	}
+	
 	public void draw_info(String _s1)
 	{
-	draw_info(_s1, "");
+		draw_info(_s1, "");
 	}
 	
 	public void draw_info(String _s1, String _s2)
@@ -61,22 +68,56 @@ public class ButtonSkill extends Button {
 	@Override
 	public void second_update(float _d)
 	{
+		
+		if (Gdx.input.isKeyPressed(Keys.ESCAPE))
+		{
+			((GUISkillsWheel)gui).main_skill_picked=false;
+			skill.parent_overlap=false;
+			
+		}
+		is_active=true;
+		
+		if ((((GUISkillsWheel)gui).main_skill_picked)&&(!skill.parent_overlap)){is_active=false;}
+		
 		if (skill.parent!=null)
 		{
-			is_active=skill.parent.parent_ready;
+			
+			
+			is_active=skill.parent.learned;
+			if (!(((GUISkillsWheel)gui).main_skill_picked)){is_active=false;}
 			
 			//skill.parent_ready=is_active;
 		}
 		
+		if (!(((GUISkillsWheel)gui).main_skill_picked))
+		{skill.parent_overlap=false;}
+		
+		if ((is_overlap())&&(is_active))
+		{skill.parent_overlap=true;}
+		
 		if ((InputHandler.but==0)&&(is_overlap())&&(is_active))
 		{
-
 			
-			if ((InputHandler.subskill_pick)&&((skill.parent==null)||((skill.parent!=null)&&(!skill.parent.child_learned)&&(skill.parent.learned))))
+			
+			
+			if (
+					(((GUISkillsWheel)gui).main_skill_picked)
+					&&
+					(
+							(skill.parent==null)
+							||
+							(
+									(skill.parent!=null)
+									&&
+									(!skill.parent.child_learned)
+									&&
+									(skill.parent.learned)
+							)
+					)
+				)
 			{
 				if (skill.parent!=null)
 				{
-					
 					skill.parent.child_learned=true;
 				}
 				skill.learned=true;
@@ -89,42 +130,35 @@ public class ButtonSkill extends Button {
 			}
 			
 			InputHandler.but=-1;
-			InputHandler.subskill_pick=true;
+			if (skill.parent==null)
+			{
+				((GUISkillsWheel)gui).main_skill_picked=true;
+			
+				((GUISkillsWheel)gui).skill_x=skill.pos.x;
+				((GUISkillsWheel)gui).skill_y=skill.pos.y;
+			}
 		}
 		
 		if ((InputHandler.but==0)&&(!is_overlap())&&(is_active))
 		{
-			//InputHandler.subskill_pick=false;
+			//gui.subskill_pick=false;
 			//skill.parent_ready=false;
 		}
 		
-		if (InputHandler.subskill_pick)
+		if (((GUISkillsWheel)gui).main_skill_picked)
 		{
 			if (skill.parent!=null)
 			{
-				is_active=skill.parent.parent_ready;
+				is_active=skill.parent.parent_overlap;
 				
-				skill.parent_ready=is_active;
+				skill.parent_overlap=is_active;
 			}
 			else
-			{is_active=skill.parent_ready;}
+			{is_active=skill.parent_overlap;}
 		}
 	}
 	
-	@Override
-	public void entry()
-	{
-		skill.parent_ready=true;
-	}
-	
-	@Override
-	public void leave()
-	{
-		if (!InputHandler.subskill_pick)
-		{skill.parent_ready=false;}
-		
-		//InputHandler.subskill_pick=false;
-	}
+
 	
 	@Override
 	public void after_draw()
@@ -142,9 +176,7 @@ public class ButtonSkill extends Button {
 		if ((is_overlap())&&(is_active))
 		{
 			mov=0;
-			
-			
-			
+
 			Main.batch_static.end();
 			
 		 	Gdx.gl.glEnable(GL20.GL_BLEND);
@@ -165,7 +197,7 @@ public class ButtonSkill extends Button {
 			mov+=100;
 			
 			Main.font.setColor(0.1f,0.4f,0.2f,0.9f);
-			if (!InputHandler.subskill_pick)
+			if (!((GUISkillsWheel)gui).main_skill_picked)
 			{
 				if (skill.parent==null)
 				{draw_info("Нажмите на умение, что бы узнать о путях его развития.");}

@@ -57,7 +57,6 @@ public class InputHandler implements InputProcessor {
     public static float dx;
     public static float dy;
     
-    public static boolean subskill_pick=false;
     public static boolean press=false;
     // Ask for a reference to the Bird when InputHandler is created.
     public InputHandler() {
@@ -82,9 +81,9 @@ public class InputHandler implements InputProcessor {
     		
     		Entity en;
     		
-    		for (int i=0; i<100; i++)
+    		for (int i=0; i<50; i++)
     		{
-	    		if (Math.random()>0.5f)
+	    		if (Math.random()>0.25f)
 	    		{
 	    			en=GScreen.add_entity_to_map(new EntityPyra(new Vector2(),false));
 	    		}
@@ -96,8 +95,8 @@ public class InputHandler implements InputProcessor {
 	    			{en=GScreen.add_entity_to_map(new EntityEliteWheel(new Vector2(),false));}
 	    		}
 	    		
-	    		en.pos.x=(float) (GScreen.pl.pos.x+Math.random()*6000-3000);
-	    		en.pos.y=(float) (GScreen.pl.pos.y+Math.random()*6000-3000);
+	    		en.pos.x=(float) (GScreen.pl.pos.x+Math.random()*3000-1500);
+	    		en.pos.y=(float) (GScreen.pl.pos.y+Math.random()*3000-1500);
 	    		
 	    		GScreen.add_entity_to_map(en);
     		}
@@ -137,6 +136,8 @@ public class InputHandler implements InputProcessor {
     		
     		GUI gui=new GUISkillsWheel();
     		
+    		((GUISkillsWheel)gui).main_skill_picked=false;
+    		
 			GScreen.skills_camera.position.x=0;
 			GScreen.skills_camera.position.y=0;
     		
@@ -155,7 +156,8 @@ public class InputHandler implements InputProcessor {
     			for (int i=0; i<GScreen.pl.Skills_list.size(); i++)
     			{
     				Skill sk=GScreen.pl.Skills_list.get(i);
-    				gui.Button_list.add(new ButtonSkill(sk.pos.x,sk.pos.y,sk));
+    				
+    				gui.Button_list.add(new ButtonSkill(sk.pos.x,sk.pos.y,sk,gui));
     			}
     			
     			GScreen.GUI_list.add(gui);
@@ -200,15 +202,15 @@ public class InputHandler implements InputProcessor {
     			
     			
     			//Assets.shoot00.
-    			for (int j=0; j<2; j++)
-    			for (int i=0; i<8; i++)
+    			for (int j=0; j<3; j++)
+    			for (int i=0; i<10; i++)
     			{
     				//if (GScreen.pl.inventory[i] instanceof Weapon)
-    				{gui.Button_list.add(new ButtonEqWeapon(150+i*85,200-j*45,i+j*8));}
+    				{gui.Button_list.add(new ButtonEqWeapon(150+i*85,200-j*45,i+j*10));}
     			}
     			
     			gui.Button_list.add(new ButtonEqWeapon(200,250,99));
-    			gui.Button_list.add(new ButtonSkill(30,30,GScreen.pl.Skills_list.get(0)));
+    			//gui.Button_list.add(new ButtonSkill(30,30,GScreen.pl.Skills_list.get(0),gui));
     			
     			GScreen.GUI_list.add(gui);
     		}

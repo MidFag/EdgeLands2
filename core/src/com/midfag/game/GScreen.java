@@ -123,6 +123,7 @@ public class GScreen implements Screen {
     
     	//System.out.println("Object="+_e);
     	
+    	if ((x>0)&&(x<300)&&(y>0)&&(y<300))
     	cluster[x][y].Entity_list.add(_e);
     	
     	_e.init();
@@ -636,9 +637,7 @@ public class GScreen implements Screen {
     	else
     	{pl.draw_sprite=Math.min(15, Math.round((c)/22.5f));}
     	
-    	Main.batch_static.begin();
-    		Main.font.draw(Main.batch_static, "ANGLE: "+c, 17, 170);
-    	Main.batch_static.end();
+
     	
 
             near_object=null;
@@ -881,6 +880,8 @@ public class GScreen implements Screen {
         
         Main.batch.end();
         
+    	
+        
         game.shapeRenderer.begin(ShapeType.Filled);
         
         	for (int i=0; i<Phys_list.size(); i++)
@@ -955,6 +956,25 @@ public class GScreen implements Screen {
 			for (int i=0; i<GUI_list.size(); i++)
 				{GUI_list.get(i).update2(real_delta);}
 		game.batch_static.end();
+		
+		Main.batch_static.begin();
+			int pos=0;
+			Main.font.draw(Main.batch_static, "WARM: "+pl.armored_shield.warm, 17, 170);
+			for (int i=0; i<pl.Skills_list.size(); i++)
+			{
+				
+				if (pl.Skills_list.get(i).learned)
+				{
+					
+					pl.Skills_list.get(i).time_action(delta);
+					
+					if (pl.Skills_list.get(i).need_to_indicate)
+	    			{pl.Skills_list.get(i).indicate(425+pos,100,real_delta);
+	    			pos+=55;}
+				
+				}
+			}
+		Main.batch_static.end();
 
 		
 
@@ -1025,22 +1045,16 @@ public class GScreen implements Screen {
 				 camera.zoom=1;
 				 camera.update();
 				 
-				 for (int i=0; i<Entity_list.size(); i++)
-				 {Entity_list.get(i).dead_action(false);}
 				 
-				 Entity_list.clear();
-				 
-				  for (int i=0; i<200; i++)
-			     {        	
-					if (Math.random()>0.75f)
-			        Entity_list.add(new EntityVizjun(new Vector2(350+rnd(3000),300+rnd(3000)),false));
-		        	else
-		        	Entity_list.add(new Entity(new Vector2(350+rnd(3000),300+rnd(3000)),false));
-				 }
 			            
 			     //Entity_list.add(new DecorStoneBarak(new Vector2(100,200)));
 			     
-			     pl=new EntityPlayer(new Vector2(4000,4000),false);
+			     pl.pos.x=4000;
+			     pl.pos.y=4000;
+			     
+			     Helper.LoadMap();
+			     
+			     pl.init();
 			     
 				
 			}

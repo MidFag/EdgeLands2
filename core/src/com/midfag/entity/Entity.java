@@ -101,24 +101,29 @@ public class Entity {
 	{
 		
 		
+			Phys_list_local.clear();
 			if (!custom_phys)
 			{
 				
 				int x=(int)(pos.x/300);
 				int y=(int)(pos.y/300);
-				
+				x=Math.min(29, Math.max(x, 1));
+				y=Math.min(29, Math.max(y, 1));
 	
+				
 					Phys p=new Phys(new Vector2(pos.x-40f/1,pos.y),new Vector2(pos.x+40f/1,pos.y),false,this,true);
 					{p.move_block=false;}
-					GScreen.cluster[x][y].Phys_list.add(p);
+					
 					Phys_list_local.add(p);
+					GScreen.cluster[x][y].Phys_list.add(p);
 					
 					
 					
 					p=new Phys(new Vector2(pos.x,pos.y-40f/1),new Vector2(pos.x,pos.y+40f/1),false,this,true);
 					{p.move_block=false;}
-					GScreen.cluster[x][y].Phys_list.add(p);
+					
 					Phys_list_local.add(p);
+					GScreen.cluster[x][y].Phys_list.add(p);
 				
 			}
 			else
@@ -205,7 +210,13 @@ public class Entity {
 		
 		armored_shield.value-=_damage/2+_damage*1.5f*GScreen.rnd(1);
 		
-		armored_shield.warm-=_damage/armored_shield.total_value*10f;
+		float warm_protect=1.0f;
+		for (int i=0; i<Skills_list.size(); i++)
+		{
+				if (Skills_list.get(i).learned)
+				{warm_protect+=Skills_list.get(i).warm_damage_action(this);}
+		}
+		armored_shield.warm-=(_damage/armored_shield.total_value*10f)/warm_protect;
 		
 		armored_shield.warm=Math.max(0, armored_shield.warm);
 		
@@ -452,7 +463,16 @@ public class Entity {
 			
 			armored[_i].ammo--;
 			if (armored[_i].ammo<=0)
-			{armored[_i].reload_timer=armored[_i].total_reload_time;}
+			{
+				armored[_i].reload_timer=armored[_i].total_reload_time;
+				
+				for (int i=0; i<Skills_list.size(); i++)
+				{
+						if (Skills_list.get(i).learned)
+						{Skills_list.get(i).weapon_start_reload_action(this,_i);}
+				}
+
+			}
 			/*
 			if (is_player)
 			{Assets.shoot01.play(0.75f, (float) (0.5f), 0);}
@@ -550,7 +570,7 @@ public class Entity {
 		{
 			armored_shield.value+=armored_shield.total_regen_speed*armored_shield.warm*_d/1;
 			
-			armored_shield.warm+=_d/10;
+			armored_shield.warm+=_d/50;
 			armored_shield.warm=Math.min(1, armored_shield.warm);
 			armored_shield.value=Math.min(armored_shield.total_value, armored_shield.value);
 		}

@@ -7,6 +7,9 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.midfag.entity.AnimationEffectExpl;
 import com.midfag.entity.Entity;
+import com.midfag.entity.Shd;
+import com.midfag.entity.ShdFire;
+import com.midfag.entity.ShdMove;
 
 
 import com.midfag.game.Assets;
@@ -148,16 +151,26 @@ public class EntityEliteWheel extends Entity {
 		{
 			
 			speed=10;
-			float spd=3000*(1f+(prepare+0.25f)*2f);
+			float spd=2500*(1f+(prepare+0.25f)*2f);
 			
-			float sx=spd*GScreen.sinR(360-rot);
-			float sy=spd*GScreen.cosR(360-rot);
+			float sx=spd*GScreen.sinR(360f-rot);
+			float sy=spd*GScreen.cosR(360f-rot);
+			
+			Vector2 v=pos;
+			
+			
 			
 			Phys near_object=null;
 			near_object=GScreen.get_contact(pos.x,pos.y,pos.x+sx*_d,pos.y+sy*_d,sx/spd,sy/spd,spd*_d,true,false,true);
 			
 			if (near_object==null)
-			{move(sx,sy,_d);}
+			{
+				move(sx,sy,_d);
+				
+				Shd shd=new ShdFire(new Vector2(pos.x,pos.y),v);
+				shd.lifetime=0.2f;
+				GScreen.Shd_list.add(shd);
+			}
 			else
 			{
 				prepare=1;
@@ -171,7 +184,7 @@ public class EntityEliteWheel extends Entity {
 				speed=500;
 				prepare=1;
 				
-				GScreen.pl.hit_action(100,false);
+				GScreen.pl.hit_action(75,false);
 				
 				Assets.crash.play(0.25f);
 			}
@@ -194,7 +207,7 @@ public class EntityEliteWheel extends Entity {
 		spr.setSize(100, 200);
 		spr.setTexture(Assets.shadow);
 		spr.draw(Main.batch);
-		spr.translate(5,50);
+		spr.translate(5,30);
 		
 		spr.setSize(100, 100);
 		

@@ -102,9 +102,12 @@ public class Weapon {
 		
 		}
 		
-
-		
 		public void update_attributes_bonus()
+		{
+			update_attributes_bonus(null);
+		}
+		
+		public void update_attributes_bonus(Entity _e)
 		{
 			
 			total_damage=base_damage;
@@ -125,6 +128,15 @@ public class Weapon {
 			//update_attributes_bonus();
 			//System.out.println("damage^ "+total_damage);
 			//System.out.println("damage^ "+total_damage);
+			
+			if (_e!=null)
+			{
+				for (int i=0; i<_e.Skills_list.size();i++)
+				{
+					if (_e.Skills_list.get(i).learned)
+					{_e.Skills_list.get(i).weapon_gen_action(this);}
+				}
+			}
 			
 			
 			if (rarity==Rarity.COMMON){spr.setColor(Color.WHITE);}
@@ -240,7 +252,7 @@ public class Weapon {
 			}
 			 //
 			
-			update_attributes_bonus();
+			update_attributes_bonus(null);
 			
 			//System.out.println("/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/");
 			/*for (int i=0; i<Attribute_list.size(); i++)

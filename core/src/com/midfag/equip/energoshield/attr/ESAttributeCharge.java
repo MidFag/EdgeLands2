@@ -23,7 +23,7 @@ public class ESAttributeCharge extends ESAttribute {
 	@Override
 	public void calculate(Energoshield _e)
 	{
-		_e.total_value=_e.base_value*(1+level*0.1f);
+		//_e.total_value=_e.base_value*(1f+level*0.1f);
 	}
 	
 	@Override

@@ -58,6 +58,7 @@ public class Assets {
 	public static Texture missile;
 	
 	public static Texture rect=new Texture(Gdx.files.internal("rect.png"));
+	public static Texture round=new Texture(Gdx.files.internal("round_bg.png"));
 	
 	public static Texture stone_wall_01=new Texture(Gdx.files.internal("stone_wall_01.png"));
 	public static Texture stone_pilon_01=new Texture(Gdx.files.internal("stone_pilon_01.png"));
@@ -68,6 +69,10 @@ public class Assets {
 	public static Texture building_wall_out=new Texture(Gdx.files.internal("building_01.png"));;
 	public static Texture building_wall_in=new Texture(Gdx.files.internal("building_02.png"));;
 	
+	public static Texture indicate_bg=new Texture(Gdx.files.internal("indicate_bg.png"));;
+	public static Texture highlight=new Texture(Gdx.files.internal("highlight.png"));;
+	public static Texture icon_cooldown=new Texture(Gdx.files.internal("icon_cooldown.png"));;
+	public static Texture icon_duration=new Texture(Gdx.files.internal("icon_duration.png"));;
 	/*
 	public static Texture mech_down=new Texture(Gdx.files.internal("mech01.png"));;
 	public static Texture mech_right=new Texture(Gdx.files.internal("mech02.png"));;
@@ -162,6 +167,9 @@ public class Assets {
 
 		
 		stone_barak.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		
+		icon_cooldown.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		icon_duration.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		
 		music.setLooping(true);
 		music.setVolume(0.5f);

@@ -1,7 +1,8 @@
-package com.midfag.game.skills;
+package com.midfag.game.skills.shield_skills;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.midfag.game.skills.Skill;
 
 public class SkillShield_C_MoreReflect extends Skill {
 	public SkillShield_C_MoreReflect()

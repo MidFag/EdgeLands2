@@ -9,8 +9,8 @@ public class ESAttributeRegen extends ESAttribute {
 	public ESAttributeRegen()
 	{
 		name="regeneration";
-		cost=2.5f;
-		max_level=10;
+		cost=2.0f;
+		max_level=100;
 	}
 	
 	@Override

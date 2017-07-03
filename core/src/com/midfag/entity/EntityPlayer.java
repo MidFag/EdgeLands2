@@ -20,16 +20,19 @@ import com.midfag.game.GScreen;
 
 import com.midfag.game.Main;
 import com.midfag.game.skills.Skill;
-import com.midfag.game.skills.SkillShield;
-import com.midfag.game.skills.SkillShield_AA_ValueHalfDamage;
-import com.midfag.game.skills.SkillShield_AB_ValueHalfDamageTime;
-import com.midfag.game.skills.SkillShield_A_MoreValue;
-import com.midfag.game.skills.SkillShield_BA_WarmProtect;
-import com.midfag.game.skills.SkillShield_BB_RestoreSpeed;
-import com.midfag.game.skills.SkillShield_B_MoreRegen;
-import com.midfag.game.skills.SkillShield_CA_MoreReflectDouble;
-import com.midfag.game.skills.SkillShield_CB_MoreReflectRegen;
-import com.midfag.game.skills.SkillShield_C_MoreReflect;
+import com.midfag.game.skills.shield_skills.SkillShield;
+import com.midfag.game.skills.shield_skills.SkillShield_AA_ValueHalfDamage;
+import com.midfag.game.skills.shield_skills.SkillShield_AB_ValueHalfDamageTime;
+import com.midfag.game.skills.shield_skills.SkillShield_A_MoreValue;
+import com.midfag.game.skills.shield_skills.SkillShield_BA_WarmProtect;
+import com.midfag.game.skills.shield_skills.SkillShield_BB_RestoreSpeed;
+import com.midfag.game.skills.shield_skills.SkillShield_B_MoreRegen;
+import com.midfag.game.skills.shield_skills.SkillShield_CA_MoreReflectDouble;
+import com.midfag.game.skills.shield_skills.SkillShield_CB_MoreReflectRegen;
+import com.midfag.game.skills.shield_skills.SkillShield_C_MoreReflect;
+import com.midfag.game.skills.weapon_skills.SkillWeapon;
+import com.midfag.game.skills.weapon_skills.SkillWeapon_AA_ReloadChance;
+import com.midfag.game.skills.weapon_skills.SkillWeapon_A_FastReload;
 
 public class EntityPlayer extends Entity {
 
@@ -103,15 +106,22 @@ public class EntityPlayer extends Entity {
 				Skills_list.add(subskl.add_subskill(new SkillShield_CB_MoreReflectRegen(), GScreen.pl));
 		
 				armored[0]=new WeaponSimpleMinigun();
-				armored[1]=new WeaponSimpleShotgun();
+				armored[1]=null;
 				armored_shield=new EnergoshieldSimple();
 
-				
+			skl=new SkillWeapon();
+			Skills_list.add(skl);	
+				subskl=new SkillWeapon_A_FastReload();
+				Skills_list.add(skl.add_subskill(subskl, GScreen.pl));
+					Skills_list.add(subskl.add_subskill(new SkillWeapon_AA_ReloadChance(), GScreen.pl));
+					
 				
 				
 			engine_id=Assets.engine.play();
 			Assets.engine.setVolume(engine_id, 0.25f);
 			Assets.engine.setLooping(engine_id, true);
+			
+			
 		// TODO Auto-generated constructor stub
 	}
 	

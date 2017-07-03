@@ -117,7 +117,7 @@ public class ButtonEqWeapon extends Button {
 				color_it (w.total_dispersion,w.base_dispersion);draw_info("Dispersion: ",""+Math.round(w.total_dispersion));
 				color_it (w.total_dispersion_additional,w.base_dispersion_additional);draw_info("Dispersion add: ",""+Math.round(w.total_dispersion_additional));
 				color_it (w.total_ammo_size,w.base_ammo_size);draw_info("Ammo size: ",""+Math.round(w.total_ammo_size));
-				color_it (w.total_reload_time,w.base_reload_time);draw_info("Reload time: ",""+Math.round(w.total_reload_time));
+				color_it (w.total_reload_time,w.base_reload_time);draw_info("Reload time: ",""+Math.round(w.total_reload_time*10.0f)/10f);
 				
 				
 				

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.midfag.entity.Entity;
@@ -13,6 +14,7 @@ import com.midfag.equip.energoshield.attr.ESAttributeReflect;
 import com.midfag.equip.energoshield.attr.ESAttributeRegen;
 import com.midfag.equip.energoshield.attr.ESAttributeValue;
 import com.midfag.game.GScreen;
+import com.midfag.game.Enums.Rarity;
 
 
 public class Energoshield {
@@ -45,6 +47,8 @@ public class Energoshield {
 	public float level=1.0f;
 	public String name;
 	
+	public Rarity rarity;
+	
 	
 	
 	public Energoshield()
@@ -55,6 +59,8 @@ public class Energoshield {
 		Available_attribute_list.add(new ESAttributeCharge());
 		
 		name="Simple shield";
+		
+		rarity=Rarity.COMMON;
 	}
 	
 	public void update_attributes_bonus()
@@ -73,6 +79,12 @@ public class Energoshield {
 
 		
 		value=total_value;
+		
+		if (rarity==Rarity.COMMON){spr.setColor(Color.WHITE);}
+		if (rarity==Rarity.UNCOMMON){spr.setColor(Color.GREEN);}
+		if (rarity==Rarity.RARE){spr.setColor(Color.ROYAL);}
+		if (rarity==Rarity.ELITE){spr.setColor(Color.MAGENTA);}
+		if (rarity==Rarity.LEGENDARY){spr.setColor(Color.ORANGE);}
 	}
 	
 	public void update_attributes_bonus(Entity _e)
@@ -92,13 +104,30 @@ public class Energoshield {
 		if (gennable)
 		{
 			base_value*=level;
-		
+			
+			int r=0;
+			if (rarity.ordinal()==0)
+			{
+				for (int i=0; i<5; i++)
+				{
+					r=i;
+					
+					if (Math.random()>0.4f){break;}
+				}
 				
-			attr_point=level*10;
+				if (r==0) {rarity=Rarity.COMMON;}
+				if (r==1) {rarity=Rarity.UNCOMMON;}
+				if (r==2) {rarity=Rarity.RARE;}
+				if (r==3) {rarity=Rarity.ELITE;}
+				if (r==4) {rarity=Rarity.LEGENDARY;}
+			}
+			
+				
+			attr_point=level*10*(1+rarity.ordinal()/5f);
 		
-			attr_count=(int) (GScreen.rnd(3)+1);
+			attr_count=(int) (GScreen.rnd(3));
 		
-			for (int i=0; i<-(attr_count-Available_attribute_list.size()); i++)
+			for (int i=0; i<(attr_count-Available_attribute_list.size())-attr_count; i++)
 			{
 				Available_attribute_list.remove((int)(Math.random()*Available_attribute_list.size()));
 				i--;

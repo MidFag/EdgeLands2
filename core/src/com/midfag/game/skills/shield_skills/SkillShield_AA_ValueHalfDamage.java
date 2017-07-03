@@ -1,8 +1,9 @@
-package com.midfag.game.skills;
+package com.midfag.game.skills.shield_skills;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.midfag.entity.Entity;
+import com.midfag.game.skills.Skill;
 
 
 //@SuppressWarnings("unused")

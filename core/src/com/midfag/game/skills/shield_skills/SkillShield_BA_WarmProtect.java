@@ -21,7 +21,7 @@ public class SkillShield_BA_WarmProtect extends Skill {
 		info="Каждые 5 секунд"+"\n"+"регенерация щита не сбивается"+"\n"+"Действует в течении 1й секунды";
 		
 		
-		
+		indicate_tex=new Texture(Gdx.files.internal("skill_shield_regen_protect.png"));
 		cooldown_base=5f;
 		duration_base=2f;
 		cooldown=5f;

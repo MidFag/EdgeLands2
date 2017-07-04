@@ -39,10 +39,8 @@ public class GUISkillsWheel extends GUI {
         else
         {Assets.skill_wheel.setColor(Color.WHITE);}	
         
-
         	Assets.skill_wheel.setPosition(-1024, -1024);
         	Assets.skill_wheel.draw(Main.batch_static);
-      
         
         Assets.skill_wheel.setColor(Color.WHITE);
         
@@ -51,7 +49,6 @@ public class GUISkillsWheel extends GUI {
 		{
 			Main.batch_static.draw(Assets.round, skill_x-256, skill_y-256);
 		}
-
 
 	}
 }

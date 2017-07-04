@@ -129,7 +129,7 @@ public class GUIEdit extends GUI {
 			if (pattern_first_point.x>0)
 			{Main.batch.draw(Assets.rama,pattern_first_point.x*30,pattern_first_point.y*30,InputHandler.posx-pattern_first_point.x*30,InputHandler.posy-pattern_first_point.y*30);}
 			
-		
+		Main.batch.end();
 		
 		if ((InputHandler.realy>70)&&(InputHandler.realy<700-70))
 		{
@@ -229,13 +229,11 @@ public class GUIEdit extends GUI {
 				pattern_edit=false;
 			}
 			
-
 			if (InputHandler.realx<850)
 			{
 				if (!top_layer) {Main.font.setColor(0.5f, 0.5f, 0.5f, 0.5f);}else{Main.font.setColor(0.25f, 1.0f, 0.5f, 1.0f);}
 				Main.font.draw(Main.batch_static, "TOP LAYER: ", 170, 530);
 			}
-			
 			
 			if (
 					(InputHandler.but==0)
@@ -273,10 +271,10 @@ public class GUIEdit extends GUI {
 				int cx=(int)(xx/300f);
 				int cy=(int)(yy/300f);
 				
-				
+				Main.batch.begin();
 					
 					Main.batch.draw(Assets.mech_foot,xx,yy);
-				
+				Main.batch.end();
 				
 				float near_dist=9999;
 				
@@ -289,7 +287,7 @@ public class GUIEdit extends GUI {
 				selected_cluster=null;
 				
 				
-				
+				Main.batch.begin();
 				for (int i=cx-1; i<=cx+1; i++)
 				for (int j=cy-1; j<=cy+1; j++)
 				if ((i>=0)&&(j>=0))
@@ -310,7 +308,7 @@ public class GUIEdit extends GUI {
 						}
 					}
 				}
-				
+				Main.batch.end();
 				
 				if (selected_object!=null){selected_object.spr.setColor(Color.GREEN);}
 			}
@@ -333,11 +331,11 @@ public class GUIEdit extends GUI {
 		}
 		
 		if (indicate_entity!=null)
-		{
+		{Main.batch.begin();
 			indicate_entity.spr.setPosition(xx-indicate_entity.spr.getOriginX(), yy-indicate_entity.spr.getOriginY());
 			//Main.batch.draw(edit_spr.getTexture(), edit_spr.getVertices(), 10, 20);
 			indicate_entity.spr.draw(Main.batch);
-		}
+		Main.batch.end();}
 		
 	}
 }

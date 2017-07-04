@@ -67,7 +67,7 @@ public class ButtonSkill extends Button {
 	public void draw_info(String _s1, String _s2,int _h)
 	{
 		layout.setText(Main.font_big,_s1);
-		Main.font_big.draw(Main.batch_gui, _s1, 500-layout.width/2, 260-mov-(_h-layout.height)/2);
+		Main.font_big.draw(Main.batch_static, _s1, info_x-layout.width/2+GScreen.skills_camera.position.x, info_y-mov+GScreen.skills_camera.position.y+160-(_h-layout.height)/2);
 		//Main.font.draw(Main.batch_static, _s2, info_x+100, info_y-mov);
 		
 		mov+=25;
@@ -227,7 +227,7 @@ public class ButtonSkill extends Button {
 		{
 			mov=0;
 
-			 Main.batch_gui.begin();
+			 
 			
 		 	Gdx.gl.glEnable(GL20.GL_BLEND);
 	        Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
@@ -239,9 +239,15 @@ public class ButtonSkill extends Button {
 			Main.shapeRenderer_static.end();*/
 			
 	       
-	        
-	        	Main.batch_gui.draw(Assets.text_bg, 30, 15);
-	        
+	        Main.batch_static.setShader(Main.shader);
+				Main.shader.setUniformf("x", 0);
+				Main.shader.setUniformf("y", 0);
+				
+				Main.shader.setUniformf("uTime", GScreen.wave_time*77);
+		    	Main.shader.setUniformf("zoom",1);
+	        	Main.batch_static.draw(Assets.text_bg, info_x-462+GScreen.skills_camera.position.x, info_y-385+300+GScreen.skills_camera.position.y);
+	        	
+	        Main.batch_static.setShader(Main.batch.getShader());
 	        
 		
 			
@@ -283,7 +289,7 @@ public class ButtonSkill extends Button {
 					if (!skill.learned){draw_info("Нажмите на умение, что бы изучить его.");}}
 			}
 			Main.font_big.setColor(Color.WHITE);
-			Main.batch_gui.end();
+			//Main.batch_gui.end();
 		}
 		
 		if ((skill.learned)&(is_active))
@@ -307,4 +313,3 @@ public class ButtonSkill extends Button {
 	}
 
 }
-

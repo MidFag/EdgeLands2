@@ -179,7 +179,7 @@ public class Assets {
 		music.play();
 		
 		select_sprite.getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		select_sprite.setAlpha(0.5f);
+		select_sprite.setAlpha(1.0f);
 		
 	}
 	

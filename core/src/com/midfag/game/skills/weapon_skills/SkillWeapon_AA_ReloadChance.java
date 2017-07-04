@@ -29,7 +29,7 @@ public class SkillWeapon_AA_ReloadChance extends Skill {
 		spr.getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
 		
-		name="ловкость рук";
+		name="Ловкость рук";
 		info=	"При перезарядке оружия вы получаете 10% шанс"+"\n"+
 				"перезарядить оружие мгновенно. Эффект складывается."+"\n"+
 				"Теряет все эффекты при успешном срабатывании";

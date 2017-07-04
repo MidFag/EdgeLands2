@@ -25,12 +25,13 @@ public class SkillShield_AB_ValueHalfDamageTime extends Skill {
 		info="Каждые 5 секунд"+"\n"+"получаемый урон уменьшется вдвое."+"\n"+"Действует 2 секунды";
 		
 		need_to_indicate=true;
-		
+		indicate_tex=new Texture(Gdx.files.internal("icon_half_damage.png"));
 		
 		cooldown_base=5;
 		cooldown=5;
 		
 		duration_base=5;
+		
 	}
 	
 	@Override

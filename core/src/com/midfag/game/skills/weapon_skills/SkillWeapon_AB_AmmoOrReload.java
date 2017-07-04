@@ -34,28 +34,13 @@ public class SkillWeapon_AB_AmmoOrReload extends Skill {
 				"В противном случае увеличивет скорость перезарядки на 20%.";
 
 		
-		need_to_indicate=true;
+		need_to_indicate=false;
 		//skill_a=new SkillShield_A_MoreValue();
-		indicate_tex=new Texture(Gdx.files.internal("icon_reload_chance.png"));
-		indicate_text="0%";
+		//indicate_tex=new Texture(Gdx.files.internal("icon_reload_chance.png"));
+		indicate_text="";
 		
 	}
 	
-	@Override
-	public void weapon_start_reload_action(Entity _e, int _i)
-	{
-		chance_stack++;
-		
-		
-		if (Math.random()<chance_stack/10.0f)
-		{
-			if (_e.armored[_i]!=null){_e.armored[_i].reload_timer=0.1f; chance_stack=0;}
-			highlight_value=0.5f;
-			
-		}
-		
-		indicate_text=chance_stack*10+"%";
-	}
 	
 	@Override
 	public void weapon_gen_action(Weapon _w)

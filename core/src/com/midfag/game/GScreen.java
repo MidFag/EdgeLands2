@@ -107,7 +107,7 @@ public class GScreen implements Screen {
     
     public boolean keypress=false;
 
-	private float wave_time;
+	public static float wave_time;
 
 	public boolean path_visualisation=false;
     
@@ -442,7 +442,7 @@ public class GScreen implements Screen {
     	
     	Main.fbo.begin();
     	Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT | (Gdx.graphics.getBufferFormat().coverageSampling?GL20.GL_COVERAGE_BUFFER_BIT_NV:0));
-
+    	Main.batch.begin();
     	
     	wave_time+=real_delta;
     	
@@ -473,16 +473,10 @@ public class GScreen implements Screen {
 		Main.batch.end();
 		Main.fbo.end();
 		
-		Main.batch_gui.begin();
-			Main.shader.setUniformf("x", 0);
-			Main.shader.setUniformf("y", 0);
-			
-			Main.shader.setUniformf("uTime", wave_time*77);
-	    	Main.shader.setUniformf("zoom", 1);
-    	Main.batch_gui.end();
+
     	
 		Main.batch_static.begin();
-			
+
     	
 			Texture t=Main.fbo.getColorBufferTexture();
 			
@@ -654,7 +648,7 @@ public class GScreen implements Screen {
        	
        	 if (InputHandler.MB){is_press=true; time_speed+=real_delta*1;/* System.out.println("MB");*/}
        	 
-       	 if (pl.armored_shield.value>0)
+       	 if ((pl.armored_shield.value>0))
        	 {
 	       	 if (Gdx.input.isKeyPressed(Keys.W)){pl.add_impulse(0, pl.speed,delta); time_speed+=real_delta*2; is_press=true; pl.move_vert=true; pl.direction=0;}
 	       	 if (Gdx.input.isKeyPressed(Keys.S)){pl.add_impulse(0, -pl.speed,delta);time_speed+=real_delta*2; is_press=true; pl.move_vert=true; pl.direction=2;}
@@ -951,19 +945,51 @@ public class GScreen implements Screen {
 	        game.batch.setColor(Color.WHITE);
         game.batch.end();
         
-        game.batch_static.begin();
+		 game.batch_static.begin();
 			for (int i=0; i<GUI_list.size(); i++)
 				{GUI_list.get(i).update(real_delta);}
 			
 			for (int i=0; i<GUI_list.size(); i++)
 				{GUI_list.get(i).update2(real_delta);}
 		game.batch_static.end();
-			 
-		if (main_control)
+		
+		Main.batch_static.begin();
+		
+		if ((main_control))
 		{
-			game.batch_static.begin();
+			Main.font.draw(Main.batch_static, "WARM: "+pl.armored_shield.warm, 17, 170);
+			
+			Main.font.draw(Main.batch_static, "FPS: "+Math.round(1.0f/delta), 17, 30);
+			Main.font.draw(Main.batch_static, "LA: "+Math.round(((EntityPlayer)pl).leg1_anim*100f)/100f, 17, 90);
+			Main.font.draw(Main.batch_static, "BURN: "+pl.buff_burn, 17, 60);
+			
+			game.batch_static.draw(Assets.panel, 400, 17);
+		
+			for (int i=0; i<50*pl.armored_shield.value/pl.armored_shield.total_value; i++)
+			{
+			game.batch_static.draw(Assets.diod, 400+7*i+5, 17+3);
+			}
+			
+
+		}
+		
+		if (InputHandler.but==1)
+		{
+			float camlen=(float) Math.sqrt((pl.pos.x-InputHandler.posx)*(pl.pos.x-InputHandler.posx)+(pl.pos.y-InputHandler.posy)*(pl.pos.y-InputHandler.posy));
+			camlen/=2;
+		    camera.position.add(-(camera.position.x-pl.pos.x+sinR(180-pl.rot)*camlen)/20, -(camera.position.y-pl.pos.y+cosR(180-pl.rot)*camlen)/20, 0.0f);
+		    camera.update();
+			
+		}
+		else
+		{
+			camera.position.add(-(camera.position.x-pl.pos.x)/10, -(camera.position.y-pl.pos.y)/10, 0.0f);
+			camera.update();
+		}
+			
 			int pos=0;
-			//Main.font.draw(Main.batch_static, "WARM: "+pl.armored_shield.warm, 17, 170);
+			
+			if (main_control)
 			for (int i=0; i<pl.Skills_list.size(); i++)
 			{
 				
@@ -978,26 +1004,9 @@ public class GScreen implements Screen {
 				
 				}
 			}
-			
-		
 
-		
-
-
-		
-		
-		
 		//game.shapeRenderer_static.begin(ShapeType.Filled);
-			Main.font.draw(Main.batch_static, "FPS: "+Math.round(1.0f/delta), 17, 30);
-			Main.font.draw(Main.batch_static, "LA: "+Math.round(((EntityPlayer)pl).leg1_anim*100f)/100f, 17, 90);
-			Main.font.draw(Main.batch_static, "BURN: "+pl.buff_burn, 17, 60);
 			
-		game.batch_static.draw(Assets.panel, 400, 17);
-		
-		for (int i=0; i<50*pl.armored_shield.value/pl.armored_shield.total_value; i++)
-		{
-			game.batch_static.draw(Assets.diod, 400+7*i+5, 17+3);
-		}
 		
 			for (int i=0; i<Button_list.size(); i++)
 			{
@@ -1018,23 +1027,11 @@ public class GScreen implements Screen {
 			}
 			
 			Main.batch_static.end();
-		}
+		
 		//game.shapeRenderer_static.end();
 		
 		
-		if (InputHandler.but==1)
-		{
-			float camlen=(float) Math.sqrt((pl.pos.x-InputHandler.posx)*(pl.pos.x-InputHandler.posx)+(pl.pos.y-InputHandler.posy)*(pl.pos.y-InputHandler.posy));
-			camlen/=2;
-		    camera.position.add(-(camera.position.x-pl.pos.x+sinR(180-pl.rot)*camlen)/20, -(camera.position.y-pl.pos.y+cosR(180-pl.rot)*camlen)/20, 0.0f);
-		    camera.update();
-			
-		}
-		else
-		{
-			camera.position.add(-(camera.position.x-pl.pos.x)/10, -(camera.position.y-pl.pos.y)/10, 0.0f);
-			camera.update();
-		}
+		
 		
 		if (pl.armored_shield.value<=0)
 		{
@@ -1079,8 +1076,6 @@ public class GScreen implements Screen {
         game.shapeRenderer.setProjectionMatrix(camera.combined);
         
         game.shapeRenderer_static.setProjectionMatrix(skills_camera.combined);
-        game.batch_static.setProjectionMatrix(skills_camera.combined);
-        
         game.batch_static.setProjectionMatrix(skills_camera.combined);
       
         

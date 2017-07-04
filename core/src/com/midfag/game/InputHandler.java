@@ -132,6 +132,7 @@ public class InputHandler implements InputProcessor {
     	if (key==Keys.O)
     	{
     		
+    		
     		GScreen.show_skills_wheel=!GScreen.show_skills_wheel;
     		
     		GUI gui=new GUISkillsWheel();
@@ -169,6 +170,7 @@ public class InputHandler implements InputProcessor {
     			Assets.skill_wheel.getTexture().dispose();
     			GScreen.main_control=true;
     			
+    			
     			GScreen.skills_camera.zoom=1;
     			GScreen.skills_camera.position.x=500;
     			GScreen.skills_camera.position.y=350;
@@ -192,6 +194,7 @@ public class InputHandler implements InputProcessor {
     		if (GScreen.show_equip)
     		{
     			GScreen.show_skills_wheel=false;
+    			
     			
     			GScreen.main_control=false;
     			

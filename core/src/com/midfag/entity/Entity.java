@@ -97,6 +97,8 @@ public class Entity {
 	public float look_cooldown=0.5f;
 	public boolean is_see=false;
 	
+	public int multiply_missile_count=1;
+	
 	public void init()
 	{
 		
@@ -402,6 +404,15 @@ public class Entity {
 	public void shoot(float _d, int _i)
 	{
 		
+		//For
+		multiply_missile_count=1;
+		
+		for (int i=0; i<Skills_list.size(); i++)
+		{
+			if (Skills_list.get(i).learned)
+			{Skills_list.get(i).prefire_action(this);}
+		}
+		
 		if (armored[_i].reload_timer<=0)
 		{
 			if ((armored[_i].need_warm>0)&&(armored[_i].warm==0)&&(armored[_i].reload_timer<=0))
@@ -449,7 +460,7 @@ public class Entity {
 			
 			
 			//System.out.println("TotMisCou: "+armored_weapon.total_missile_count);
-			for (int zz=0; zz<armored[_i].total_missile_count; zz++)
+			for (int zz=0; zz<armored[_i].total_missile_count*multiply_missile_count; zz++)
 			{
 				GScreen.Missile_list.add(armored[_i].get_missile(this));
 				

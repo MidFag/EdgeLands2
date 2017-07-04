@@ -13,7 +13,7 @@ public class WeaponSimpleFirle extends Weapon {
 		{
 			base_damage=20;
 			base_missile_count=1;
-			base_shoot_cooldown=0.20f;
+			base_shoot_cooldown=0.10f;
 			base_dispersion=10;
 			base_dispersion_additional=5;
 			base_ammo_size=17;

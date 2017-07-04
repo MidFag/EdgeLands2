@@ -19,7 +19,7 @@ public class SkillShield_A_MoreValue extends Skill {
 		spr.getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		
 		name="Емкий акумулятор";
-		info="Дополнительно увеличивает"+"\n"+"ёмкость ёмкость щита 25%";
+		info="Дополнительно увеличивает"+"\n"+"ёмкость щита 25%";
 	}
 	
 	@Override

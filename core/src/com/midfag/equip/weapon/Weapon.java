@@ -144,6 +144,7 @@ public class Weapon {
 			if (rarity==Rarity.RARE){spr.setColor(Color.ROYAL);}
 			if (rarity==Rarity.ELITE){spr.setColor(Color.MAGENTA);}
 			if (rarity==Rarity.LEGENDARY){spr.setColor(Color.ORANGE);}
+			if (rarity==Rarity.RELICT){spr.setColor(Color.CYAN);}
 			
 		}
 		
@@ -174,11 +175,11 @@ public class Weapon {
 			
 			if (rarity.ordinal()==0)
 			{
-				for (int i=0; i<5; i++)
+				for (int i=0; i<6; i++)
 				{
 					r=i;
 					
-					if (Math.random()>0.4f){break;}
+					if (Math.random()>0.5f){break;}
 				}
 				
 				if (r==0) {rarity=Rarity.COMMON;}
@@ -186,6 +187,7 @@ public class Weapon {
 				if (r==2) {rarity=Rarity.RARE;}
 				if (r==3) {rarity=Rarity.ELITE;}
 				if (r==4) {rarity=Rarity.LEGENDARY;}
+				if (r==5) {rarity=Rarity.RELICT;}
 			}
 			
 			

@@ -66,7 +66,7 @@ public class Energoshield {
 	public void update_attributes_bonus()
 	{
 		
-		total_value=base_value;
+		total_value=base_value*level;
 		total_regen_speed=base_regen_speed;
 		total_reflect=base_reflect;
 		
@@ -85,6 +85,7 @@ public class Energoshield {
 		if (rarity==Rarity.RARE){spr.setColor(Color.ROYAL);}
 		if (rarity==Rarity.ELITE){spr.setColor(Color.MAGENTA);}
 		if (rarity==Rarity.LEGENDARY){spr.setColor(Color.ORANGE);}
+		if (rarity==Rarity.RELICT){spr.setColor(Color.CYAN);}
 	}
 	
 	public void update_attributes_bonus(Entity _e)
@@ -108,11 +109,11 @@ public class Energoshield {
 			int r=0;
 			if (rarity.ordinal()==0)
 			{
-				for (int i=0; i<5; i++)
+				for (int i=0; i<6; i++)
 				{
 					r=i;
 					
-					if (Math.random()>0.4f){break;}
+					if (Math.random()>0.5f){break;}
 				}
 				
 				if (r==0) {rarity=Rarity.COMMON;}
@@ -120,6 +121,7 @@ public class Energoshield {
 				if (r==2) {rarity=Rarity.RARE;}
 				if (r==3) {rarity=Rarity.ELITE;}
 				if (r==4) {rarity=Rarity.LEGENDARY;}
+				if (r==5) {rarity=Rarity.RELICT;}
 			}
 			
 				

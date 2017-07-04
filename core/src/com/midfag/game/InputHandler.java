@@ -81,7 +81,7 @@ public class InputHandler implements InputProcessor {
     		
     		Entity en;
     		
-    		for (int i=0; i<50; i++)
+    		for (int i=0; i<25; i++)
     		{
 	    		if (Math.random()>0.25f)
 	    		{

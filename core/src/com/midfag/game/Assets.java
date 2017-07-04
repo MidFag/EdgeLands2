@@ -175,7 +175,7 @@ public class Assets {
 		icon_duration.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		
 		music.setLooping(true);
-		music.setVolume(0.05f);
+		music.setVolume(0.5f);
 		music.play();
 		
 		select_sprite.getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);

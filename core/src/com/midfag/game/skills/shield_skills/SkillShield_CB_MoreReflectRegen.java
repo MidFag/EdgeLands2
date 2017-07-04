@@ -3,6 +3,8 @@ package com.midfag.game.skills.shield_skills;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
+import com.midfag.entity.Entity;
+import com.midfag.entity.missiles.Missile;
 import com.midfag.game.skills.Skill;
 
 public class SkillShield_CB_MoreReflectRegen extends Skill {
@@ -17,8 +19,16 @@ public class SkillShield_CB_MoreReflectRegen extends Skill {
 		spr.getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		
 		name="Возмещение";
-		info="10% от отраженного урона"+"\n"+"восстанавливает энергощит";
+		info="20% от отраженного урона"+"\n"+"восстанавливает энергощит";
 		
+		
+	}
+	
+	@Override
+	public void prereflect_action(Missile _m, Entity _e) {
+		// TODO Auto-generated method stub
+		_e.armored_shield.value+=_m.damage*0.2f;
+
 		
 	}
 }

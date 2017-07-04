@@ -1,4 +1,4 @@
-package com.midfag.game.skills.shield_skills;
+package com.midfag.game.skills;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -7,32 +7,42 @@ import com.midfag.equip.energoshield.Energoshield;
 import com.midfag.game.GScreen;
 import com.midfag.game.skills.Skill;
 
-public class SkillShield_C_MoreReflect extends Skill {
-	public SkillShield_C_MoreReflect()
+public class SkillGodShield extends Skill {
+	
+	
+
+	public SkillGodShield()
 	{
 		super();
 		
-		pos.x=0;
-		pos.y=-70;
+		pos.x=170;
+		pos.y=215;
 		
-		spr.setTexture(new Texture(Gdx.files.internal("skill_shield_reflect.png")));
+		spr.setTexture(new Texture(Gdx.files.internal("skill_shield_of_god.png")));
 		spr.getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		
-		name="Улучшенное отражение";
-		info="Дополнителное увеличение"+"\n"+"отражения в размере 20%";
+		name="Божья силушка";
+		info=	"+1000 ёмкость "+"\n"+
+				"+100 регенерация"+"\n"+
+				"+25 отражение";
+		
+		//skill_a=new SkillShield_A_MoreValue();
+		
 	}
 	
 	@Override
 	public void shield_gen_action(Energoshield _e)
 	{
-		_e.total_reflect+=_e.base_reflect*0.20f;
+		_e.total_value+=1000;
+		_e.total_regen_speed+=100;
+		_e.total_reflect+=25;
 	}
 	
 	@Override
 	public void learn_action()
 	{
 		
-		
+		System.out.println("!@#$%^&");
 		GScreen.pl.armored_shield.update_attributes_bonus(GScreen.pl);
 		
 		for (int i=0; i<GScreen.pl.inventory.length; i++)
@@ -43,4 +53,5 @@ public class SkillShield_C_MoreReflect extends Skill {
 			}
 		}
 	}
+	
 }

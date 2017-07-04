@@ -22,7 +22,7 @@ public class SkillWeapon_AB_AmmoOrReload extends Skill {
 	{
 		super();
 		
-		pos.x=70;
+		pos.x=50;
 		pos.y=0;
 		
 		spr.setTexture(new Texture(Gdx.files.internal("icon_ammo_or_reload.png")));

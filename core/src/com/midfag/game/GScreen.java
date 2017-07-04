@@ -461,8 +461,8 @@ public class GScreen implements Screen {
 	 		}
 		}
 		
-		for (int i=plposy+30; i>plposy-30; i--)
-		for (int j=plposx-30; j<plposx+30; j++)
+		for (int i=plposy+60; i>plposy-60; i--)
+		for (int j=plposx-60; j<plposx+60; j++)
 		if ((i>=0)&&(i<300)&&(j>=0)&&(j<300))
 		{	
 			if (tile_map_overlay[j][i]>=0)
@@ -524,8 +524,9 @@ public class GScreen implements Screen {
 		
 
 	    
- 		for (int i=plposy-30; i<plposy+30; i++)
- 		for (int j=plposx-30; j<plposx+30; j++)
+	
+ 		for (int i=plposy-40; i<plposy+40; i++)
+ 		for (int j=plposx-40; j<plposx+40; j++)
  		if ((i>=0)&&(i<300)&&(j>=0)&&(j<300))
  		{
  			
@@ -755,6 +756,15 @@ public class GScreen implements Screen {
 	        			}
 	        			else
 	        			{
+	        				for (int k=0; k<((Entity) near_object.parent).Skills_list.size(); k++)
+	        				{
+	        					
+	        					if (((Entity) near_object.parent).Skills_list.get(k).learned)
+	        					{
+	        						((Entity) near_object.parent).Skills_list.get(k).prereflect_action(Missile_list.get(i),((Entity) near_object.parent));
+	        					}
+	        					
+	        				}
 	        				Missile_list.get(i).lifetime=10;
 	        				Missile_list.get(i).angle+=Math.toRadians(180+(Math.random()*10-5));
 	        				
@@ -763,6 +773,16 @@ public class GScreen implements Screen {
 	        				
 	        				Missile_list.get(i).is_enemy=((Entity) near_object.parent).is_AI;
 	        				Missile_list.get(i).col=Color.GREEN;
+	        				
+	        				for (int k=0; k<((Entity) near_object.parent).Skills_list.size(); k++)
+	        				{
+	        					
+	        					if (((Entity) near_object.parent).Skills_list.get(k).learned)
+	        					{
+	        						((Entity) near_object.parent).Skills_list.get(k).reflect_action(Missile_list.get(i),((Entity) near_object.parent));
+	        					}
+	        					
+	        				}
 	        			}
         			}
         			else
@@ -801,7 +821,7 @@ public class GScreen implements Screen {
       
       	for (int x=cluster_x-4; x<=cluster_x+4; x++)
       	for (int y=cluster_y-4; y<=cluster_y+4; y++)
-      	if ((x>=0)&&(y>=0))
+      	if ((x>=0)&&(y>=0)&&(x<30)&&(y<30))
         for (int i=0; i<cluster[x][y].Entity_list.size();i++)
         {
         	Entity e=cluster[x][y].Entity_list.get(i);
@@ -850,7 +870,7 @@ public class GScreen implements Screen {
     	for (int order=0; order<=2; order++)
     	for (int x=cluster_x-4; x<=cluster_x+4; x++)
     	for (int y=cluster_y-4; y<=cluster_y+4; y++)
-    	if ((x>=0)&&(y>=0))
+    	if ((x>=0)&&(y>=0)&&(x<30)&&(y<30))
     	for (int i=0; i<cluster[x][y].Entity_list.size();i++)
     	{
     		Entity e=cluster[x][y].Entity_list.get(i);
@@ -959,7 +979,7 @@ public class GScreen implements Screen {
 		{
 			Main.font.draw(Main.batch_static, "WARM: "+pl.armored_shield.warm, 17, 170);
 			
-			Main.font.draw(Main.batch_static, "FPS: "+Math.round(1.0f/delta), 17, 30);
+			Main.font.draw(Main.batch_static, "FPS: "+Math.round(1.0f/real_delta), 17, 30);
 			Main.font.draw(Main.batch_static, "LA: "+Math.round(((EntityPlayer)pl).leg1_anim*100f)/100f, 17, 90);
 			Main.font.draw(Main.batch_static, "BURN: "+pl.buff_burn, 17, 60);
 			

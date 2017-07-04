@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.midfag.entity.Entity;
+import com.midfag.entity.missiles.Missile;
 import com.midfag.equip.energoshield.Energoshield;
 import com.midfag.equip.weapon.Weapon;
 import com.midfag.game.Assets;
@@ -109,6 +110,11 @@ public class Skill {
 		return _damage;
 	}
 	
+	public void prefire_action(Entity _e)
+	{
+		
+	}
+	
 
 	public void indicate(float _x, float _y, float _d)
 	{
@@ -182,5 +188,17 @@ public class Skill {
 	public float warm_damage_action(Entity _e) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+	
+	public void prereflect_action(Missile _m, Entity _e) {
+		// TODO Auto-generated method stub
+		
+
+		
+	}
+
+	public void reflect_action(Missile _m, Entity _e) {
+		// TODO Auto-generated method stub
+		
 	}
 }

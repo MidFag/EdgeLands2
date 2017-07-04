@@ -20,6 +20,7 @@ import com.midfag.game.GScreen;
 
 import com.midfag.game.Main;
 import com.midfag.game.skills.Skill;
+import com.midfag.game.skills.SkillGodShield;
 import com.midfag.game.skills.shield_skills.SkillShield;
 import com.midfag.game.skills.shield_skills.SkillShield_AA_ValueHalfDamage;
 import com.midfag.game.skills.shield_skills.SkillShield_AB_ValueHalfDamageTime;
@@ -34,6 +35,11 @@ import com.midfag.game.skills.weapon_skills.SkillWeapon;
 import com.midfag.game.skills.weapon_skills.SkillWeapon_AA_ReloadChance;
 import com.midfag.game.skills.weapon_skills.SkillWeapon_AB_AmmoOrReload;
 import com.midfag.game.skills.weapon_skills.SkillWeapon_A_FastReload;
+import com.midfag.game.skills.weapon_skills.SkillWeapon_BA_TripleShot;
+import com.midfag.game.skills.weapon_skills.SkillWeapon_BB_AdvancedBloodlust;
+import com.midfag.game.skills.weapon_skills.SkillWeapon_B_Bloodlust;
+import com.midfag.game.skills.weapon_skills.SkillWeapon_DA_WeaponExpert;
+import com.midfag.game.skills.weapon_skills.SkillWeapon_D_WeaponMaster;
 
 public class EntityPlayer extends Entity {
 
@@ -119,9 +125,18 @@ public class EntityPlayer extends Entity {
 				Skills_list.add(skl.add_subskill(subskl, GScreen.pl));
 					Skills_list.add(subskl.add_subskill(new SkillWeapon_AA_ReloadChance(), GScreen.pl));
 					Skills_list.add(subskl.add_subskill(new SkillWeapon_AB_AmmoOrReload(), GScreen.pl));
+				subskl=new SkillWeapon_B_Bloodlust();	
+				Skills_list.add(skl.add_subskill(subskl, GScreen.pl));
+					Skills_list.add(subskl.add_subskill(new SkillWeapon_BA_TripleShot(), GScreen.pl));
+					Skills_list.add(subskl.add_subskill(new SkillWeapon_BB_AdvancedBloodlust(), GScreen.pl));
+				subskl=new SkillWeapon_D_WeaponMaster();
+				Skills_list.add(skl.add_subskill(subskl, GScreen.pl));
+					Skills_list.add(subskl.add_subskill(new SkillWeapon_DA_WeaponExpert(), GScreen.pl));
+				
 					
-				
-				
+			skl=new SkillGodShield();
+			Skills_list.add(skl);	
+			
 			engine_id=Assets.engine.play();
 			Assets.engine.setVolume(engine_id, 0.25f);
 			Assets.engine.setLooping(engine_id, true);

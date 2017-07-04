@@ -8,24 +8,23 @@ import com.midfag.equip.weapon.Weapon;
 import com.midfag.game.GScreen;
 import com.midfag.game.skills.Skill;
 
-public class SkillWeapon extends Skill {
+public class SkillWeapon_BB_AdvancedBloodlust extends Skill {
 	
 	
 
-	public SkillWeapon()
+	public SkillWeapon_BB_AdvancedBloodlust()
 	{
 		super();
 		
-		pos.x=-110;
-		pos.y=110;
+		pos.x=0;
+		pos.y=50;
 		
-		spr.setTexture(new Texture(Gdx.files.internal("skill_weapon.png")));
+		spr.setTexture(new Texture(Gdx.files.internal("icon_bloodlust_second.png")));
 		spr.getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		
-		name="Модернизация оружия";
-		info=	"+10% урон "+"\n"+
-				"+10% скорость стрельбы"+"\n"+
-				"+10% скорость перезарядки";
+		name="Тяга к насилию";
+		info=	"+15% урон"+"\n"+
+				"+15% скорость стрельбы";
 		
 		//skill_a=new SkillShield_A_MoreValue();
 		
@@ -34,9 +33,8 @@ public class SkillWeapon extends Skill {
 	@Override
 	public void weapon_gen_action(Weapon _w)
 	{
-		_w.total_damage+=_w.base_damage/10f;
-		_w.total_shoot_cooldown*=0.909f;
-		_w.total_reload_time*=0.909f;
+		_w.total_damage+=_w.base_damage*0.15f;
+		_w.total_shoot_cooldown=_w.total_shoot_cooldown*0.8696f;
 	}
 	
 	@Override

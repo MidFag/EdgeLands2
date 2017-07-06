@@ -22,7 +22,12 @@ public class Main extends Game {
     public static BitmapFont font_big;
     public static ShapeRenderer shapeRenderer;
     public static ShapeRenderer shapeRenderer_static;
+    
     public static ShaderProgram shader;
+    public static ShaderProgram shader_blur_h;
+    public static ShaderProgram shader_blur_v;
+    public static ShaderProgram shader_time_slow;
+    
     public static FrameBuffer fbo;
 	//public static SpriteBatch batch_wheel;
     
@@ -35,6 +40,32 @@ public class Main extends Game {
 				(Gdx.files.internal("d.frag")));
 		
 		if (!shader.isCompiled()) {
+			System.err.println(shader.getLog());
+			System.exit(0);
+		}
+		
+		
+		shader_blur_h=new ShaderProgram(Gdx.files.internal("d.vert"), 
+				(Gdx.files.internal("blur_h.frag")));
+		
+		if (!shader_blur_h.isCompiled()) {
+			System.err.println(shader.getLog());
+			System.exit(0);
+		}
+		
+		
+		shader_blur_v=new ShaderProgram(Gdx.files.internal("d.vert"), 
+				(Gdx.files.internal("blur_v.frag")));
+		
+		if (!shader_blur_v.isCompiled()) {
+			System.err.println(shader.getLog());
+			System.exit(0);
+		}
+		
+		shader_time_slow=new ShaderProgram(Gdx.files.internal("d.vert"), 
+				(Gdx.files.internal("time_slow.frag")));
+		
+		if (!shader_time_slow.isCompiled()) {
 			System.err.println(shader.getLog());
 			System.exit(0);
 		}

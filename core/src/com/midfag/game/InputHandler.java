@@ -21,7 +21,7 @@ import com.midfag.game.GUI.Edit.ButtonChangeMode;
 import com.midfag.game.GUI.Edit.ButtonLoadMap;
 import com.midfag.game.GUI.Edit.ButtonSaveMap;
 import com.midfag.game.GUI.Edit.GUIEdit;
-import com.midfag.game.GUI.buttons.ButtonEqWeapon;
+import com.midfag.game.GUI.buttons.ButtonEquip;
 
 import com.midfag.game.GUI.buttons.ButtonSkill;
 import com.midfag.game.skills.Skill;
@@ -183,8 +183,8 @@ public class InputHandler implements InputProcessor {
     	if (key==Keys.I)
     	{
 			GScreen.skills_camera.zoom=1;
-			GScreen.skills_camera.position.x=500;
-			GScreen.skills_camera.position.y=350;
+			GScreen.skills_camera.position.x=Math.round(GScreen.scr_w/2);
+			GScreen.skills_camera.position.y=Math.round(GScreen.scr_h/2);
 			GScreen.skills_camera.update();
     		
     		GScreen.show_equip=!GScreen.show_equip;
@@ -198,10 +198,13 @@ public class InputHandler implements InputProcessor {
     			
     			GScreen.main_control=false;
     			
-    			gui.Button_list.add(new ButtonEqWeapon(150,250,-1));
-    			gui.Button_list.add(new ButtonEqWeapon(250,250,-2));
+    			gui.Button_list.add(new ButtonEquip(150,250,-1));
+    			gui.Button_list.add(new ButtonEquip(250,250,-2));
     			
-    			gui.Button_list.add(new ButtonEqWeapon(350,250,-5));
+    			gui.Button_list.add(new ButtonEquip(350,250,-5));
+    			
+    			for (int i=0; i<5; i++)
+    			{gui.Button_list.add(new ButtonEquip(450+i*100,250,-10-i));}
     			
     			
     			//Assets.shoot00.
@@ -209,10 +212,10 @@ public class InputHandler implements InputProcessor {
     			for (int i=0; i<10; i++)
     			{
     				//if (GScreen.pl.inventory[i] instanceof Weapon)
-    				{gui.Button_list.add(new ButtonEqWeapon(150+i*85,200-j*45,i+j*10));}
+    				{gui.Button_list.add(new ButtonEquip(150+i*85,200-j*45,i+j*10));}
     			}
     			
-    			gui.Button_list.add(new ButtonEqWeapon(200,250,99));
+    			gui.Button_list.add(new ButtonEquip(200,250,99));
     			//gui.Button_list.add(new ButtonSkill(30,30,GScreen.pl.Skills_list.get(0),gui));
     			
     			GScreen.GUI_list.add(gui);
@@ -269,15 +272,15 @@ public class InputHandler implements InputProcessor {
 
     	
     	
-    	posx=(int) ((Gdx.input.getX()+GScreen.camera.position.x/GScreen.camera.zoom-500)*GScreen.camera.zoom);
-    	posy=(int)((700-Gdx.input.getY()-350+GScreen.camera.position.y/GScreen.camera.zoom)*GScreen.camera.zoom);
+    	posx=(int) ((Gdx.input.getX()+GScreen.camera.position.x/GScreen.camera.zoom-GScreen.scr_w/2f)*GScreen.camera.zoom);
+    	posy=(int)((GScreen.scr_h-Gdx.input.getY()-GScreen.scr_h/2f+GScreen.camera.position.y/GScreen.camera.zoom)*GScreen.camera.zoom);
     	
-    	sposx=(int) ((Gdx.input.getX()+GScreen.skills_camera.position.x/GScreen.skills_camera.zoom-500)*GScreen.skills_camera.zoom);
-    	sposy=(int)((700-Gdx.input.getY()-350+GScreen.skills_camera.position.y/GScreen.skills_camera.zoom)*GScreen.skills_camera.zoom);
+    	sposx=(int) ((Gdx.input.getX()+GScreen.skills_camera.position.x/GScreen.skills_camera.zoom-GScreen.scr_w/2f)*GScreen.skills_camera.zoom);
+    	sposy=(int)((GScreen.scr_h-Gdx.input.getY()-GScreen.scr_h/2+GScreen.skills_camera.position.y/GScreen.skills_camera.zoom)*GScreen.skills_camera.zoom);
     	
     	
     	realx=Gdx.input.getX();
-    	realy=700-Gdx.input.getY();
+    	realy=GScreen.scr_h-Gdx.input.getY();
     	
     	if ((GScreen.show_skills_wheel)&&(but==0))
     	{

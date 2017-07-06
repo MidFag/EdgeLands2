@@ -21,16 +21,18 @@ uniform LOWP float uTime;
 uniform LOWP float zoom;
 void main(){
 
-	gl_FragColor.rgb=texture2D(u_texture, v_texCoords)/2;
-	gl_FragColor*=v_color;
-	gl_FragColor.a=texture2D(u_texture, v_texCoords).a*v_color.a;
+	gl_FragColor.rgb=
 
-	
-	zoom=sin((gl_FragCoord.y+uTime/1)/1)+cos((gl_FragCoord.y+uTime/2)/2)+sin((gl_FragCoord.y+uTime/3)/3);
-	
-	zoom=1-zoom/(zoom+0.5);
-	
-	gl_FragColor+=v_color*texture2D(u_texture, v_texCoords+vec2(zoom/500, 0))/2;
-	gl_FragColor.rgb*=1+zoom/50;
+	texture2D(u_texture, v_texCoords+vec2(0.040,0))*0.0588+//0
+	texture2D(u_texture, v_texCoords+vec2(0.030,0))*0.088+//1
+	texture2D(u_texture, v_texCoords+vec2(0.020,0))*0.117+//2
+	texture2D(u_texture, v_texCoords+vec2(0.010,0))*0.147+//3
+	texture2D(u_texture, v_texCoords+vec2(0.000,0))*0.176+//4
+	texture2D(u_texture, v_texCoords+vec2(0.010,0))*0.147+//3
+	texture2D(u_texture, v_texCoords+vec2(0.020,0))*0.117+//2
+	texture2D(u_texture, v_texCoords+vec2(0.030,0))*0.088+//1
+	texture2D(u_texture, v_texCoords+vec2(0.040,0))*0.0588;//0
+	gl_FragColor.a=texture2D(u_texture, v_texCoords).a;
+	gl_FragColor*=v_color;
 
 }

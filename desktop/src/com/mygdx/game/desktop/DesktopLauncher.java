@@ -5,8 +5,10 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.midfag.game.Main;
 
 public class DesktopLauncher {
+	public static LwjglApplicationConfiguration cfg;
+	
 	public static void main (String[] arg) {
-		LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
+		cfg = new LwjglApplicationConfiguration();
 		
 		//cfg.useGL30=true;
 		cfg.title = "EndlessWorld";

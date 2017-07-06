@@ -52,6 +52,9 @@ public class Assets {
 	public static Sound engine=Gdx.audio.newSound(Gdx.files.internal("engine3.wav"));;
 	
 	public static Sound crash=Gdx.audio.newSound(Gdx.files.internal("crash.wav"));;
+	public static Sound time_slow=Gdx.audio.newSound(Gdx.files.internal("time_slow.wav"));;
+	public static Sound jet=Gdx.audio.newSound(Gdx.files.internal("jet.wav"));;
+	public static long time_slow_id;
 	
 	public static Sprite skill_wheel=new Sprite(new Texture(Gdx.files.internal("eye.png")));
 	public static Sprite select_sprite=new Sprite(new Texture(Gdx.files.internal("selected_skill.png")));
@@ -91,6 +94,8 @@ public class Assets {
 	//public static Texture 
 	
 	public static Texture shadow=new Texture(Gdx.files.internal("mech/shadow.png"));
+	
+	public static Texture noise=new Texture(Gdx.files.internal("noise.png"));
 	
 	public static Texture[] pyra_body=new Texture[16];
 	public static Texture[] pyra_head=new Texture[16];
@@ -173,10 +178,15 @@ public class Assets {
 		
 		icon_cooldown.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		icon_duration.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		noise.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		
 		music.setLooping(true);
-		music.setVolume(0.5f);
+		music.setVolume(0.33f);
 		music.play();
+		
+		time_slow_id=time_slow.play();
+		time_slow.setLooping(time_slow_id, true);
+		time_slow.setVolume(time_slow_id, 0.01f);
 		
 		select_sprite.getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		select_sprite.setAlpha(1.0f);

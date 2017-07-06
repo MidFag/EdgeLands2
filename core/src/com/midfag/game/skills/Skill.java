@@ -13,6 +13,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.midfag.entity.Entity;
 import com.midfag.entity.missiles.Missile;
 import com.midfag.equip.energoshield.Energoshield;
+import com.midfag.equip.module.ModuleUnit;
 import com.midfag.equip.weapon.Weapon;
 import com.midfag.game.Assets;
 import com.midfag.game.Main;
@@ -198,6 +199,11 @@ public class Skill {
 	}
 
 	public void reflect_action(Missile _m, Entity _e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void module_gen_action(ModuleUnit _m) {
 		// TODO Auto-generated method stub
 		
 	}

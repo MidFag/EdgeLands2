@@ -127,9 +127,9 @@ public class Energoshield {
 				
 			attr_point=level*10*(1+rarity.ordinal()/5f);
 		
-			attr_count=(int) (GScreen.rnd(3));
+			attr_count=(int) (GScreen.rnd(3))+1;
 		
-			for (int i=0; i<(attr_count-Available_attribute_list.size())-attr_count; i++)
+			for (int i=0; i<(Available_attribute_list.size()-attr_count); i++)
 			{
 				Available_attribute_list.remove((int)(Math.random()*Available_attribute_list.size()));
 				i--;

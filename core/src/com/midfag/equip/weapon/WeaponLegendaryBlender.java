@@ -31,6 +31,8 @@ public class WeaponLegendaryBlender extends Weapon {
 			
 			name="Αλενδεπ";
 			
+			missile_speed=1500;
+			
 			spr.setTexture(new Texture(Gdx.files.internal("icon_legendary_ping_minigun.png")));
 		}
 		
@@ -41,7 +43,7 @@ public class WeaponLegendaryBlender extends Weapon {
 			return new Missile(
 					new Vector2(pl.pos.x,pl.pos.y),
 					(float) Math.toRadians(360-pl.rot+get_dispersion()+GScreen.rnd(add_disp)-add_disp/2),
-					(GScreen.rnd(200)+400.0f),
+					(GScreen.rnd(200)+missile_speed),
 					pl.is_AI);
 		}
 		

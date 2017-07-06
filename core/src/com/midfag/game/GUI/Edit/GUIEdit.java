@@ -154,7 +154,7 @@ public class GUIEdit extends GUI {
 						en.pos.y=yy;
 						
 						en.spr.setRotation(indicate_entity.spr.getRotation());
-						en.init();
+						//en.init("gui edit");
 						GScreen.add_entity_to_map(en);
 						
 						en.fill_path();

@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.midfag.equip.energoshield.Energoshield;
 import com.midfag.equip.energoshield.EnergoshieldSimple;
+import com.midfag.equip.module.ModuleUnitPush;
+import com.midfag.equip.module.ModuleUnitTimeSlow;
 import com.midfag.equip.weapon.WeaponLegendaryBlender;
 import com.midfag.equip.weapon.WeaponLegendaryChaos;
 import com.midfag.equip.weapon.WeaponLegendaryPing;
@@ -78,6 +80,9 @@ public class EntityPlayer extends Entity {
 		
 		//foot.setSize(30, 6);
 		foot.setOrigin(15, 1);
+		
+		armored_module[0]=new ModuleUnitTimeSlow();
+		armored_module[0].generate();
 		
 		
 		leg.setOrigin(5, 50);
@@ -269,6 +274,7 @@ public class EntityPlayer extends Entity {
 
 	}
 	
+
 	
 	@Override
 	public void some_update(float _d)
@@ -277,37 +283,18 @@ public class EntityPlayer extends Entity {
 		
 		Assets.engine.setPitch(engine_id, (Math.abs(impulse.x)+Math.abs(impulse.y))/400f+0.5f);
 		
-		{leg1_anim+=_d*impulse.x/24*leg_anim_mode;}
+
 		
-		leg2_anim+=_d*impulse.y/24*leg2_anim_mode;
-		
-		if (impulse.x>0)
-		{	
-			if (leg1_anim>1){leg1_anim=1; leg_anim_mode=-1;}
-			if (leg1_anim<-1){leg1_anim=-1; leg_anim_mode=1;}
-		}
-		else
-		{	
-			if (leg1_anim>1){leg1_anim=1; leg_anim_mode=1;}
-			if (leg1_anim<-1){leg1_anim=-1; leg_anim_mode=-1;}
-		}
-		
-		
-		
-		if (impulse.y>0)
-		{	
-			if (leg2_anim>1){leg2_anim=1; leg2_anim_mode=-1;}
-			if (leg2_anim<-1){leg2_anim=-1; leg2_anim_mode=1;}
-		}
-		else
-		{	
-			if (leg2_anim>1){leg2_anim=1; leg2_anim_mode=1;}
-			if (leg2_anim<-1){leg2_anim=-1; leg2_anim_mode=-1;}
-		}
 		//if (Gdx.input.isKeyPressed(106))
 		//{
 		//	System.out.println("Scroll lock is live!");
 		//}
+		
+		if (Gdx.input.isKeyPressed(Keys.NUM_1)){use_module(0);}
+		if (Gdx.input.isKeyPressed(Keys.NUM_2)){use_module(1);}
+		if (Gdx.input.isKeyPressed(Keys.NUM_3)){use_module(2);}
+		if (Gdx.input.isKeyPressed(Keys.NUM_4)){use_module(3);}
+		if (Gdx.input.isKeyPressed(Keys.NUM_5)){use_module(4);}
 		
 		if (Gdx.input.isKeyPressed(Keys.G))
 		{
@@ -320,11 +307,11 @@ public class EntityPlayer extends Entity {
 			else
 			{armored_weapon=new WeaponSimpleMinigun();}*/
 			
-			Assets.shoot03.stop(miso);
+			//Assets.shoot03.stop(miso);
 			
 	        for (int i=0; i<30; i++)//;
 	        {
-	        	switch ((int)GScreen.rnd(8))
+	        	switch ((int)GScreen.rnd(10))
 	        	{
 	        		case 0: inventory[i]=new WeaponSimpleFirle();	break;
 	        		case 1: inventory[i]=new WeaponSimpleMinigun();	break;
@@ -334,6 +321,8 @@ public class EntityPlayer extends Entity {
 	        		case 5: inventory[i]=new WeaponLegendaryChaos(); break;
 	        		case 6: inventory[i]=new WeaponLegendaryBlender(); break;
 	        		case 7: inventory[i]=new WeaponSimpleLaser(); break;
+	        		case 8: inventory[i]=new ModuleUnitPush(); break;
+	        		case 9: inventory[i]=new ModuleUnitTimeSlow(); break;
 	        	}
 	        	
 	        	//if (inventory[i] instanceof Energoshield)

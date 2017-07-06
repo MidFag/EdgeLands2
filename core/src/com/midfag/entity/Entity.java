@@ -12,6 +12,7 @@ import com.midfag.entity.missiles.MissileExplosion;
 import com.midfag.entity.missiles.MissileParticlePiece;
 import com.midfag.equip.energoshield.Energoshield;
 import com.midfag.equip.energoshield.EnergoshieldRobo;
+import com.midfag.equip.module.ModuleUnit;
 import com.midfag.equip.weapon.Weapon;
 import com.midfag.equip.weapon.WeaponRobofirle;
 import com.midfag.game.Assets;
@@ -98,11 +99,23 @@ public class Entity {
 	public boolean is_see=false;
 	
 	public int multiply_missile_count=1;
+
+	public ModuleUnit[] armored_module=new ModuleUnit[5];
+
+	public boolean rotate_block;
 	
-	public void init()
+	public void use_module(int _id)
+	{
+		if ((armored_module[_id]!=null)&&(armored_module[_id].can_use()))
+		{
+			armored_module[_id].use(this);
+		}
+	}
+	
+	public void init(String _point)
 	{
 		
-		
+		System.out.println("PHYS ADDED ["+_point+"]");
 			Phys_list_local.clear();
 			if (!custom_phys)
 			{
@@ -112,6 +125,8 @@ public class Entity {
 				x=Math.min(29, Math.max(x, 1));
 				y=Math.min(29, Math.max(y, 1));
 	
+				;
+				
 				
 					Phys p=new Phys(new Vector2(pos.x-40f/1,pos.y),new Vector2(pos.x+40f/1,pos.y),false,this,true);
 					{p.move_block=false;}
@@ -186,8 +201,28 @@ public class Entity {
 		}
 	}
 	
-	public void do_custom_phys() {
-		// TODO Auto-generated method stub
+	
+	public void do_custom_phys()
+	{
+		int x=(int)(pos.x/300);
+		int y=(int)(pos.y/300);
+		
+		
+		Phys p=new Phys(new Vector2(pos.x-14,pos.y),new Vector2(pos.x+14,pos.y),true,this,true);
+		GScreen.cluster[x][y].Phys_list.add(p);
+		Phys_list_local.add(p);
+		
+		p=new Phys(new Vector2(pos.x+14,pos.y+20),new Vector2(pos.x+14,pos.y),true,this,true);
+		GScreen.cluster[x][y].Phys_list.add(p);
+		Phys_list_local.add(p);
+		
+		p=new Phys(new Vector2(pos.x-14,pos.y+20),new Vector2(pos.x+14,pos.y+20),true,this,true);
+		GScreen.cluster[x][y].Phys_list.add(p);
+		Phys_list_local.add(p);
+		
+		p=new Phys(new Vector2(pos.x-14,pos.y+20),new Vector2(pos.x-14,pos.y),true,this,true);
+		GScreen.cluster[x][y].Phys_list.add(p);
+		Phys_list_local.add(p);
 		
 	}
 
@@ -507,7 +542,13 @@ public class Entity {
 	}
 	public void update(float _d)
 	{
-		
+		rotate_block=false;
+		for (int i=0; i<5; i++)
+		{
+			
+			if (armored_module[i]!=null)
+				{armored_module[i].update(this, _d);}
+		}
 		some_update(_d);
 		
 		/*
@@ -523,14 +564,15 @@ public class Entity {
 		}*/
     	//spr.setRotation(180-c);
     	
-    	
+		if (armored_shield!=null)
+    	for (int i=0; i<=armored_shield.Attribute_list.size()-1; i++)
+		{
+			armored_shield.Attribute_list.get(i).update(_d, this);
+		}
 		
 		for (int j=0; j<2; j++)
 		{
-			for (int i=0; i<=armored_shield.Attribute_list.size()-1; i++)
-			{
-				armored_shield.Attribute_list.get(i).update(_d, this);
-			}
+
 			
 			if (armored[j]!=null)
 			for (int i=0; i<=armored[j].Attribute_list.size()-1; i++)
@@ -577,7 +619,7 @@ public class Entity {
 				armored[i].cd-=_d;
 			}
 		}
-		if (armored_shield.value>0)
+		if ((armored_shield!=null)&&(armored_shield.value>0))
 		{
 			armored_shield.value+=armored_shield.total_regen_speed*armored_shield.warm*_d/1;
 			
@@ -696,7 +738,7 @@ public class Entity {
 		
 		if (is_player)
 		{
-			if ((InputHandler.MB)&&(armored_shield.value>0)&&(GScreen.main_control))
+			if ((InputHandler.MB)&&(armored_shield!=null)&&(armored_shield.value>0)&&(GScreen.main_control))
 			{
 	    		if (armored[0]!=null)
 	    		{shoot(_d,0);}

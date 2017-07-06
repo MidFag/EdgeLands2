@@ -1,13 +1,14 @@
 package com.midfag.game.GUI.buttons;
 
 import com.midfag.equip.energoshield.Energoshield;
+import com.midfag.equip.module.ModuleUnit;
 import com.midfag.equip.weapon.Weapon;
 import com.midfag.game.Assets;
 import com.midfag.game.GScreen;
 import com.midfag.game.InputHandler;
 import com.midfag.game.Main;
 
-public class ButtonEqWeapon extends Button {
+public class ButtonEquip extends Button {
 
 	public Object obj;
 	public float mov;
@@ -17,7 +18,7 @@ public class ButtonEqWeapon extends Button {
 	
 	public int inventory_id;
 	
-	public ButtonEqWeapon(float _x, float _y, int _id)
+	public ButtonEquip(float _x, float _y, int _id)
 	{
 		super (_x,_y);
 		mov=0;
@@ -36,6 +37,7 @@ public class ButtonEqWeapon extends Button {
 			obj=null;
 			if (GScreen.pl.inventory[inventory_id] instanceof Weapon){obj=(Weapon)GScreen.pl.inventory[inventory_id];}
 			if (GScreen.pl.inventory[inventory_id] instanceof Energoshield){obj=(Energoshield)GScreen.pl.inventory[inventory_id];}
+			if (GScreen.pl.inventory[inventory_id] instanceof ModuleUnit){obj=(ModuleUnit)GScreen.pl.inventory[inventory_id];}
 		}
 		
 		if (inventory_id==-1)
@@ -54,6 +56,13 @@ public class ButtonEqWeapon extends Button {
 		{
 			obj=(Energoshield)GScreen.pl.armored_shield;
 		}
+		
+		if ((inventory_id<=-10)&&(inventory_id>-15))
+		{
+			obj=(ModuleUnit)GScreen.pl.armored_module[Math.abs(inventory_id)-10];
+		}
+		
+		
 		
 		if (inventory_id==99)
 		{
@@ -77,7 +86,10 @@ public class ButtonEqWeapon extends Button {
 		if (_a==_b)
 		{Main.font.setColor(0.9f, 0.95f, 1.0f, 1);}
 		else
+		if (_a>_b)	
 		{Main.font.setColor(0.65f, 1.0f, 0.75f, 1);}
+		else	
+		{Main.font.setColor(1.0f, 0.75f, 0.65f, 1);}
 	}
 	
 	
@@ -102,6 +114,24 @@ public class ButtonEqWeapon extends Button {
 			Main.font.setColor(1.0f, 1.0f, 1.0f, 1);
 			Main.batch_static.draw(Assets.rect, info_x-10, info_y-10-230);
 			
+			if (obj instanceof ModuleUnit)
+			{
+				
+				ModuleUnit m=((ModuleUnit)obj);
+				draw_info(""+((ModuleUnit)obj).get_name(),"");
+				//mov+=25;
+				//draw_info("Bonuses: ",""+((Weapon)obj).attr_count);
+				draw_info(m.get_description(),"");
+				mov+=25;
+
+				color_it (m.base_cooldown,m.total_cooldown); draw_info("Перезарядка: ",""+Math.round(m.total_cooldown*100.0f)/100.0f);
+				color_it (m.total_duration,m.base_duration); draw_info("Длительность: ",""+Math.round(m.total_duration*100.0f)/100.0f);
+			
+				
+				//model.
+				
+
+			}
 			
 			if (obj instanceof Weapon)
 			{
@@ -113,11 +143,11 @@ public class ButtonEqWeapon extends Button {
 				mov+=25;
 				color_it (w.total_damage,w.base_damage); draw_info("Урон: ",""+w.total_damage);
 				mov+=5;
-				color_it (w.total_shoot_cooldown,w.base_shoot_cooldown); draw_info("Скорострельность: ",""+Math.round(1.0f/w.total_shoot_cooldown*10.0f)/10.0f);
-				color_it (w.total_dispersion,w.base_dispersion);draw_info("Dispersion: ",""+Math.round(w.total_dispersion));
-				color_it (w.total_dispersion_additional,w.base_dispersion_additional);draw_info("Dispersion add: ",""+Math.round(w.total_dispersion_additional));
+				color_it (w.base_shoot_cooldown,w.total_shoot_cooldown); draw_info("Скорострельность: ",""+Math.round(1.0f/w.total_shoot_cooldown*10.0f)/10.0f);
+				color_it (w.base_dispersion,w.total_dispersion);draw_info("Dispersion: ",""+Math.round(w.total_dispersion));
+				color_it (w.base_dispersion_additional,w.total_dispersion_additional);draw_info("Dispersion add: ",""+Math.round(w.total_dispersion_additional));
 				color_it (w.total_ammo_size,w.base_ammo_size);draw_info("Ammo size: ",""+Math.round(w.total_ammo_size));
-				color_it (w.total_reload_time,w.base_reload_time);draw_info("Reload time: ",""+Math.round(w.total_reload_time*10.0f)/10f);
+				color_it (w.base_reload_time,w.total_reload_time);draw_info("Reload time: ",""+Math.round(w.total_reload_time*10.0f)/10f);
 				
 				
 				
@@ -163,26 +193,12 @@ public class ButtonEqWeapon extends Button {
 				{
 					
 					
-					if (GScreen.pl.inventory[inventory_id] instanceof Weapon)
-					{
-						Object swap=(Weapon)GScreen.pl.inventory[inventory_id];
-						GScreen.pl.inventory[inventory_id]=(Weapon)GScreen.pl.inventory[99];
-						GScreen.pl.inventory[99]=swap;
-					}
-					else
-					if (GScreen.pl.inventory[inventory_id] instanceof Energoshield)
-					{
-							Object swap=GScreen.pl.armored_shield;
-							GScreen.pl.armored_shield=(Energoshield)GScreen.pl.inventory[inventory_id];
-							GScreen.pl.inventory[inventory_id]=swap;
-					}
-					else
-					{
-						System.out.println("!!!");
-						Object swap=GScreen.pl.inventory[inventory_id];
-						GScreen.pl.inventory[inventory_id]=GScreen.pl.inventory[99];
-						GScreen.pl.inventory[99]=swap;
-					}
+
+					Object swap=GScreen.pl.inventory[inventory_id];
+					GScreen.pl.inventory[inventory_id]=GScreen.pl.inventory[99];
+					GScreen.pl.inventory[99]=swap;
+					
+					
 					
 					update_object();
 					Main.font.setColor(1.0f, 1.0f, 1.0f, 1);
@@ -190,17 +206,31 @@ public class ButtonEqWeapon extends Button {
 				else
 				{
 					
-					if (inventory_id==-1)
+					if ((inventory_id==-1)&&(GScreen.pl.inventory[99] instanceof Weapon))
 					{
 						Object swap=(Weapon)GScreen.pl.armored[0];
 						GScreen.pl.armored[0]=(Weapon)GScreen.pl.inventory[99];
 						GScreen.pl.inventory[99]=swap;
 					}
 					
-					if (inventory_id==-2)
+					if ((inventory_id==-2)&&(GScreen.pl.inventory[99] instanceof Weapon))
 					{
 						Object swap=(Weapon)GScreen.pl.armored[1];
 						GScreen.pl.armored[1]=(Weapon)GScreen.pl.inventory[99];
+						GScreen.pl.inventory[99]=swap;
+					}
+					
+					if ((inventory_id==-5)&&(GScreen.pl.inventory[99] instanceof Energoshield))
+					{
+						Object swap=(Energoshield)GScreen.pl.armored_shield;
+						GScreen.pl.armored_shield=(Energoshield)GScreen.pl.inventory[99];
+						GScreen.pl.inventory[99]=swap;
+					}
+					
+					if ((inventory_id<=-10)&&(inventory_id>-15)&&(GScreen.pl.inventory[99] instanceof ModuleUnit))
+					{
+						Object swap=(ModuleUnit)GScreen.pl.armored_module[Math.abs(inventory_id)-10];
+						GScreen.pl.armored_module[Math.abs(inventory_id)-10]=(ModuleUnit)GScreen.pl.inventory[99];
 						GScreen.pl.inventory[99]=swap;
 					}
 					
@@ -226,8 +256,13 @@ public class ButtonEqWeapon extends Button {
 			{
 				((Weapon)obj).spr.setPosition(pos.x-spr.getWidth()/2,pos.y-spr.getHeight()/2);
 				((Weapon)obj).spr.draw(Main.batch_static);
+			}
+			
+			if (obj instanceof ModuleUnit)
+			{
+				Main.batch_static.setColor(((ModuleUnit)obj).color);
+				Main.batch_static.draw(((ModuleUnit)obj).tex, pos.x-spr.getWidth()/2,pos.y-spr.getHeight()/2);
 				
-
 			}
 		}
 		

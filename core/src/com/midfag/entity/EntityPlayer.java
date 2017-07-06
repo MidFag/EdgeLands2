@@ -204,7 +204,9 @@ public class EntityPlayer extends Entity {
 		{
 			rotate_cooldown=0.1f;
 			
-			
+				float cold_rating=1-buff_cold/(buff_cold+100);
+				spr.setColor(cold_rating, 1, 1, 1);
+				
 				//if ((impulse.x>0)&&(bottom_draw>=0)&&(bottom_draw<=3)){bottom_draw++;}
 				float c=(float) Math.toDegrees(Math.atan2(impulse.x, impulse.y));
 				if (c<0){c=360+c;}
@@ -230,13 +232,15 @@ public class EntityPlayer extends Entity {
 		spr.translate(5,80);
 		
 		spr.setSize(100, 100);
-		spr.translateY(-10);
+		spr.translate(-10,-30);
 		spr.setTexture(bottom_tex[bottom_draw]);
 		spr.draw(Main.batch);
-		spr.translateY(10);
+		spr.translate(10,30);
 		
+		spr.translate(-10,-25);
 		spr.setTexture(tex[draw_sprite]);
 		spr.draw(Main.batch);
+		spr.translate(10,25);
 
 	}
 	

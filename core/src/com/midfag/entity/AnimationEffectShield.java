@@ -18,7 +18,7 @@ public class AnimationEffectShield extends AnimationEffect {
 		timer=0.03f;
 		max_frame=12;
 		
-		alpha=0.5f;
+		alpha=0.20f;
 		
 		size_x=300;
 		size_y=300;

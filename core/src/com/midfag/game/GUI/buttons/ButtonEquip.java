@@ -1,5 +1,6 @@
 package com.midfag.game.GUI.buttons;
 
+import com.badlogic.gdx.graphics.Color;
 import com.midfag.equip.energoshield.Energoshield;
 import com.midfag.equip.module.ModuleUnit;
 import com.midfag.equip.weapon.Weapon;
@@ -112,21 +113,26 @@ public class ButtonEquip extends Button {
 			Main.shapeRenderer_static.rect(info_x-10, info_y-10-200, 300, 220);*/
 			
 			Main.font.setColor(1.0f, 1.0f, 1.0f, 1);
-			Main.batch_static.draw(Assets.rect, info_x-10, info_y-10-230);
+			Main.batch_static.draw(Assets.rect, info_x-10, info_y-10-230,650,300);
 			
 			if (obj instanceof ModuleUnit)
 			{
 				
 				ModuleUnit m=((ModuleUnit)obj);
 				draw_info(""+((ModuleUnit)obj).get_name(),"");
-				//mov+=25;
+				mov+=25;
 				//draw_info("Bonuses: ",""+((Weapon)obj).attr_count);
 				draw_info(m.get_description(),"");
 				mov+=25;
 
 				color_it (m.base_cooldown,m.total_cooldown); draw_info("Перезарядка: ",""+Math.round(m.total_cooldown*100.0f)/100.0f);
 				color_it (m.total_duration,m.base_duration); draw_info("Длительность: ",""+Math.round(m.total_duration*100.0f)/100.0f);
-			
+				mov+=25;
+				for (int i=0; i<m.Attribute_list.size(); i++)
+				{
+					Main.font.setColor(Color.WHITE);
+					draw_info(m.Attribute_list.get(i).get_descr(),"");
+				}
 				
 				//model.
 				
@@ -150,6 +156,8 @@ public class ButtonEquip extends Button {
 				color_it (w.base_reload_time,w.total_reload_time);draw_info("Reload time: ",""+Math.round(w.total_reload_time*10.0f)/10f);
 				
 				
+				
+				//if (Math.random()<0.01){((Weapon)obj).model.setPosition((float)(Math.random()*100),(float)(Math.random()*100));}
 				
 				((Weapon)obj).model.setPosition(info_x,info_y-300);
 				((Weapon)obj).model.draw(Main.batch_static);

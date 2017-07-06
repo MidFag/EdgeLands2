@@ -39,13 +39,16 @@ public class AnimationEffect {
 	public void do_animation(float _d)
 	{
 		
+
 		
 		Main.batch.setColor(1, 1, 1, alpha*timer/base_timer);
 		Main.batch.draw(tex[frame],v.x+offset_x,v.y+offset_y,size_x,size_y);
 		
+		Main.font_big.draw(Main.batch, ""+alpha, v.x, v.y);
+		
 		if (frame<max_frame)
 		{
-			Main.batch.setColor(1, 1, 1, 1-(alpha*timer/base_timer));
+			Main.batch.setColor(1, 1, 1, alpha*(1-timer/base_timer));
 			Main.batch.draw(tex[frame+1],v.x+offset_x,v.y+offset_y,size_x,size_y);
 		}
 		

@@ -1,5 +1,7 @@
 package com.midfag.equip.module;
 
+import java.util.List;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -8,6 +10,7 @@ import com.midfag.entity.Entity;
 import com.midfag.entity.Shd;
 import com.midfag.entity.ShdMove;
 import com.midfag.equip.module.attr.ModuleAttributeDuration;
+import com.midfag.equip.module.attr.ModuleAttributeExplosionIce;
 import com.midfag.equip.module.attr.ModuleAttributePushDamage;
 import com.midfag.game.Assets;
 import com.midfag.game.GScreen;
@@ -34,12 +37,15 @@ public class ModuleUnitTimeSlow extends ModuleUnit {
 		base_cooldown=5;
 		base_time_slow=0.5f;
 		
-		Available_attribute_list.add(new ModuleAttributeDuration());
+		level=5;
+		
+
 		
 		tex=new Texture(Gdx.files.internal("icon_time_control.png"));
 
 		rarity=Rarity.COMMON;
 		
+		Available_attribute_list.add(new ModuleAttributeExplosionIce());
 		
 		generate();
 		update_stats();
@@ -64,7 +70,10 @@ public class ModuleUnitTimeSlow extends ModuleUnit {
 	}
 	
 
-
+	public String get_descr()
+	{
+		return "";
+	}
 	
 	@Override
 	public void additional_update_stats()
@@ -95,8 +104,17 @@ public class ModuleUnitTimeSlow extends ModuleUnit {
 				//_e.rotate_block=true;
 				
 				if (duration<=0)
-				{duration=0;
-				cooldown=total_cooldown;}
+				{
+					duration=0;
+					cooldown=total_cooldown;
+					
+					for (int i=0; i<Attribute_list.size(); i++)
+					{
+						Attribute_list.get(i).end_action(_e,_d);
+						
+						
+					}				
+				}
 			}
 	}
 	

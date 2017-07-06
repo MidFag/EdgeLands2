@@ -8,6 +8,7 @@ import com.midfag.entity.Entity;
 import com.midfag.entity.Shd;
 import com.midfag.entity.ShdMove;
 import com.midfag.equip.module.attr.ModuleAttributeDuration;
+import com.midfag.equip.module.attr.ModuleAttributeFastCooldown;
 import com.midfag.equip.module.attr.ModuleAttributePushDamage;
 import com.midfag.game.Assets;
 import com.midfag.game.GScreen;
@@ -35,7 +36,7 @@ public class ModuleUnitPush extends ModuleUnit {
 		base_push_damage=50;
 		
 		Available_attribute_list.add(new ModuleAttributePushDamage());
-		Available_attribute_list.add(new ModuleAttributeDuration());
+
 		
 		tex=new Texture(Gdx.files.internal("icon_push.png"));
 

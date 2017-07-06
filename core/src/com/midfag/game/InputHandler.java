@@ -183,8 +183,10 @@ public class InputHandler implements InputProcessor {
     	if (key==Keys.I)
     	{
 			GScreen.skills_camera.zoom=1;
-			GScreen.skills_camera.position.x=Math.round(GScreen.scr_w/2);
-			GScreen.skills_camera.position.y=Math.round(GScreen.scr_h/2);
+
+			GScreen.skills_camera.position.x=GScreen.scr_w/2.0f;
+			GScreen.skills_camera.position.y=GScreen.scr_h/2.0f;
+			
 			GScreen.skills_camera.update();
     		
     		GScreen.show_equip=!GScreen.show_equip;
@@ -219,6 +221,7 @@ public class InputHandler implements InputProcessor {
     			//gui.Button_list.add(new ButtonSkill(30,30,GScreen.pl.Skills_list.get(0),gui));
     			
     			GScreen.GUI_list.add(gui);
+    			
     		}
     		else
     		{

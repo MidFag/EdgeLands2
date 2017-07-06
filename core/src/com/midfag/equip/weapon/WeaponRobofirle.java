@@ -11,7 +11,7 @@ public class WeaponRobofirle extends Weapon {
 		{
 			base_damage=10;
 			base_missile_count=1;
-			base_shoot_cooldown=0.1f;
+			base_shoot_cooldown=0.2f;
 			base_dispersion=5;
 			base_dispersion_additional=1;
 			base_ammo_size=3;

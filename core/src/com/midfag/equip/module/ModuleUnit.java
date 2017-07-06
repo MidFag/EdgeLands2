@@ -11,6 +11,8 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.midfag.entity.Entity;
 import com.midfag.equip.energoshield.attr.ESAttribute;
 import com.midfag.equip.module.attr.ModuleAttribute;
+import com.midfag.equip.module.attr.ModuleAttributeDuration;
+import com.midfag.equip.module.attr.ModuleAttributeFastCooldown;
 
 import com.midfag.game.Assets;
 import com.midfag.game.GScreen;
@@ -44,7 +46,8 @@ public class ModuleUnit {
 	
 	public ModuleUnit()
 	{
-		
+		Available_attribute_list.add(new ModuleAttributeDuration());
+		Available_attribute_list.add(new ModuleAttributeFastCooldown());
 	}
 	
 	public void update(Entity _e, float _d)
@@ -99,7 +102,7 @@ public class ModuleUnit {
 				
 			attr_point=level*10*(1+rarity.ordinal()/5f);
 		
-			attr_count=(int) (GScreen.rnd(3))+10;
+			attr_count=(int) (GScreen.rnd(3))+1;
 		
 			for (int i=0; i<(Available_attribute_list.size()-attr_count); i++)
 			{

@@ -56,6 +56,8 @@ public class Assets {
 	public static Sound jet=Gdx.audio.newSound(Gdx.files.internal("jet.wav"));;
 	public static long time_slow_id;
 	
+	public static Sound freeze=Gdx.audio.newSound(Gdx.files.internal("freeze.wav"));;
+	
 	public static Sprite skill_wheel=new Sprite(new Texture(Gdx.files.internal("eye.png")));
 	public static Sprite select_sprite=new Sprite(new Texture(Gdx.files.internal("selected_skill.png")));
 
@@ -96,6 +98,7 @@ public class Assets {
 	public static Texture shadow=new Texture(Gdx.files.internal("mech/shadow.png"));
 	
 	public static Texture noise=new Texture(Gdx.files.internal("noise.png"));
+	public static Texture normal_map=new Texture(Gdx.files.internal("normal_map.png"));
 	
 	public static Texture[] pyra_body=new Texture[16];
 	public static Texture[] pyra_head=new Texture[16];

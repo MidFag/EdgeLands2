@@ -31,20 +31,20 @@ void main(){
 	
 		gl_FragColor.r=texture2D(u_texture2, v_texCoords+
 	vec2(
-	(texture2D(u_texture, v_texCoords).r-0.5)/20*(value),
-	(texture2D(u_texture, v_texCoords).g-0.5)/-20*(value)
+	(texture2D(u_texture, v_texCoords).r-0.5)/10*(value),
+	(texture2D(u_texture, v_texCoords).g-0.5)/-10*(value)
 	)).r;
 	
 	gl_FragColor.g=texture2D(u_texture2, v_texCoords+
 	vec2(
-	(texture2D(u_texture, v_texCoords).r-0.5)/20*(value),
-	(texture2D(u_texture, v_texCoords).g-0.5)/20*(value)
+	(texture2D(u_texture, v_texCoords).r-0.5)/10*(value),
+	(texture2D(u_texture, v_texCoords).g-0.5)/10*(value)
 	)).g;
 	
 		gl_FragColor.b=texture2D(u_texture2, v_texCoords+
 	vec2(
-	(texture2D(u_texture, v_texCoords).g-0.5)/-20*(value),
-	(texture2D(u_texture, v_texCoords).r-0.5)/20*(value)
+	(texture2D(u_texture, v_texCoords).g-0.5)/-10*(value),
+	(texture2D(u_texture, v_texCoords).r-0.5)/10*(value)
 	)).b;
 	
 	
@@ -57,7 +57,7 @@ void main(){
 	gray=clamp(gray,0,1);
 	gray*=2;
 	
-	value/=2;
+	value/=4;
 
 	gl_FragColor.g+=gray*value;
 	gl_FragColor.r+=gray*value;

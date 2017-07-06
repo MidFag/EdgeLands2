@@ -57,12 +57,15 @@ public class EntityPyra extends Entity {
 		can_rotate=false;
 		
 		friction=0.1f;
-		speed/=0.2f;
+		speed/=0.25f;
 	}
 	
 	@Override
 	public void draw_action(float _d) {
 
+		float cold_rating=1.0f-buff_cold/(buff_cold+100.0f);
+		spr.setColor(cold_rating, 1, 1, 1);
+		
 		if (rotate_cooldown<=0)
 		{
 			rotate_cooldown=0.1f;

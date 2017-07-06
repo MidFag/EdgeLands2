@@ -93,6 +93,7 @@ public class Entity {
 	public boolean path=false;
 	
 	public float buff_burn;
+	public float buff_cold;
 	public float buff_timer=1;
 	
 	public float look_cooldown=0.5f;
@@ -231,10 +232,17 @@ public class Entity {
 		
 	}
 	
+	public void freeze_it(float _v)
+	{
+		buff_cold+=_v*(1.0f-(buff_cold/(buff_cold+100.0f)));
+	}
+	
 	public void hit_action(float _damage, boolean _sound)
 	{
 		
 		stun+=1;
+		
+		
 		
 		if (have_ability)
 		{
@@ -504,8 +512,15 @@ public class Entity {
 			
 			armored[_i].add_disp+=armored[_i].total_dispersion_additional;
 			
-			if ((pos.dst(GScreen.pl.pos)<1000)&&(armored[_i]!=null))
-			{armored[_i].get_shoot_sound().play((1f-pos.dst(GScreen.pl.pos)/1000.0f)*0.15f);}
+			if ((pos.dst(GScreen.pl.pos)<800)&&(armored[_i]!=null))
+			{
+				if (is_AI)
+				{	armored[_i].get_shoot_sound().play((1f-pos.dst(GScreen.pl.pos)/800.0f)*0.15f);}
+				else
+				{
+					armored[_i].get_shoot_sound().play((1f-pos.dst(GScreen.pl.pos)/800.0f)*0.5f);
+				}
+			}
 			
 			armored[_i].ammo--;
 			if (armored[_i].ammo<=0)
@@ -543,6 +558,9 @@ public class Entity {
 	public void update(float _d)
 	{
 		rotate_block=false;
+		
+		float cold_rating=1-buff_cold/(buff_cold+100);
+		
 		for (int i=0; i<5; i++)
 		{
 			
@@ -595,7 +613,7 @@ public class Entity {
 			if (armored[i]!=null)
 			if (armored[i].reload_timer>0)
 			{
-				armored[i].reload_timer-=_d;
+				armored[i].reload_timer-=_d*cold_rating;
 				
 				if (armored[i].reload_timer<=0)
 				{
@@ -616,7 +634,7 @@ public class Entity {
 				armored[i].add_disp*=Math.pow(0.30f,_d);
 			
 				
-				armored[i].cd-=_d;
+				armored[i].cd-=_d*cold_rating;
 			}
 		}
 		if ((armored_shield!=null)&&(armored_shield.value>0))
@@ -635,28 +653,35 @@ public class Entity {
 		
 		hurt_sound_cooldown-=_d;
 		
+		
+		
+		float mx=impulse.x*cold_rating;
+		float my=impulse.y*cold_rating;
+		
 		Phys near_object=null;
-		float spd=(float) (Math.sqrt(impulse.x*impulse.x+impulse.y*impulse.y));
+		float spd=(float) (Math.sqrt(mx*mx+my*my));
 		
 		float prev_pos_x=pos.x;
 		float prev_pos_y=pos.y;
 		
 		
 
-		near_object=GScreen.get_contact(pos.x,pos.y,pos.x+impulse.x*_d,pos.y+impulse.y*_d,(impulse.x)/spd,(impulse.y)/spd,spd*_d,true,false,true);
+		near_object=GScreen.get_contact(pos.x,pos.y,pos.x+mx*_d,pos.y+my*_d,mx/spd,my/spd,spd*_d,true,false,true);
 		
 
 		
 		if (near_object==null)
 		{
-			move (impulse.x,impulse.y,_d);
+			move (mx,my,_d);
 			
 			//hit_action(99999);
 			
 		}
 		else
 		{
-			System.out.println("###"+near_object.move_block);
+			impulse.x*=0.75f;
+			impulse.y*=0.75f;
+			//System.out.println("###"+near_object.move_block);
 		}
 		
 		float dx=GScreen.pl.pos.x-pos.x;
@@ -759,13 +784,19 @@ public class Entity {
 		
 		buff_timer-=_d;
 		
-		if ((buff_timer<=0)&&(buff_burn>0.1f))
+		if ((buff_timer<=0))
 		{
 			buff_timer+=1;
 			
-			hit_action(buff_burn,false);
+			if(buff_burn>0.1f)
+			{hit_action(buff_burn,false);}
+			
 			buff_burn*=0.9f;
+			buff_cold*=0.9f;
+
 		}
+		
+		
 	}
 
 	public void add_impulse(float _x, float _y, float _d) {
@@ -781,6 +812,8 @@ public class Entity {
 
 	public void draw_action(float _d) {
 		// TODO Auto-generated method stub
+		float cold_rating=1-buff_cold/(buff_cold+100);
+		spr.setColor(cold_rating, cold_rating, 1, 1);
 		spr.draw(Main.batch);
 	}
 	

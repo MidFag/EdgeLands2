@@ -14,7 +14,7 @@ public class EnergoshieldSimple extends Energoshield {
 		
 		name="Sample shield";
 		
-		level=1;
+		level=5;
 		
 		generate();
 		update_attributes_bonus();

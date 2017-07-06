@@ -128,6 +128,25 @@ public class GScreen implements Screen {
 		saved_timer=TimeUtils.millis();
 	}
 	
+	public static List<Entity> get_entity_list()
+	{
+		List<Entity> l=new ArrayList<Entity>();
+		
+		int cluster_x=(int)(pl.pos.x/300);
+	    int cluster_y=(int)(pl.pos.y/300);
+	        
+	  
+	    for (int x=cluster_x-2; x<=cluster_x+2; x++)
+	    for (int y=cluster_y-2; y<=cluster_y+2; y++)
+	    if ((x>=0)&&(y>=0)&&(x<30)&&(y<30))
+	    for (int i=0; i<cluster[x][y].Entity_list.size();i++)
+	    {
+	    		l.add(cluster[x][y].Entity_list.get(i));
+	    }
+	    
+	    return l;
+	}
+	
     public GScreen get_this()
     {
     	return this;
@@ -621,18 +640,22 @@ public class GScreen implements Screen {
     	
 		Main.batch_static.begin();
 
-    	Main.batch_static.setShader(Main.shader_time_slow);
+
        
 			Texture t=Main.fbo.getColorBufferTexture();
 			t.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 			
-			Assets.noise.bind(1);
-			Main.shader_time_slow.setUniformi("u_texture", 1);
-			
-			t.bind(0);
-			Main.shader_time_slow.setUniformi("u_texture2", 0);
-			//Gdx.gl.glActiveTexture(GL20.GL_TEXTURE0);
-			Main.shader_time_slow.setUniformf("value", time_speed_value+(time_speed-time_speed_value));
+			if (time_speed<=0.99)
+			{
+				Main.batch_static.setShader(Main.shader_time_slow);
+				Assets.noise.bind(1);
+				Main.shader_time_slow.setUniformi("u_texture", 1);
+				
+				t.bind(0);
+				Main.shader_time_slow.setUniformi("u_texture2", 0);
+				//Gdx.gl.glActiveTexture(GL20.GL_TEXTURE0);
+				Main.shader_time_slow.setUniformf("value", time_speed_value+(time_speed-time_speed_value));
+		    }
 			//Main.shader_time_slow.set("value", time_speed_value+(time_speed-time_speed_value));
 			
 				Main.batch_static.setColor(1.0f, 1.0f, 1.0f, 1.0f);
@@ -648,26 +671,30 @@ public class GScreen implements Screen {
 			{Main.batch_static.draw(t,sinR(i*60)*8,700+cosR(i*60)*8,1000,-700);}
 			*/
 			
-	    	
-			Main.batch_static.setColor(1.0f, 1.0f, 1.0f, 0.06f);
-			for (int i=0; i<6; i++)
-			//{Main.batch_static.draw(t,0-2*i,700+2*i,1000+4*i,-700-4*i);}
-			{Main.batch_static.draw(t,sinR(i*60+40)*3f,scr_h+cosR(i*60+40)*3,scr_w,-scr_h);}
+				if (!Gdx.input.isKeyPressed(Keys.H))
+				{
+					Main.batch_static.setColor(1.0f, 1.0f, 1.0f, 0.05f);
+					for (int i=0; i<6; i++)
+					//{Main.batch_static.draw(t,0-2*i,700+2*i,1000+4*i,-700-4*i);}
+					{Main.batch_static.draw(t,sinR(i*60+40)*2f,scr_h+cosR(i*60+40)*2,scr_w,-scr_h);}
+					
+					Main.batch_static.setColor(1.0f, 1.0f, 1.0f, 0.025f);
+					for (int i=0; i<6; i++)
+					//{Main.batch_static.draw(t,0-2*i,700+2*i,1000+4*i,-700-4*i);}
+					{Main.batch_static.draw(t,sinR(i*60+20)*4,scr_h+cosR(i*60+20)*4,scr_w,-scr_h);}		
+					
+					Main.batch_static.setColor(1.0f, 1.0f, 1.0f, 0.0125f);
+					for (int i=0; i<6; i++)
+					//{Main.batch_static.draw(t,0-2*i,700+2*i,1000+4*i,-700-4*i);}
+					{Main.batch_static.draw(t,sinR(i*60)*8,scr_h+cosR(i*60)*8,scr_w,-scr_h);}
+					
+					Main.batch_static.setColor(1.0f, 1.0f, 1.0f, 0.0125f);
+					for (int i=0; i<6; i++)
+					//{Main.batch_static.draw(t,0-2*i,700+2*i,1000+4*i,-700-4*i);}
+					{Main.batch_static.draw(t,sinR(i*60+30)*16,scr_h+cosR(i*60+30)*16,scr_w,-scr_h);}
+				}
 			
-			Main.batch_static.setColor(1.0f, 1.0f, 1.0f, 0.04f);
-			for (int i=0; i<6; i++)
-			//{Main.batch_static.draw(t,0-2*i,700+2*i,1000+4*i,-700-4*i);}
-			{Main.batch_static.draw(t,sinR(i*60+20)*6,scr_h+cosR(i*60+20)*6,scr_w,-scr_h);}		
-			
-			Main.batch_static.setColor(1.0f, 1.0f, 1.0f, 0.02f);
-			for (int i=0; i<6; i++)
-			//{Main.batch_static.draw(t,0-2*i,700+2*i,1000+4*i,-700-4*i);}
-			{Main.batch_static.draw(t,sinR(i*60)*12,scr_h+cosR(i*60)*12,scr_w,-scr_h);}
-			
-			
-			for (int i=0; i<6; i++)
-			//{Main.batch_static.draw(t,0-2*i,700+2*i,1000+4*i,-700-4*i);}
-			{Main.batch_static.draw(t,sinR(i*60+30)*24,scr_h+cosR(i*60+30)*24,scr_w,-scr_h);}
+
 			/*
 			for (int i=0; i<6; i++)
 			//{Main.batch_static.draw(t,0-2*i,700+2*i,1000+4*i,-700-4*i);}
@@ -1166,9 +1193,12 @@ public class GScreen implements Screen {
 		if ((main_control))
 		{
 			
-			for (int i=0; i<Timer.size(); i++)
+			if (Gdx.input.isKeyPressed(Keys.J))
 			{
-				Main.font.draw(Main.batch_static, "draw delay: "+Timer.get(i), 700, 700-i*25);
+				for (int i=0; i<Timer.size(); i++)
+				{
+					Main.font.draw(Main.batch_static, "draw delay: "+Timer.get(i), scr_w-350, scr_h-i*25-15);
+				}
 			}
 			
 			Main.font.draw(Main.batch_static, "WARM: "+pl.armored_shield.warm, 17, 170);

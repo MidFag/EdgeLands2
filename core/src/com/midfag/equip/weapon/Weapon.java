@@ -154,7 +154,7 @@ public class Weapon {
 					new Vector2(pl.pos.x+pl.offset.x,pl.pos.y+pl.offset.y),
 					(float) Math.toRadians(360-pl.rot+get_dispersion()+GScreen.rnd(add_disp)-add_disp/2),
 					(GScreen.rnd(missile_speed/10f)+missile_speed),
-					pl.is_AI);
+					pl.is_enemy);
 		}
 		
 		public Sound get_shoot_sound()

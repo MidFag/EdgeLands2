@@ -1,5 +1,10 @@
 package com.midfag.game.GUI.Edit;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.midfag.entity.Entity;
+
 public class TilePattern
 {
 	public int size_x=1;
@@ -7,6 +12,8 @@ public class TilePattern
 	
 	public int layer_top[][]=new int[15][15];
 	public int layer_main[][]=new int[15][15];
+	
+	public List<Entity> elist=new ArrayList<Entity>();
 	
 		public TilePattern()
 		{

@@ -16,5 +16,11 @@ public class Enums {
 	    PATTERN
 	}
 	
+	public enum EquipGenerationType {
+	    WEAPON,
+	    SHIELD,
+	    MODULE
+	}
+	
 	
 }

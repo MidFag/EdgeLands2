@@ -1,21 +1,23 @@
 package com.midfag.game;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.util.PropertyResourceBundle;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.reflect.ClassReflection;
+import com.badlogic.gdx.utils.reflect.ReflectionException;
 import com.midfag.entity.Entity;
-import com.midfag.entity.decorations.DecorBuilding;
-import com.midfag.entity.decorations.DecorBuildingWall;
-import com.midfag.entity.decorations.DecorStoneBarak;
-import com.midfag.entity.decorations.DecorStonePilon;
-import com.midfag.entity.decorations.DecorStoneWall;
-import com.midfag.entity.decorations.DecorStoneWall2;
-import com.midfag.entity.enemies.EntityEliteWheel;
-import com.midfag.entity.enemies.EntityPyra;
-import com.midfag.entity.enemies.EntityWheel;
+import com.midfag.entity.decorations.*;
+import com.midfag.entity.enemies.*;
+
 import com.midfag.game.GUI.Edit.GUIEdit;
 
 public class Helper {
+	
+	private static final String BUILDER_CLASS = "builder.class";
 
 	public Helper()
 	{
@@ -125,40 +127,49 @@ public class Helper {
 	
 	public static Entity get_object_from_id(String _id)
     {
+		try {
+			Class c = Class.forName(_id);
+			log("INVOKED ID="+_id);
+			Constructor[] constructor=c.getConstructors(); 
+			
+			
+			//System.out.println("CONSTRUCTOR[0]: "+constructor[0]);
+			//System.out.println("CONSTRUCTOR[1]: "+constructor[1]);
+			
+			Entity enn=(Entity) constructor[0].newInstance(new Vector2(), true);
+			return enn;
+
+
+			
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}   catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		if (_id.equals("stone_wall"))
-		{return new DecorStoneWall(new Vector2(),true);}
-		
-		if (_id.equals("stone_pilon"))
-		{return new DecorStonePilon(new Vector2(),true);}
-		
-		if (_id.equals("stone_wall2"))
-		{return new DecorStoneWall2(new Vector2(),false);}
-		
-		if (_id.equals("building"))
-		{return new DecorBuilding(new Vector2(),true);}
-		
-		if (_id.equals("building_wall"))
-		{return new DecorBuildingWall(new Vector2(),true);}
-		
-		if (_id.equals("robo"))
-		{return new Entity(new Vector2(),false);}
-		
-		if (_id.equals("pyra"))
-		{return new EntityPyra(new Vector2(),false);}
-		
-		
-		if (_id.equals("wheel"))
-		{return new EntityWheel(new Vector2(),false);}
-		
-		if (_id.equals("stone_barak"))
-		{return new DecorStoneBarak(new Vector2(),true);}
-		
-		if (_id.equals("elite_wheel"))
-		{return new EntityEliteWheel(new Vector2(),false);}
 		
 		
 		
     	return null;
     }
+
+	public static void log(String _s) {
+		// TODO Auto-generated method stub
+		System.out.println(_s);
+		
+	}
 }

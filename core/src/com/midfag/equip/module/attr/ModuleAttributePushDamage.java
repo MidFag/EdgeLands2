@@ -24,5 +24,9 @@ public class ModuleAttributePushDamage extends ModuleAttribute {
 		((ModuleUnitPush)_m).total_push_damage+=((ModuleUnitPush)_m).base_push_damage*(level/20.0f);
 	}
 	
-	
+	@Override
+	public String get_descr()
+	{
+		return 	"Улучшает урон от столкновения на "+5*level+"%";
+	}
 }

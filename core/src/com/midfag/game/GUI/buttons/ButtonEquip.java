@@ -185,9 +185,17 @@ public class ButtonEquip extends Button {
 				
 				Main.font.setColor(1.0f, 0.5f, 0.25f, 1);
 				
+				
 				for (int i=0; i<e.Attribute_list.size(); i++)
 				{
 					if (!e.Attribute_list.get(i).base){draw_info(""+e.Attribute_list.get(i).name,""+e.Attribute_list.get(i).get_attr_value());}
+				}
+				
+				mov+=25;
+				for (int i=0; i<e.Attribute_list.size(); i++)
+				{
+					Main.font.setColor(Color.WHITE);
+					draw_info(e.Attribute_list.get(i).get_descr(),"");
 				}
 
 			}

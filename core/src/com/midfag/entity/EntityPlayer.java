@@ -10,6 +10,7 @@ import com.midfag.equip.energoshield.Energoshield;
 import com.midfag.equip.energoshield.EnergoshieldSimple;
 import com.midfag.equip.module.ModuleUnitPush;
 import com.midfag.equip.module.ModuleUnitTimeSlow;
+import com.midfag.equip.module.ModuleUnitTurret;
 import com.midfag.equip.weapon.WeaponLegendaryBlender;
 import com.midfag.equip.weapon.WeaponLegendaryChaos;
 import com.midfag.equip.weapon.WeaponLegendaryPing;
@@ -74,6 +75,7 @@ public class EntityPlayer extends Entity {
 		
 		is_AI=false;
 		is_player=true;
+		is_enemy=false;
 		
 		spr.setSize(100, 100);
 		spr.setOrigin(45, 0);
@@ -315,19 +317,27 @@ public class EntityPlayer extends Entity {
 			
 	        for (int i=0; i<30; i++)//;
 	        {
-	        	switch ((int)GScreen.rnd(10))
+	        	if (Math.random()>0.05)
 	        	{
-	        		case 0: inventory[i]=new WeaponSimpleFirle();	break;
-	        		case 1: inventory[i]=new WeaponSimpleMinigun();	break;
-	        		case 2: inventory[i]=new WeaponSimpleShotgun();	break;
-	        		case 3: inventory[i]=new EnergoshieldSimple(); System.out.println("Shield in slot "+i);	break;
-	        		case 4: inventory[i]=new WeaponLegendaryPing(); break;
-	        		case 5: inventory[i]=new WeaponLegendaryChaos(); break;
-	        		case 6: inventory[i]=new WeaponLegendaryBlender(); break;
-	        		case 7: inventory[i]=new WeaponSimpleLaser(); break;
-	        		case 8: inventory[i]=new ModuleUnitPush(); break;
-	        		case 9: inventory[i]=new ModuleUnitTimeSlow(); break;
+	        		switch ((int)GScreen.rnd(8))
+		        	{
+		        		case 0: inventory[i]=new WeaponSimpleFirle();		break;
+		        		case 1: inventory[i]=new WeaponSimpleMinigun();		break;
+		        		case 2: inventory[i]=new WeaponSimpleShotgun();		break;
+		        		case 3: inventory[i]=new EnergoshieldSimple(); 		break;
+		        		case 4: inventory[i]=new WeaponSimpleLaser(); 		break;
+		        		case 5: inventory[i]=new ModuleUnitPush(); 			break;
+		        		case 6: inventory[i]=new ModuleUnitTimeSlow(); 		break;
+		        		case 7: inventory[i]=new ModuleUnitTurret(); 		break;
+		        	}
 	        	}
+	        	else
+	        	switch ((int)GScreen.rnd(3))
+		        {
+		       		case 0: inventory[i]=new WeaponLegendaryBlender();	break;
+		       		case 1: inventory[i]=new WeaponLegendaryChaos();	break;
+		       		case 2: inventory[i]=new WeaponLegendaryPing();		break;
+		        }
 	        	
 	        	//if (inventory[i] instanceof Energoshield)
 	        	//{

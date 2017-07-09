@@ -13,7 +13,7 @@ public class Cluster {
 	
 	public Cluster()
 	{
-		System.out.println("PCluster created");
+		//System.out.println("PCluster created");
 		
 		
 	}

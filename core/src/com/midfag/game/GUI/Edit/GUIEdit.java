@@ -8,14 +8,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.midfag.entity.Entity;
-import com.midfag.entity.decorations.DecorBuilding;
-import com.midfag.entity.decorations.DecorBuildingWall;
-import com.midfag.entity.decorations.DecorStoneBarak;
-import com.midfag.entity.decorations.DecorStoneWall;
-import com.midfag.entity.decorations.DecorStonePilon;
-import com.midfag.entity.decorations.DecorStoneWall2;
-import com.midfag.entity.enemies.EntityPyra;
-import com.midfag.entity.enemies.EntityWheel;
+
 import com.midfag.game.Assets;
 import com.midfag.game.Cluster;
 import com.midfag.game.GScreen;

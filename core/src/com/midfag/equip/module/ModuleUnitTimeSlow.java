@@ -37,7 +37,7 @@ public class ModuleUnitTimeSlow extends ModuleUnit {
 		base_cooldown=5;
 		base_time_slow=0.5f;
 		
-		level=5;
+		level=1;
 		
 
 		
@@ -82,38 +82,18 @@ public class ModuleUnitTimeSlow extends ModuleUnit {
 	}
 	
 	@Override
-	public void update(Entity _e, float _d)
+	public void update(Entity _entity, float _delta)
 	{
-
-			
-			cooldown-=_d;
-			if (cooldown<=0)
-			{cooldown=0;}
-			
+			cooldown-=_delta;
+			if (cooldown<=0){cooldown=0;}
 			if (duration>0)
 			{
 				GScreen.time_speed_value*=0.5f;
-			}
-				
-			
-
-		
-			if (duration>0)
-			{
 				duration-=GScreen.real_delta;
-				//_e.rotate_block=true;
-				
 				if (duration<=0)
 				{
-					duration=0;
-					cooldown=total_cooldown;
-					
-					for (int i=0; i<Attribute_list.size(); i++)
-					{
-						Attribute_list.get(i).end_action(_e,_d);
-						
-						
-					}				
+					duration=0; cooldown=total_cooldown;
+					use_end_skill(_entity, _delta);		
 				}
 			}
 	}

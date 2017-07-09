@@ -110,8 +110,8 @@ public class ButtonChangeMode extends Button {
 	    		GScreen.Button_list.add(new ButtonPutter(150,50,new EntityPyra(new Vector2(),false),gui));
 	    		GScreen.Button_list.add(new ButtonPutter(250,50,new DecorStonePilon(new Vector2(),false),gui));//MB 12.03.2017 01:43:36
 	    		GScreen.Button_list.add(new ButtonPutter(350,50,new DecorStoneWall2(new Vector2(),true),gui));
-	    		GScreen.Button_list.add(new ButtonPutter(450,50,new DecorBuilding(new Vector2(),true),gui));
-	    		GScreen.Button_list.add(new ButtonPutter(550,50,new DecorBuildingWall(new Vector2(),true),gui));
+	    		GScreen.Button_list.add(new ButtonPutter(450,50,new EntityPyraFriend(new Vector2(),true),gui));
+	    		GScreen.Button_list.add(new ButtonPutter(550,50,new DecorCystern(new Vector2(),true),gui));
 	    		GScreen.Button_list.add(new ButtonPutter(650,50,new EntityWheel(new Vector2(),false),gui));
 	    		GScreen.Button_list.add(new ButtonPutter(750,50,new DecorStoneBarak(new Vector2(),true),gui));
 	    		GScreen.Button_list.add(new ButtonPutter(850,50,new EntityEliteWheel(new Vector2(),true),gui));

@@ -18,4 +18,10 @@ public class ESAttributeRegen extends ESAttribute {
 	{
 		_e.total_regen_speed=_e.base_regen_speed*(1+level*0.10f)+level*2;
 	}
+	
+	@Override
+	public String get_descr() {
+		// TODO Auto-generated method stub
+		return "+"+level*10f+"% скорость регенерации +"+level*2+"/сек скорость регенерации";
+	}
 }

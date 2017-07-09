@@ -11,14 +11,14 @@ public class DecorSteelWall extends Entity {
 		
 		super(_v, _custom);
 		
+		id=this.getClass().getName();
+		
 		is_AI=false;
 		is_player=false;
 		
 		spr.setTexture(new Texture(Gdx.files.internal("decor_steel_wall.png")));
 		spr.setSize(155, 44);
 		spr.setOrigin(155/2, 44/2f);
-		
-		id="steel_wall";
 		
 		
 		//shield=999999;

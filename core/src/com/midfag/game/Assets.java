@@ -64,11 +64,13 @@ public class Assets {
 	public static Texture missile;
 	
 	public static Texture rect=new Texture(Gdx.files.internal("rect.png"));
+	public static Texture rect_white=new Texture(Gdx.files.internal("rect_white.png"));
 	public static Texture round=new Texture(Gdx.files.internal("round_bg.png"));
 	
 	public static Texture stone_wall_01=new Texture(Gdx.files.internal("stone_wall_01.png"));
 	public static Texture stone_pilon_01=new Texture(Gdx.files.internal("stone_pilon_01.png"));
 	public static Texture stone_barak=new Texture(Gdx.files.internal("decor_stone_barak.png"));
+	public static Texture cystern=new Texture(Gdx.files.internal("decoration_cystern.png"));
 	
 	public static Texture stone_wall_02=new Texture(Gdx.files.internal("stone_wall_02.png"));;
 	
@@ -108,6 +110,9 @@ public class Assets {
 	public static Texture[] wheel_elite_body=new Texture[16];
 	public static Texture[] effect_shield=new Texture[13];
 	public static Texture[] effect_explosion=new Texture[6];
+	public static Texture[] effect_freeze=new Texture[11];
+	
+	public static Texture[] turret_body=new Texture[16];
 	
 	public Assets()
 	{
@@ -119,7 +124,7 @@ public class Assets {
 		stone_wall_01.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		stone_wall_02.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		stone_pilon_01.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		for (int i=0; i<=19; i++)
+		for (int i=0; i<=21; i++)
 		{
 			if (i<10)
 			{tile[i]=new Texture(Gdx.files.internal("tile/tile0"+i+".png"));}
@@ -178,13 +183,14 @@ public class Assets {
 
 		
 		stone_barak.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		cystern.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		
 		icon_cooldown.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		icon_duration.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		noise.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		
 		music.setLooping(true);
-		music.setVolume(0.33f);
+		music.setVolume(0.033f);
 		music.play();
 		
 		time_slow_id=time_slow.play();
@@ -204,6 +210,9 @@ public class Assets {
 			{GScreen.pl.tex[i]=new Texture(Gdx.files.internal("mech/mech00"+i+".png"));}
 			else
 			{GScreen.pl.tex[i]=new Texture(Gdx.files.internal("mech/mech0"+i+".png"));}
+			
+			
+			GScreen.pl.tex[i].setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		}
 		
 		for (int i=0; i<16; i++)
@@ -212,6 +221,8 @@ public class Assets {
 			{GScreen.pl.bottom_tex[i]=new Texture(Gdx.files.internal("mech/bot0"+i+".png"));}
 			else
 			{GScreen.pl.bottom_tex[i]=new Texture(Gdx.files.internal("mech/bot"+i+".png"));}
+			
+			GScreen.pl.bottom_tex[i].setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		}
 		
 		for (int i=0; i<16; i++)
@@ -222,6 +233,16 @@ public class Assets {
 			{pyra_body[i]=new Texture(Gdx.files.internal("pyra/body0"+i+".png"));}
 			
 			pyra_body[i].setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		}
+		
+		for (int i=0; i<16; i++)
+		{
+			if (i<10)
+			{turret_body[i]=new Texture(Gdx.files.internal("turret/body00"+i+".png"));}
+			else
+			{turret_body[i]=new Texture(Gdx.files.internal("turret/body0"+i+".png"));}
+			
+			turret_body[i].setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		}
 		
 		for (int i=0; i<16; i++)
@@ -273,6 +294,16 @@ public class Assets {
 			{effect_explosion[i]=new Texture(Gdx.files.internal("effect_explosion/explosion"+i+".png"));}
 			
 			effect_explosion[i].setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		}
+		
+		for (int i=0; i<11; i++)
+		{
+			if (i<10)
+			{effect_freeze[i]=new Texture(Gdx.files.internal("effect_freeze/freeze0"+i+".png"));}
+			else
+			{effect_freeze[i]=new Texture(Gdx.files.internal("effect_freeze/freeze"+i+".png"));}
+			
+			effect_freeze[i].setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		}
 	}
 }

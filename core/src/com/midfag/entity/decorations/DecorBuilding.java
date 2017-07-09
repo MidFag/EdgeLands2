@@ -16,11 +16,12 @@ public class DecorBuilding extends Entity {
 		
 		super(_v, _custom);
 
+		id=this.getClass().getName();
 		
 		is_decor=true;
 		is_AI=false;
 
-		id="building";
+		
 		
 		spr.setTexture(Assets.building_wall_in);
 		spr.setSize(spr.getTexture().getWidth(), spr.getTexture().getHeight());

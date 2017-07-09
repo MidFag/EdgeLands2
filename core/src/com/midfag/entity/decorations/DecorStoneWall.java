@@ -27,7 +27,7 @@ public class DecorStoneWall extends Entity {
 		spr.setTexture(Assets.stone_wall_01);
 		spr.setSize(spr.getTexture().getWidth(), spr.getTexture().getHeight());
 		spr.setOrigin(50.0f, 10f);
-		id="stone_wall";
+		id=this.getClass().getName();
 		
 		path=true;
 		
@@ -37,6 +37,10 @@ public class DecorStoneWall extends Entity {
 		//shield=999999;
 		// TODO Auto-generated constructor stub
 	}
+	
+
+	
+	
 	
 	@Override
 	public Entity put() {
@@ -72,7 +76,7 @@ public class DecorStoneWall extends Entity {
 	public void fill_path()
 	{
 		if (path)
-		for (int i=-1; i<1; i++)
+		for (int i=-1; i<0; i++)
 		for (int j=-2; j<3; j++)
 		{
 			GScreen.path[Math.round(pos.x/30f)+j][Math.round(pos.y/30f)+i]=900;

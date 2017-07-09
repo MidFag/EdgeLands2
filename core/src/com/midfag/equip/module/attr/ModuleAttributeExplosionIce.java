@@ -2,10 +2,11 @@ package com.midfag.equip.module.attr;
 
 import java.util.List;
 
+import com.midfag.entity.AnimationEffectExpl;
+import com.midfag.entity.AnimationEffectFreeze;
 import com.midfag.entity.Entity;
 import com.midfag.equip.energoshield.Energoshield;
-import com.midfag.equip.module.ModuleUnit;
-import com.midfag.equip.module.ModuleUnitPush;
+import com.midfag.equip.module.*;
 import com.midfag.game.Assets;
 import com.midfag.game.GScreen;
 
@@ -27,7 +28,8 @@ public class ModuleAttributeExplosionIce extends ModuleAttribute {
 	{
 		Assets.freeze.play();
 		
-		List<Entity> l=GScreen.get_entity_list();
+		List<Entity> l=GScreen.get_entity_list(_e.pos);
+		_e.Effect.add(new AnimationEffectFreeze(_e.pos,0,0));
 		
 		for (int i=0; i<l.size(); i++)
 		{

@@ -19,4 +19,10 @@ public class ESAttributeReflect extends ESAttribute {
 	{
 		_e.total_reflect=_e.base_reflect+(level*1f);
 	}
+	
+	@Override
+	public String get_descr() {
+		// TODO Auto-generated method stub
+		return "+"+level+" уровень отражения";
+	}
 }

@@ -37,7 +37,7 @@ public class EntityWheel extends Entity {
 		
 		custom_phys=_custom;
 		
-		id="wheel";
+		id=this.getClass().getName();
 		
 		
 		armored[0]=null;

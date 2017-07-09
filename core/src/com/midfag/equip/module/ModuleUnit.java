@@ -76,6 +76,13 @@ public class ModuleUnit {
 		}
 	}
 	
+	public void use_end_skill(Entity _e, float _d)
+	{
+		for (int i=0; i<Attribute_list.size(); i++)
+		{Attribute_list.get(i).end_action(_e,_d);}	
+	}
+	
+	
 	public void generate()
 	{
 		if (gennable)

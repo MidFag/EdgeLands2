@@ -3,6 +3,7 @@ package com.midfag.entity.enemies;
 
 
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.midfag.entity.Entity;
 
@@ -12,6 +13,7 @@ import com.midfag.equip.weapon.*;
 
 import com.midfag.game.Assets;
 import com.midfag.game.GScreen;
+import com.midfag.game.Helper;
 
 import com.midfag.game.Main;
 
@@ -34,7 +36,8 @@ public class EntityPyra extends Entity {
 		
 		custom_phys=_custom;
 		
-		id="pyra";
+		id=this.getClass().getName();
+		Helper.log ("THIS ID="+id);
 		
 		armored[0]=new WeaponRobofirle();
 		armored[0].generate();
@@ -66,14 +69,19 @@ public class EntityPyra extends Entity {
 		float cold_rating=1.0f-buff_cold/(buff_cold+100.0f);
 		spr.setColor(cold_rating, 1, 1, 1);
 		
+		if (!is_enemy)
+		{
+			spr.setColor(Color.GREEN);
+		}
+		
 		if (rotate_cooldown<=0)
 		{
 			rotate_cooldown=0.1f;
 			
-			if (is_see)
+			if ((is_see)&&(target!=null))
 			{
-				float a=GScreen.pl.pos.x-pos.x;
-		    	float b=GScreen.pl.pos.y-pos.y;
+				float a=target.pos.x-pos.x;
+		    	float b=target.pos.y-pos.y-offset.y;
 		    	//float c=(float) Math.sqrt((a*a)+(b*b));
 		    	float c=(float) Math.toDegrees(Math.atan2(a, b));
 		    	rot=180-c+180;
@@ -122,6 +130,8 @@ public class EntityPyra extends Entity {
 		spr.setTexture(Assets.pyra_head[bottom_draw]);
 		spr.draw(Main.batch);
 		spr.translateY(10);
+		
+		draw_hp();
 		
 		
 

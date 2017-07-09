@@ -13,10 +13,10 @@ public class DecorStoneBarak extends Entity {
 		
 		super(_v, _custom);
 
+		id=this.getClass().getName();
 		
 		spr.setTexture(Assets.stone_barak);
-
-		id="stone_barak";
+		//id="stone_barak";
 		
 		diagonal=false;
 		

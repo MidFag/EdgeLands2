@@ -2,14 +2,13 @@ package com.midfag.equip.module;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
+
 import com.badlogic.gdx.math.Vector2;
 import com.midfag.entity.Entity;
 import com.midfag.entity.Shd;
 import com.midfag.entity.ShdMove;
-import com.midfag.equip.module.attr.ModuleAttributeDuration;
-import com.midfag.equip.module.attr.ModuleAttributeFastCooldown;
-import com.midfag.equip.module.attr.ModuleAttributePushDamage;
+import com.midfag.equip.module.attr.*;
+
 import com.midfag.game.Assets;
 import com.midfag.game.GScreen;
 import com.midfag.game.Main;
@@ -36,12 +35,15 @@ public class ModuleUnitPush extends ModuleUnit {
 		base_push_damage=50;
 		
 		Available_attribute_list.add(new ModuleAttributePushDamage());
+		Available_attribute_list.add(new ModuleAttributeExplosionFire());
+		Available_attribute_list.add(new ModuleAttributeExplosionIce());
 
 		
 		tex=new Texture(Gdx.files.internal("icon_push.png"));
 
 		rarity=Rarity.COMMON;
 		
+		level=1;
 		
 		generate();
 		update_stats();
@@ -73,14 +75,12 @@ public class ModuleUnitPush extends ModuleUnit {
 	@Override
 	public void additional_update_stats()
 	{
-		total_push_damage=base_push_damage;
+		total_push_damage=base_push_damage*level;
 	}
 	
 	@Override
 	public void update(Entity _e, float _d)
 	{
-
-			
 			cooldown-=_d;
 			if (cooldown<=0)
 			{cooldown=0;}
@@ -109,17 +109,18 @@ public class ModuleUnitPush extends ModuleUnit {
 				else
 				{
 					duration=0f;
+					use_end_skill(_e, _d);
 					cooldown=total_cooldown;
 				}
 				
 				int cx=(int)(_e.pos.x/300.0f);
 				int cy=(int)(_e.pos.y/300.0f);
 				
-				Main.batch.begin();
-				Main.batch.draw(Assets.point_start, cx*300+150, cy*300+150);
-				Main.batch.end();
+				//Main.batch.begin();
+				//Main.batch.draw(Assets.point_start, cx*300+150, cy*300+150);
+				//Main.batch.end();
 				
-				System.out.println ("WTF? "+duration);
+				//System.out.println ("WTF? "+duration);
 				
 				for (int i=cx-1; i<=cx+1; i++)
 				for (int j=cy-1; j<=cy+1; j++)
@@ -128,16 +129,15 @@ public class ModuleUnitPush extends ModuleUnit {
 						if (_e.pos.dst(GScreen.cluster[j][i].Entity_list.get(k).pos)<80)
 						{
 							duration=0f;
+							use_end_skill(_e, _d);
 							cooldown=total_cooldown;
-							GScreen.cluster[j][i].Entity_list.get(k).hit_action(50, true);
-							
-							
-							
+							GScreen.cluster[j][i].Entity_list.get(k).hit_action(total_push_damage, true);
+
 							Assets.crash.play();
 							
 							j=99999;
 							i=99999;
-							k=1000;
+							k=10000;
 							break;
 						}
 				}
@@ -151,8 +151,9 @@ public class ModuleUnitPush extends ModuleUnit {
 				_e.rotate_block=true;
 				
 				if (duration<=0)
-				{duration=0;
-				cooldown=total_cooldown;}
+					{duration=0;
+					cooldown=total_cooldown;
+					use_end_skill(_e, _d);}
 			}
 	}
 	

@@ -128,12 +128,12 @@ public class GScreen implements Screen {
 		saved_timer=TimeUtils.millis();
 	}
 	
-	public static List<Entity> get_entity_list()
+	public static List<Entity> get_entity_list(Vector2 _v)
 	{
 		List<Entity> l=new ArrayList<Entity>();
 		
-		int cluster_x=(int)(pl.pos.x/300);
-	    int cluster_y=(int)(pl.pos.y/300);
+		int cluster_x=(int)(_v.x/300);
+	    int cluster_y=(int)(_v.y/300);
 	        
 	  
 	    for (int x=cluster_x-2; x<=cluster_x+2; x++)
@@ -654,7 +654,11 @@ public class GScreen implements Screen {
 				t.bind(0);
 				Main.shader_time_slow.setUniformi("u_texture2", 0);
 				//Gdx.gl.glActiveTexture(GL20.GL_TEXTURE0);
-				Main.shader_time_slow.setUniformf("value", time_speed_value+(time_speed-time_speed_value));
+													//		(1-0.5)/0.5
+													//		(0.5-1.0)/1
+				
+				float time_slow=Math.min(1, (1-time_speed)*2);
+				Main.shader_time_slow.setUniformf("value", 1-time_slow);
 		    }
 			//Main.shader_time_slow.set("value", time_speed_value+(time_speed-time_speed_value));
 			
@@ -832,7 +836,7 @@ public class GScreen implements Screen {
 		
 		
  					if (cooldown<=0)
- 					{cooldown=10;}
+ 					{cooldown=5;}
  					
  					if (overlay_cooldown<=0)
  					{overlay_cooldown=30;}
@@ -975,7 +979,7 @@ public class GScreen implements Screen {
         				(near_object.parent!=null)
         				&&
         				(
-        						(((Entity) near_object.parent).is_AI!=mis.is_enemy)
+        						(((Entity) near_object.parent).is_enemy!=mis.is_enemy)
         						||
         						(((Entity) near_object.parent).burrow)
         						||
@@ -1016,7 +1020,7 @@ public class GScreen implements Screen {
 	        				
 	        				Missile_list.get(i).update_vectors_state();
 	        				
-	        				Missile_list.get(i).is_enemy=((Entity) near_object.parent).is_AI;
+	        				Missile_list.get(i).is_enemy=((Entity) near_object.parent).is_enemy;
 	        				Missile_list.get(i).col=Color.GREEN;
 	        				
 	        				for (int k=0; k<((Entity) near_object.parent).Skills_list.size(); k++)
@@ -1139,6 +1143,7 @@ public class GScreen implements Screen {
         	for (int i=0; i<Phys_list.size(); i++)
         	{Phys_list.get(i).draw();}
         	
+        	if (show_edit)
 	      	for (int x=cluster_x-3; x<cluster_x+3; x++)
 	      	for (int y=cluster_y-3; y<cluster_y+3; y++)
 	      	if ((x>=0)&&(y>=0))
@@ -1216,9 +1221,10 @@ public class GScreen implements Screen {
 			
 
 		}
-		
-		if (InputHandler.but==1)
+		if ((Gdx.input.isButtonPressed(1))&&(!show_edit))
+		//if (InputHandler.but==1)
 		{
+			
 			float camlen=(float) Math.sqrt((pl.pos.x-InputHandler.posx)*(pl.pos.x-InputHandler.posx)+(pl.pos.y-InputHandler.posy)*(pl.pos.y-InputHandler.posy));
 			camlen/=2;
 		    camera.position.add(-(camera.position.x-pl.pos.x+sinR(180-pl.rot)*camlen)/20, -(camera.position.y-pl.pos.y+cosR(180-pl.rot)*camlen)/20, 0.0f);

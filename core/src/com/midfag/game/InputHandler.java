@@ -13,15 +13,19 @@ import com.midfag.entity.Entity;
 import com.midfag.entity.enemies.EntityEliteWheel;
 import com.midfag.entity.enemies.EntityPyra;
 import com.midfag.entity.enemies.EntityWheel;
+import com.midfag.entity.friends.EntityTurret;
 import com.midfag.game.Enums.EditMode;
+import com.midfag.game.Enums.EquipGenerationType;
 import com.midfag.game.GUI.GUI;
 import com.midfag.game.GUI.GUIInventory;
 import com.midfag.game.GUI.GUISkillsWheel;
 import com.midfag.game.GUI.Edit.ButtonChangeMode;
 import com.midfag.game.GUI.Edit.ButtonLoadMap;
+import com.midfag.game.GUI.Edit.ButtonRandomizeTile;
 import com.midfag.game.GUI.Edit.ButtonSaveMap;
 import com.midfag.game.GUI.Edit.GUIEdit;
 import com.midfag.game.GUI.buttons.ButtonEquip;
+import com.midfag.game.GUI.buttons.ButtonRandomGenerator;
 
 import com.midfag.game.GUI.buttons.ButtonSkill;
 import com.midfag.game.skills.Skill;
@@ -85,7 +89,10 @@ public class InputHandler implements InputProcessor {
     		{
 	    		if (Math.random()>0.25f)
 	    		{
-	    			en=GScreen.add_entity_to_map(new EntityPyra(new Vector2(),false));
+	    			if (Math.random()>0.5f)
+	    			{en=GScreen.add_entity_to_map(new EntityPyra(new Vector2(),false));}
+	    			else
+	    			{en=GScreen.add_entity_to_map(new EntityTurret(new Vector2(),false)); en.is_enemy=true;}
 	    		}
 	    		else
 	    		{
@@ -94,6 +101,8 @@ public class InputHandler implements InputProcessor {
 	    			else
 	    			{en=GScreen.add_entity_to_map(new EntityEliteWheel(new Vector2(),false));}
 	    		}
+	    		
+	    		
 	    		
 	    		en.pos.x=(float) (GScreen.pl.pos.x+Math.random()*3000-1500);
 	    		en.pos.y=(float) (GScreen.pl.pos.y+Math.random()*3000-1500);
@@ -107,12 +116,7 @@ public class InputHandler implements InputProcessor {
     		GScreen.main_control=GScreen.show_edit;
     		GScreen.show_edit=!GScreen.show_edit;
     		
-    		
     		GUIEdit gui=new GUIEdit();
-    		
-
-    		
-    		
     		
     		//GScreen.Button_list.add(new ButtonPutter(150,50,new DecorPilon2(new Vector2(),false),gui));
     		//GScreen.Button_list.add(new ButtonPutter(250,50,new DecorPilon3(new Vector2(),false),gui));
@@ -121,6 +125,8 @@ public class InputHandler implements InputProcessor {
     		
     		GScreen.Button_list.add(new ButtonSaveMap(50,650));
     		GScreen.Button_list.add(new ButtonLoadMap(150,650,gui));
+    		
+    		GScreen.Button_list.add(new ButtonRandomizeTile(650,650));
     		
     		GScreen.Button_list.add(new ButtonChangeMode(300,650,EditMode.ENTITY,gui));
     		GScreen.Button_list.add(new ButtonChangeMode(400,650,EditMode.TILE,gui));
@@ -208,7 +214,9 @@ public class InputHandler implements InputProcessor {
     			for (int i=0; i<5; i++)
     			{gui.Button_list.add(new ButtonEquip(450+i*100,250,-10-i));}
     			
-    			
+    			gui.Button_list.add(new ButtonRandomGenerator(45,45,EquipGenerationType.WEAPON));
+    			gui.Button_list.add(new ButtonRandomGenerator(145,45,EquipGenerationType.SHIELD));
+    			gui.Button_list.add(new ButtonRandomGenerator(245,45,EquipGenerationType.MODULE));
     			//Assets.shoot00.
     			for (int j=0; j<3; j++)
     			for (int i=0; i<10; i++)

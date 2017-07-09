@@ -16,12 +16,12 @@ public class DecorStonePilon extends DecorStoneWall {
 		
 		spr.setTexture(Assets.stone_pilon_01);
 
-		id="stone_pilon";
+		id=this.getClass().getName();
 		
 		diagonal=false;
 		
-		spr.setSize(23, 70);
-		spr.setOrigin(11.5f, 5);
+		spr.setSize(30, 84);
+		spr.setOrigin(16f, 0f);
 		
 		path=true;
 		//spr.setOrigin(80.0f, 10f);
@@ -43,19 +43,19 @@ public class DecorStonePilon extends DecorStoneWall {
 		int y=(int)(pos.y/300);
 		
 		
-		Phys p=new Phys(new Vector2(pos.x-14,pos.y),new Vector2(pos.x+14,pos.y),true,this,true);
+		Phys p=new Phys(new Vector2(pos.x-28,pos.y-28),new Vector2(pos.x+28,pos.y-28),true,this,true);
 		GScreen.cluster[x][y].Phys_list.add(p);
 		Phys_list_local.add(p);
 		
-		p=new Phys(new Vector2(pos.x+14,pos.y+20),new Vector2(pos.x+14,pos.y),true,this,true);
+		p=new Phys(new Vector2(pos.x+28,pos.y-28),new Vector2(pos.x+28,pos.y+28),true,this,true);
 		GScreen.cluster[x][y].Phys_list.add(p);
 		Phys_list_local.add(p);
 		
-		p=new Phys(new Vector2(pos.x-14,pos.y+20),new Vector2(pos.x+14,pos.y+20),true,this,true);
+		p=new Phys(new Vector2(pos.x+28,pos.y+28),new Vector2(pos.x-28,pos.y+28),true,this,true);
 		GScreen.cluster[x][y].Phys_list.add(p);
 		Phys_list_local.add(p);
 		
-		p=new Phys(new Vector2(pos.x-14,pos.y+20),new Vector2(pos.x-14,pos.y),true,this,true);
+		p=new Phys(new Vector2(pos.x-28,pos.y+28),new Vector2(pos.x-28,pos.y-28),true,this,true);
 		GScreen.cluster[x][y].Phys_list.add(p);
 		Phys_list_local.add(p);
 		

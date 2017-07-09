@@ -43,6 +43,7 @@ public class Entity {
 	public float phys_timer=(float) Math.random();
 	
 	public boolean is_AI=true;
+	public boolean is_enemy=true;
 	
 	public boolean is_player=false;
 
@@ -104,6 +105,8 @@ public class Entity {
 	public ModuleUnit[] armored_module=new ModuleUnit[5];
 
 	public boolean rotate_block;
+	
+	public Entity target=null;
 	
 	public void use_module(int _id)
 	{
@@ -174,6 +177,8 @@ public class Entity {
 		}	
 	}
 	
+	
+	
 	public float iso(float _f)
 	{
 		//if (!diagonal)
@@ -232,9 +237,15 @@ public class Entity {
 		
 	}
 	
-	public void freeze_it(float _v)
+	public void freeze_it(float _value)
 	{
-		buff_cold+=_v*(1.0f-(buff_cold/(buff_cold+100.0f)));
+		buff_cold+=_value*(1.0f-(buff_cold/(buff_cold+100.0f)));
+
+	}
+	
+	public void burn_it(float _value) 
+	{
+		buff_burn+=_value;
 	}
 	
 	public void hit_action(float _damage, boolean _sound)
@@ -253,7 +264,8 @@ public class Entity {
 			}
 		}
 		
-		armored_shield.value-=_damage/2+_damage*1.5f*GScreen.rnd(1);
+		armored_shield.value-=_damage;
+		//armored_shield.value-=_damage/2+_damage*1.5f*GScreen.rnd(1);
 		
 		float warm_protect=1.0f;
 		for (int i=0; i<Skills_list.size(); i++)
@@ -478,10 +490,22 @@ public class Entity {
 		
 		
 		if (
-				(armored[_i]!=null)&&
-				(armored[_i].cd<=0)&&
-				(pos.dst(GScreen.pl.pos)<600)&&
-				(armored[_i].reload_timer<=0)&&
+				(armored[_i]!=null)
+				&&
+				(armored[_i].cd<=0)
+				&&
+				(
+					(
+						(target!=null)
+						&&
+						(pos.dst(target.pos)<600)
+					)
+					||
+					(is_player)
+				)
+				&&
+				(armored[_i].reload_timer<=0)
+				&&
 				(
 						!(
 								(armored[_i].need_warm!=0)
@@ -512,15 +536,18 @@ public class Entity {
 			
 			armored[_i].add_disp+=armored[_i].total_dispersion_additional;
 			
-			if ((pos.dst(GScreen.pl.pos)<800)&&(armored[_i]!=null))
+			if (is_AI)
 			{
-				if (is_AI)
-				{	armored[_i].get_shoot_sound().play((1f-pos.dst(GScreen.pl.pos)/800.0f)*0.15f);}
-				else
-				{
-					armored[_i].get_shoot_sound().play((1f-pos.dst(GScreen.pl.pos)/800.0f)*0.5f);
-				}
+				if (pos.dst(GScreen.pl.pos)<800)
+				{armored[_i].get_shoot_sound().play((1f-pos.dst(GScreen.pl.pos)/800.0f)*0.15f);}
 			}
+			else
+			{
+				{armored[_i].get_shoot_sound().play(0.5f);}
+			}
+		
+			
+		
 			
 			armored[_i].ammo--;
 			if (armored[_i].ammo<=0)
@@ -555,6 +582,20 @@ public class Entity {
 	{
 		
 	}
+	
+	public boolean can_see(Entity _e)
+	{
+
+		float dx=_e.pos.x-pos.x;
+		float dy=_e.pos.y-pos.y;
+		float spd=(float) Math.sqrt(dx*dx+dy*dy);
+		
+		if (GScreen.get_contact(pos.x,pos.y,_e.pos.x,_e.pos.y,dx/spd,dy/spd,spd,true,false,true)==null)
+		{return true;}
+		
+		return false;
+	}
+	
 	public void update(float _d)
 	{
 		rotate_block=false;
@@ -661,11 +702,10 @@ public class Entity {
 		Phys near_object=null;
 		float spd=(float) (Math.sqrt(mx*mx+my*my));
 		
-		float prev_pos_x=pos.x;
-		float prev_pos_y=pos.y;
-		
-		
 
+		
+		
+		if ((!is_player)||(!GScreen.show_edit))
 		near_object=GScreen.get_contact(pos.x,pos.y,pos.x+mx*_d,pos.y+my*_d,mx/spd,my/spd,spd*_d,true,false,true);
 		
 
@@ -684,28 +724,7 @@ public class Entity {
 			//System.out.println("###"+near_object.move_block);
 		}
 		
-		float dx=GScreen.pl.pos.x-pos.x;
-		float dy=GScreen.pl.pos.y-pos.y;
-		spd=(float) Math.sqrt(dx*dx+dy*dy);
-		
-		
-		near_object=GScreen.get_contact(pos.x,pos.y,GScreen.pl.pos.x,GScreen.pl.pos.y,dx/spd,dy/spd,spd,true,false,true);
-		
-		if (look_cooldown<=0)
-		{
-			look_cooldown=0.5f;
-			
-			if (near_object==null)
-			{
-				is_see=true;
-				//spr.setColor(Color.WHITE);	
-			}
-			else
-			{
-				is_see=false;
-				//spr.setColor(Color.GRAY);
-			}
-		}
+
 		
 		look_cooldown-=_d;
 		
@@ -714,41 +733,51 @@ public class Entity {
 		if (is_AI)
 		{
 			
-
 			
-	    	Phys po=null;
-	    	
+			if (look_cooldown<=0)
+			{
+
+				
+				look_cooldown=0.5f;
+				
+				is_see=false;
+				if ((is_enemy)){target=GScreen.pl;}
+				if (target!=null){is_see=can_see(target);}
+				
+				if (
+						(target!=null)
+						&&
+						(
+								(
+										(target.armored_shield!=null)&&(target.armored_shield.value<=0)
+								)
+								||
+								(!is_see)
+						)
+					)
+				{target=null;}
+				//if {}
+				
+				if (target==null)
+
+				{
+					List<Entity> l=GScreen.get_entity_list(pos);
+					
+					for (int i=0; i<l.size(); i++)
+						{
+						//System.out.println("check "+i);
+							if ((l.get(i).is_enemy!=is_enemy)&&(!l.get(i).is_decor)&&(can_see(l.get(i))))
+							{target=l.get(i); System.out.println("IS_ENEMY "+(l.get(i).is_enemy)); i=999; is_see=true;   break;}
+						}
+				}
+			}
+			
 	    	boolean go_shoot=true;
-	    	
 	    	if ((armored==null)||(!is_see))
 	    	{go_shoot=false;}
-	    	
-	    	/*
-	    	Main.shapeRenderer.begin(ShapeType.Filled);
-	    		Main.shapeRenderer.line(pos.x,pos.y,pos.x+(float)Math.sin(Math.toRadians(360-spr.getRotation()))*pos.dst(GScreen.pl.pos),pos.y+(float)Math.cos(Math.toRadians(360-spr.getRotation()))*pos.dst(GScreen.pl.pos));
-	    	Main.shapeRenderer.end();*/ //dw
-	    	
-	    	
-	    	if (GScreen.pl.armored_shield.value>0)
-	    	{
-	    		float rx=(float)Math.sin(Math.toRadians(360-spr.getRotation()));
-	    		float ry=(float)Math.cos(Math.toRadians(360-spr.getRotation()));
-	    		if (phys_timer>0){phys_timer-=_d;}
-	    		if (phys_timer<=0)
-	    		{
-	    			phys_timer+=0.5f;
 
-			    		po=GScreen.get_contact(pos.x,pos.y,GScreen.pl.pos.x,GScreen.pl.pos.y,rx,ry,pos.dst(GScreen.pl.pos),true,false,false);
-			    		
-			    		if ((po!=null)&&(po.parent==null))
-			    		{
-			    			go_shoot=false;
-			    			
-			    		}
-			    	
-	    		}
-		    	
-		    	//if (((po==null)||((po!=null)&&(po.parent!=null))))
+	    	if ((target!=null)&&(target.armored_shield.value>0))
+	    	{
 		    	if (go_shoot)
 		    	{
 		    		if (armored[0]!=null)
@@ -758,12 +787,11 @@ public class Entity {
 		    		{shoot(_d,1);}
 		    	}
 	    	}
-	    	
 		}
 		
 		if (is_player)
 		{
-			if ((InputHandler.MB)&&(armored_shield!=null)&&(armored_shield.value>0)&&(GScreen.main_control))
+			if ((InputHandler.but==0)&&(armored_shield!=null)&&(armored_shield.value>0)&&(GScreen.main_control))
 			{
 	    		if (armored[0]!=null)
 	    		{shoot(_d,0);}
@@ -810,11 +838,32 @@ public class Entity {
 		return null;
 	}
 
+	public void draw_hp()
+	{
+		Main.batch.setColor(Color.DARK_GRAY);
+		Main.batch.draw(Assets.rect_white, pos.x-15, pos.y-40, 30,10);
+		
+		Main.batch.setColor(Color.GREEN);
+		Main.batch.draw(Assets.rect_white, pos.x-15, pos.y-40, 30f*armored_shield.value/armored_shield.total_value,10);
+	}
+	
 	public void draw_action(float _d) {
 		// TODO Auto-generated method stub
-		float cold_rating=1-buff_cold/(buff_cold+100);
-		spr.setColor(cold_rating, cold_rating, 1, 1);
+		
+		if (!GScreen.show_edit)
+		{
+			float cold_rating=1-buff_cold/(buff_cold+100);
+			spr.setColor(cold_rating, cold_rating, 1, 1);
+		}
+		
+		if (!is_decor)
+		{draw_hp();}
+		
 		spr.draw(Main.batch);
+		
+
+		
+		Main.batch.setColor(Color.WHITE);
 	}
 	
 	public void fill_path()
@@ -826,5 +875,7 @@ public class Entity {
 			GScreen.path[Math.round(pos.x/30f)+j][Math.round(pos.y/30f)+i]=900;
 		}
 	}
+
+
 	
 }

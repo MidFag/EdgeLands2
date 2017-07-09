@@ -39,7 +39,7 @@ public class SkillShield_C_MoreReflect extends Skill {
 		{
 			if (GScreen.pl.inventory[i] instanceof Energoshield)
 			{
-				((Energoshield)GScreen.pl.inventory[i]).update_attributes_bonus();
+				((Energoshield)GScreen.pl.inventory[i]).update_attributes_bonus(GScreen.pl);
 			}
 		}
 	}

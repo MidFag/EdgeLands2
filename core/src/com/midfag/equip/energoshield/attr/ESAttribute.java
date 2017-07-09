@@ -18,7 +18,7 @@ public class ESAttribute {
 	
 	public ESAttribute()
 	{
-		
+		level=1;
 	}
 	
 	public void calculate(Energoshield _e)
@@ -41,5 +41,10 @@ public class ESAttribute {
 		// TODO Auto-generated method stub
 		return "";
 		
+	}
+
+	public String get_descr() {
+		// TODO Auto-generated method stub
+		return "";
 	}
 }

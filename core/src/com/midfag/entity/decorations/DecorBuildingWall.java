@@ -15,10 +15,8 @@ public class DecorBuildingWall extends DecorBuilding {
 		
 		super(_v, _custom);
 
-		
-		
+		id=this.getClass().getName();
 
-		id="building_wall";
 		
 		spr.setTexture(Assets.building_wall_out);
 		spr.setSize(spr.getTexture().getWidth(), spr.getTexture().getHeight());

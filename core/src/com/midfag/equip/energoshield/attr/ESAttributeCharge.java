@@ -35,11 +35,11 @@ public class ESAttributeCharge extends ESAttribute {
 		{
 			charge_time+=5;
 			
-			for (int i=0; i<8; i++)
+			for (int i=0; i<12; i++)
 			{
-				GScreen.Missile_list.add(new MissileCharge(new Vector2(_e.pos.x,_e.pos.y), (float)(Math.random()*360.0f),(float) (500.0f+Math.random()*277),_e.is_AI));
+				GScreen.Missile_list.add(new MissileCharge(new Vector2(_e.pos.x,_e.pos.y), (float)(Math.random()*360.0f),(float) (1000.0f+Math.random()*277),_e.is_AI));
 				GScreen.Missile_list.get(GScreen.Missile_list.size()-1).damage=level*5;
-				GScreen.Missile_list.get(GScreen.Missile_list.size()-1).lifetime=(float) (Math.random()*0.5f)+0.5f;
+				GScreen.Missile_list.get(GScreen.Missile_list.size()-1).lifetime=(float)0.5f;
 			}
 		}
 	}
@@ -50,10 +50,7 @@ public class ESAttributeCharge extends ESAttribute {
 		return ""+level*5.0f;
 	}
 	
-	@Override
-	public void get_attr_descr()
-	{
-		
-	}
 	
+	
+
 }

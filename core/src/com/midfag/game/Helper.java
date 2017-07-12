@@ -2,22 +2,14 @@ package com.midfag.game;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.PropertyResourceBundle;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.reflect.ClassReflection;
-import com.badlogic.gdx.utils.reflect.ReflectionException;
 import com.midfag.entity.Entity;
-import com.midfag.entity.decorations.*;
-import com.midfag.entity.enemies.*;
-
-import com.midfag.game.GUI.Edit.GUIEdit;
 
 public class Helper {
 	
-	private static final String BUILDER_CLASS = "builder.class";
+	//private static final String BUILDER_CLASS = "builder.class";
 
 	public Helper()
 	{
@@ -128,9 +120,9 @@ public class Helper {
 	public static Entity get_object_from_id(String _id)
     {
 		try {
-			Class c = Class.forName(_id);
+			Class<?> c = Class.forName(_id);
 			log("INVOKED ID="+_id);
-			Constructor[] constructor=c.getConstructors(); 
+			Constructor<?>[] constructor=c.getConstructors(); 
 			
 			
 			//System.out.println("CONSTRUCTOR[0]: "+constructor[0]);

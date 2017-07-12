@@ -110,8 +110,8 @@ public class Missile {
 	public void draw()
 	{
 		
-		Main.batch.begin();
-			//Main.batch.setColor(col);
+		GScreen.batch.begin();
+			//GScreen.batch.setColor(col);
 			//for (float i=0; i<1; i+=0.1f)
 			//{
 			//spr.setScale(0.1f, 0.1f);
@@ -121,7 +121,7 @@ public class Missile {
 				spr.setColor(col);
 				spr.setPosition(pos.x-spr.getWidth()/2,pos.y-spr.getHeight()/2);
 				spr.setRotation(360-angle/3.14f*180f);
-				spr.draw(Main.batch);
+				spr.draw(GScreen.batch);
 			}
 			else
 			{
@@ -129,7 +129,7 @@ public class Missile {
 				spr_anim[r].setColor(col);
 				spr_anim[r].setPosition(pos.x-spr.getWidth()/2,pos.y-spr.getHeight()/2);
 				spr_anim[r].setRotation(360-angle/3.14f*180f);
-				spr_anim[r].draw(Main.batch);
+				spr_anim[r].draw(GScreen.batch);
 			}
 			
 			/*
@@ -138,15 +138,15 @@ public class Missile {
 			
 			spr.setPosition(pos.x-spr.getWidth()/2+dynx*speed*0.05f,pos.y-spr.getHeight()/2+dyny*speed*0.05f);
 			
-			spr.draw(Main.batch);
+			spr.draw(GScreen.batch);
 			*/
-			//Main.batch.draw(spr, pos.x, pos.y);
+			//GScreen.batch.draw(spr, pos.x, pos.y);
 			//}
-			//Main.batch.draw(tex,pos.x,pos.y);
-			//Main.font.draw(Main.batch, ""+lifetime, pos.x, pos.y);
-			//Main.batch.setColor(Color.GREEN);
-			//Main.batch.draw(tex,pos.x+(float)Math.sin((angle))*10,pos.y+(float)Math.cos((angle))*10);
-		Main.batch.end();
+			//GScreen.batch.draw(tex,pos.x,pos.y);
+			//Main.font.draw(GScreen.batch, ""+lifetime, pos.x, pos.y);
+			//GScreen.batch.setColor(Color.GREEN);
+			//GScreen.batch.draw(tex,pos.x+(float)Math.sin((angle))*10,pos.y+(float)Math.cos((angle))*10);
+		GScreen.batch.end();
 	}
 	
 	@SuppressWarnings("static-access")

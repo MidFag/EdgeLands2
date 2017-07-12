@@ -2,7 +2,6 @@ package com.midfag.entity;
 
 import com.badlogic.gdx.math.Vector2;
 import com.midfag.game.Assets;
-import com.midfag.game.Main;
 
 
 public class AnimationEffectShield extends AnimationEffect {

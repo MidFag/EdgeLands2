@@ -73,7 +73,7 @@ public class Entity {
 	
 	public boolean have_ability=false;
 	
-	public String id="robo";
+	public String id=this.getClass().getName();
 	
 	public int order=0;
 	
@@ -314,7 +314,7 @@ public class Entity {
 	}
 	public void draw()
 	{
-		//Main.batch.begin();
+		//GScreen.batch.begin();
 		
 		some_draw();
 		if ((!burrow)&&(standart_draw))
@@ -323,10 +323,10 @@ public class Entity {
 			
 				spr.setPosition(pos.x-spr.getOriginX(),pos.y-spr.getOriginY());
 				GScreen.Draw_list.add(this);
-				//spr.draw(Main.batch);
-				//Main.font.draw(Main.batch, "!"+iso(0), pos.x, pos.y+100);
-				//Main.font.draw(Main.batch, ""+(int)(armored_shield.value), pos.x, pos.y);
-			//Main.batch.end();
+				//spr.draw(GScreen.batch);
+				//Main.font.draw(GScreen.batch, "!"+iso(0), pos.x, pos.y+100);
+				//Main.font.draw(GScreen.batch, ""+(int)(armored_shield.value), pos.x, pos.y);
+			//GScreen.batch.end();
 			/*
 			Main.shapeRenderer.begin(ShapeType.Filled);
 				Main.shapeRenderer.setColor(1, 1, 1, 0.2f);
@@ -343,7 +343,7 @@ public class Entity {
 			
 		}
 		//else
-		//{Main.batch.end();}
+		//{GScreen.batch.end();}
 	}
 	
 	public void dead_action( boolean need_dead_anim)
@@ -840,11 +840,11 @@ public class Entity {
 
 	public void draw_hp()
 	{
-		Main.batch.setColor(Color.DARK_GRAY);
-		Main.batch.draw(Assets.rect_white, pos.x-15, pos.y-40, 30,10);
+		GScreen.batch.setColor(Color.DARK_GRAY);
+		GScreen.batch.draw(Assets.rect_white, pos.x-15, pos.y-40, 30,10);
 		
-		Main.batch.setColor(Color.GREEN);
-		Main.batch.draw(Assets.rect_white, pos.x-15, pos.y-40, 30f*armored_shield.value/armored_shield.total_value,10);
+		GScreen.batch.setColor(Color.GREEN);
+		GScreen.batch.draw(Assets.rect_white, pos.x-15, pos.y-40, 30f*armored_shield.value/armored_shield.total_value,10);
 	}
 	
 	public void draw_action(float _d) {
@@ -859,11 +859,11 @@ public class Entity {
 		if (!is_decor)
 		{draw_hp();}
 		
-		spr.draw(Main.batch);
+		spr.draw(GScreen.batch);
 		
 
 		
-		Main.batch.setColor(Color.WHITE);
+		GScreen.batch.setColor(Color.WHITE);
 	}
 	
 	public void fill_path()

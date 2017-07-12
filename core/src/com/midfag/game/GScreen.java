@@ -14,6 +14,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
@@ -43,6 +44,9 @@ public class GScreen implements Screen {
 
 	private static final int enemy_gen_count = 10;
 
+    public static SpriteBatch batch;
+    public static SpriteBatch batch_static;
+	
 	final Main game;
     
 	public static int scr_h=700;
@@ -120,7 +124,13 @@ public class GScreen implements Screen {
 
 	public boolean path_visualisation=false;
 
+	private Texture tile_texture=new Texture(Gdx.files.internal("tile/tile_texture.png"));;
+
+	public static Texture[] tile= new Texture[50];
+
 	public static float time_speed_value;
+	
+	public static FrameBuffer fbo= new FrameBuffer(Pixmap.Format.RGB888, 1000/1, 700/1, false);
     
 	public void add_timer(String _s)
 	{
@@ -298,6 +308,16 @@ public class GScreen implements Screen {
     
     public GScreen(final Main gam) {
     	
+    	tile_texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+    	fbo.getColorBufferTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
+    	
+        batch = new SpriteBatch();
+        //batch.setShader(shader);
+        
+        batch_static = new SpriteBatch();
+        //batch_wheel = new SpriteBatch();
+        batch_static.setShader(batch.getShader());
+    	
         for (int i=0; i<1000; i++)
         {
      	   test[i]=(int) (Math.random()*1000);
@@ -325,7 +345,7 @@ public class GScreen implements Screen {
         
         InputHandler.but=-1;
         
-        pl=new EntityPlayer(new Vector2(4000,4000),false);
+        pl=new EntityPlayer(new Vector2(5000,5000),false);
         pl.init("base_gen");
         pl.standart_draw=false;
         
@@ -522,19 +542,19 @@ public class GScreen implements Screen {
     	
     	int plposx=(int)(camera.position.x/30f);
     	int plposy=(int)(camera.position.y/30f);
-    	int draw_distance=Math.round(camera.zoom*(scr_w/50));
+    	int draw_distance=Math.round(camera.zoom*(scr_w/55));
     	
 
     	
     	
-    	Main.fbo.begin();
+    	fbo.begin();
     	Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT | (Gdx.graphics.getBufferFormat().coverageSampling?GL20.GL_COVERAGE_BUFFER_BIT_NV:0));
     	
 
 
 
     	
-    	Main.batch.begin();
+    	batch.begin();
 
     	
     	wave_time+=real_delta;
@@ -543,29 +563,35 @@ public class GScreen implements Screen {
 		add_timer("start_point");
 		
 		//for (int k=0; k<100; k++)
+		//for (int k=0; k<80; k++)
 		for (int i=plposy-draw_distance; i<plposy+draw_distance; i++)
-		{	
-			//if (overlay_cooldown<=0)
-			//tile_map_overlay[Math.max(0, Math.min(299,(int)(plposx+Math.random()*60-30)))][Math.max(0, Math.min(299,i))]=-1;
-	 		
-			for (int j=plposx-draw_distance; j<plposx+draw_distance; j++)
-	 		if ((i>=0)&&(i<300)&&(j>=0)&&(j<300))
-	 		{
-				Main.batch.draw(Assets.tile[tile_map[j][i]], j*30-15, i*30-15);	
-	 		}
-		}
+		for (int j=plposx-draw_distance; j<plposx+draw_distance; j++)
+	 	{
+			int ty=(int)tile_map[j][i]/8;
+			int tx=tile_map[j][i]-ty*8;
+				
+				
+			batch.draw(tile_texture, j*30-15, i*30-15, tx*60+tx+1, ty*60+ty+1, 60, 60);
+	 	}
+		
 		
 		add_timer("main_tile");
 		
 		
+
 		for (int i=plposy+draw_distance; i>plposy-draw_distance; i--)
 		for (int j=plposx-draw_distance; j<plposx+draw_distance; j++)
 		if ((i>=0)&&(i<300)&&(j>=0)&&(j<300))
 		{	
 			if (tile_map_overlay[j][i]>=0)
-			{Main.batch.draw(Assets.tile[tile_map_overlay[j][i]], j*30-15, i*30-15);}//}
+			{
+				int ty=(int)tile_map_overlay[j][i]/8;
+				int tx=tile_map_overlay[j][i]-ty*8;
+				
+				batch.draw(tile_texture, j*30-15, i*30-15, tx*60+tx+1, ty*60+ty+1, 60, 60);
+			}//}
 		}
-		Main.batch.end();
+		batch.end();
 
 		add_timer("overlay_tile");
 
@@ -584,21 +610,18 @@ public class GScreen implements Screen {
 		
 		add_timer("missile_trail");
 		
-		Main.batch.begin();
+		batch.begin();
         int cluster_x=(int)(pl.pos.x/300);
         int cluster_y=(int)(pl.pos.y/300);
         
-    	for (int order=0; order<=2; order++)
+
     	for (int x=cluster_x-4; x<=cluster_x+4; x++)
     	for (int y=cluster_y-4; y<=cluster_y+4; y++)
     	if ((x>=0)&&(y>=0)&&(x<30)&&(y<30))
     	for (int i=0; i<cluster[x][y].Entity_list.size();i++)
     	{
     		Entity e=cluster[x][y].Entity_list.get(i);
-    		if (e.order==order)
     		{e.draw();}
-    		
-    		
     	}
         pl.draw();
         
@@ -633,21 +656,21 @@ public class GScreen implements Screen {
         add_timer("entity");
         
 
-		Main.batch.end();
-		Main.fbo.end();
+		batch.end();
+		fbo.end();
 		
 
     	
-		Main.batch_static.begin();
+		batch_static.begin();
 
 
        
-			Texture t=Main.fbo.getColorBufferTexture();
-			t.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+			Texture t=fbo.getColorBufferTexture();
+			
 			
 			if (time_speed<=0.99)
 			{
-				Main.batch_static.setShader(Main.shader_time_slow);
+				batch_static.setShader(Main.shader_time_slow);
 				Assets.noise.bind(1);
 				Main.shader_time_slow.setUniformi("u_texture", 1);
 				
@@ -662,8 +685,8 @@ public class GScreen implements Screen {
 		    }
 			//Main.shader_time_slow.set("value", time_speed_value+(time_speed-time_speed_value));
 			
-				Main.batch_static.setColor(1.0f, 1.0f, 1.0f, 1.0f);
-				Main.batch_static.draw(t,0,scr_h,scr_w,-scr_h);
+				batch_static.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+				batch_static.draw(t,0,scr_h,scr_w,-scr_h);
 				
 			
 			
@@ -671,40 +694,41 @@ public class GScreen implements Screen {
 			
 			/*
 			for (int i=0; i<6; i++)
-			//{Main.batch_static.draw(t,0-2*i,700+2*i,1000+4*i,-700-4*i);}
-			{Main.batch_static.draw(t,sinR(i*60)*8,700+cosR(i*60)*8,1000,-700);}
+			//{batch_static.draw(t,0-2*i,700+2*i,1000+4*i,-700-4*i);}
+			{batch_static.draw(t,sinR(i*60)*8,700+cosR(i*60)*8,1000,-700);}
 			*/
 			
+				
 				if (!Gdx.input.isKeyPressed(Keys.H))
 				{
-					Main.batch_static.setColor(1.0f, 1.0f, 1.0f, 0.05f);
+					batch_static.setColor(1.0f, 1.0f, 1.0f, 0.05f);
 					for (int i=0; i<6; i++)
-					//{Main.batch_static.draw(t,0-2*i,700+2*i,1000+4*i,-700-4*i);}
-					{Main.batch_static.draw(t,sinR(i*60+40)*2f,scr_h+cosR(i*60+40)*2,scr_w,-scr_h);}
+					//{batch_static.draw(t,0-2*i,700+2*i,1000+4*i,-700-4*i);}
+					{batch_static.draw(t,sinR(i*60+40)*2f,scr_h+cosR(i*60+40)*2,scr_w,-scr_h);}
 					
-					Main.batch_static.setColor(1.0f, 1.0f, 1.0f, 0.025f);
+					batch_static.setColor(1.0f, 1.0f, 1.0f, 0.025f);
 					for (int i=0; i<6; i++)
-					//{Main.batch_static.draw(t,0-2*i,700+2*i,1000+4*i,-700-4*i);}
-					{Main.batch_static.draw(t,sinR(i*60+20)*4,scr_h+cosR(i*60+20)*4,scr_w,-scr_h);}		
+					//{batch_static.draw(t,0-2*i,700+2*i,1000+4*i,-700-4*i);}
+					{batch_static.draw(t,sinR(i*60+20)*4,scr_h+cosR(i*60+20)*4,scr_w,-scr_h);}		
 					
-					Main.batch_static.setColor(1.0f, 1.0f, 1.0f, 0.0125f);
+					batch_static.setColor(1.0f, 1.0f, 1.0f, 0.0125f);
 					for (int i=0; i<6; i++)
-					//{Main.batch_static.draw(t,0-2*i,700+2*i,1000+4*i,-700-4*i);}
-					{Main.batch_static.draw(t,sinR(i*60)*8,scr_h+cosR(i*60)*8,scr_w,-scr_h);}
+					//{batch_static.draw(t,0-2*i,700+2*i,1000+4*i,-700-4*i);}
+					{batch_static.draw(t,sinR(i*60)*8,scr_h+cosR(i*60)*8,scr_w,-scr_h);}
 					
-					Main.batch_static.setColor(1.0f, 1.0f, 1.0f, 0.0125f);
+					batch_static.setColor(1.0f, 1.0f, 1.0f, 0.0125f);
 					for (int i=0; i<6; i++)
-					//{Main.batch_static.draw(t,0-2*i,700+2*i,1000+4*i,-700-4*i);}
-					{Main.batch_static.draw(t,sinR(i*60+30)*16,scr_h+cosR(i*60+30)*16,scr_w,-scr_h);}
+					//{batch_static.draw(t,0-2*i,700+2*i,1000+4*i,-700-4*i);}
+					{batch_static.draw(t,sinR(i*60+30)*16,scr_h+cosR(i*60+30)*16,scr_w,-scr_h);}
 				}
 			
 
 			/*
 			for (int i=0; i<6; i++)
-			//{Main.batch_static.draw(t,0-2*i,700+2*i,1000+4*i,-700-4*i);}
-			{Main.batch_static.draw(t,sinR(i*60+45)*32,scr_h+cosR(i*60+45)*32,scr_w,-scr_h);}*/
+			//{batch_static.draw(t,0-2*i,700+2*i,1000+4*i,-700-4*i);}
+			{batch_static.draw(t,sinR(i*60+45)*32,scr_h+cosR(i*60+45)*32,scr_w,-scr_h);}*/
 			
-			 Main.batch_static.setShader(Main.batch.getShader());
+			 batch_static.setShader(batch.getShader());
 			
 			
 
@@ -712,8 +736,8 @@ public class GScreen implements Screen {
 			
 			
 			
-			Main.batch_static.setColor(Color.WHITE);
-		Main.batch_static.end();
+			batch_static.setColor(Color.WHITE);
+		batch_static.end();
 		
 		add_timer("draw_FBO");
 		
@@ -1067,7 +1091,7 @@ public class GScreen implements Screen {
         int fy=0;
 
 
-      Main.batch.begin();
+      batch.begin();
       
       	for (int x=cluster_x-4; x<=cluster_x+4; x++)
       	for (int y=cluster_y-4; y<=cluster_y+4; y++)
@@ -1134,7 +1158,7 @@ public class GScreen implements Screen {
        }*/
 
         
-        Main.batch.end();
+        batch.end();
         
     	
         
@@ -1177,46 +1201,45 @@ public class GScreen implements Screen {
 		Main.shapeRenderer.setColor(0.9f, 1, 0.95f, 1.0f);
 		
 
-		game.batch.begin();
+		batch.begin();
 			
 	    	
-	        game.batch.setColor(Color.WHITE);
-        game.batch.end();
+	        batch.setColor(Color.WHITE);
+        batch.end();
         
-		 game.batch_static.begin();
+		 batch_static.begin();
 			for (int i=0; i<GUI_list.size(); i++)
 				{GUI_list.get(i).update(real_delta);}
 			
 			for (int i=0; i<GUI_list.size(); i++)
 				{GUI_list.get(i).update2(real_delta);}
-		game.batch_static.end();
-		game.batch_static.setColor(Color.WHITE);
+		batch_static.end();
+		batch_static.setColor(Color.WHITE);
 		
 		
-		Main.batch_static.begin();
+		batch_static.begin();
 		
 		if ((main_control))
 		{
 			
-			if (Gdx.input.isKeyPressed(Keys.J))
-			{
+			
 				for (int i=0; i<Timer.size(); i++)
 				{
-					Main.font.draw(Main.batch_static, "draw delay: "+Timer.get(i), scr_w-350, scr_h-i*25-15);
+					Main.font.draw(batch_static, "draw delay: "+Timer.get(i), scr_w-350, scr_h-i*25-15);
 				}
-			}
 			
-			Main.font.draw(Main.batch_static, "WARM: "+pl.armored_shield.warm, 17, 170);
 			
-			Main.font.draw(Main.batch_static, "FPS: "+Math.round(1.0f/real_delta), 17, 30);
-			Main.font.draw(Main.batch_static, "TIME SPEED: "+time_speed, 17, 90);
-			Main.font.draw(Main.batch_static, "BURN: "+pl.buff_burn, 17, 60);
+			Main.font.draw(batch_static, "WARM: "+pl.armored_shield.warm, 17, 170);
 			
-			game.batch_static.draw(Assets.panel, 400, 17);
+			Main.font.draw(batch_static, "FPS: "+Math.round(1.0f/real_delta), 17, 30);
+			Main.font.draw(batch_static, "TIME SPEED: "+time_speed, 17, 90);
+			Main.font.draw(batch_static, "BURN: "+pl.buff_burn, 17, 60);
+			
+			batch_static.draw(Assets.panel, 400, 17);
 		
 			for (int i=0; i<50*pl.armored_shield.value/pl.armored_shield.total_value; i++)
 			{
-			game.batch_static.draw(Assets.diod, 400+7*i+5, 17+3);
+			batch_static.draw(Assets.diod, 400+7*i+5, 17+3);
 			}
 			
 
@@ -1287,7 +1310,7 @@ public class GScreen implements Screen {
 				{Button_list.remove(i); i--;}
 			}
 			
-			Main.batch_static.end();
+			batch_static.end();
 		
 		//game.shapeRenderer_static.end();
 		
@@ -1329,15 +1352,15 @@ public class GScreen implements Screen {
 		/*camera.position.x=Math.round(camera.position.x);
 		camera.position.y=Math.round(camera.position.y);*/
 		
-        game.batch.setProjectionMatrix(camera.combined);
+        batch.setProjectionMatrix(camera.combined);
         
-        //game.batch_static.setProjectionMatrix(camera.combined);
+        //batch_static.setProjectionMatrix(camera.combined);
       
         
         game.shapeRenderer.setProjectionMatrix(camera.combined);
         
         game.shapeRenderer_static.setProjectionMatrix(skills_camera.combined);
-        game.batch_static.setProjectionMatrix(skills_camera.combined);
+        batch_static.setProjectionMatrix(skills_camera.combined);
       
         
         //InputHandler.but=-1;
@@ -1348,11 +1371,7 @@ public class GScreen implements Screen {
     	
     	scr_w=width;
     	scr_h=height;
-    	
-    	
-    	
-    	
-    	
+
     	camera.setToOrtho(false, width, height);
     	skills_camera.setToOrtho(false, width, height);
     	
@@ -1362,7 +1381,8 @@ public class GScreen implements Screen {
     	camera.position.x=pl.pos.x;
     	camera.position.y=pl.pos.y;
     	
-    	Main.fbo = new FrameBuffer(Pixmap.Format.RGB888, width, height, false);
+    	fbo = new FrameBuffer(Pixmap.Format.RGB888, width, height, false);
+    	fbo.getColorBufferTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
     	System.out.println("size x="+scr_w);
     	
     }

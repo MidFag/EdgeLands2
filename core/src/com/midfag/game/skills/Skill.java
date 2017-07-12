@@ -16,6 +16,7 @@ import com.midfag.equip.energoshield.Energoshield;
 import com.midfag.equip.module.ModuleUnit;
 import com.midfag.equip.weapon.Weapon;
 import com.midfag.game.Assets;
+import com.midfag.game.GScreen;
 import com.midfag.game.Main;
 import com.midfag.game.Phys;
 
@@ -73,7 +74,7 @@ public class Skill {
 	public void draw_sub_skill()
 	{
 		spr.setPosition(pos.x-20, pos.y-20);
-		spr.draw(Main.batch_static);
+		spr.draw(GScreen.batch_static);
 		
 		
 
@@ -121,38 +122,38 @@ public class Skill {
 	{
 		
 
-		Main.batch_static.draw(indicate_tex, _x-22, _y-22);
+		GScreen.batch_static.draw(indicate_tex, _x-22, _y-22);
 		
 		if (indicate_text.length()>0)
 		{
-			Main.batch_static.draw(Assets.indicate_bg, _x-25, _y+20);
-			Main.font.draw(Main.batch_static, indicate_text, _x-15, _y+37);
+			GScreen.batch_static.draw(Assets.indicate_bg, _x-25, _y+20);
+			Main.font.draw(GScreen.batch_static, indicate_text, _x-15, _y+37);
 		}
 		
 		if (cooldown_base>0)
 		{
-			//Main.batch_static.setColor(Color.RED);
-			Main.batch_static.draw(Assets.icon_cooldown, _x-25, _y-25+25*(1-cooldown/cooldown_base),50f,50f*cooldown/cooldown_base);
+			//GScreen.batch_static.setColor(Color.RED);
+			GScreen.batch_static.draw(Assets.icon_cooldown, _x-25, _y-25+25*(1-cooldown/cooldown_base),50f,50f*cooldown/cooldown_base);
 		}
 		
 		if (duration_base>0)
 		{
-			//Main.batch_static.setColor(Color.RED);
-			Main.batch_static.draw(Assets.icon_duration, _x-25, _y-25+25*(1-duration/duration_base),50f,50f*duration/duration_base);
+			//GScreen.batch_static.setColor(Color.RED);
+			GScreen.batch_static.draw(Assets.icon_duration, _x-25, _y-25+25*(1-duration/duration_base),50f,50f*duration/duration_base);
 		}
 		
 		if (highlight_value>0)
 		{
 			float col=1f-Math.abs(0.25f-highlight_value)*4f;
 					
-			Main.batch_static.setBlendFunction(GL20.GL_ONE, GL20.GL_ONE);
+			GScreen.batch_static.setBlendFunction(GL20.GL_ONE, GL20.GL_ONE);
 			
-			Main.batch_static.setColor(col, col, col, 1);
+			GScreen.batch_static.setColor(col, col, col, 1);
 			highlight_value-=_d;
-			Main.batch_static.draw(Assets.highlight, _x-50, _y-50);
-			Main.batch_static.setColor(Color.WHITE);
+			GScreen.batch_static.draw(Assets.highlight, _x-50, _y-50);
+			GScreen.batch_static.setColor(Color.WHITE);
 					
-			Main.batch_static.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+			GScreen.batch_static.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 		}
 		
 		

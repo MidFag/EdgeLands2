@@ -4,9 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.midfag.entity.Entity;
-import com.midfag.equip.energoshield.Energoshield;
-import com.midfag.equip.weapon.Weapon;
-import com.midfag.game.GScreen;
 import com.midfag.game.skills.Skill;
 
 public class SkillWeapon_BA_TripleShot extends Skill {

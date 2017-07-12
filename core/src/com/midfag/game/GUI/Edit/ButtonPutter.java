@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.midfag.entity.Entity;
-import com.midfag.entity.enemies.EntityPyra;
 import com.midfag.game.GScreen;
 import com.midfag.game.Helper;
 import com.midfag.game.InputHandler;
@@ -52,7 +51,7 @@ public class ButtonPutter extends Button {
 		edit_spr.setSize(edit_spr.getWidth()*scal, edit_spr.getHeight()*scal);
 		edit_spr.setPosition(pos.x-edit_spr.getWidth()/2f*1,pos.y-edit_spr.getHeight()/2);
 		
-		edit_spr.draw(Main.batch_static);
+		edit_spr.draw(GScreen.batch_static);
 	}
 	
 	@Override

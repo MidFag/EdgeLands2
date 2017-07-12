@@ -10,7 +10,6 @@ import com.midfag.game.Assets;
 import com.midfag.game.GScreen;
 import com.midfag.game.Main;
 import com.midfag.game.GUI.buttons.Button;
-import com.midfag.game.skills.Skill;
 
 public class GUISkillsWheel extends GUI {
 	
@@ -40,14 +39,14 @@ public class GUISkillsWheel extends GUI {
         {Assets.skill_wheel.setColor(Color.WHITE);}	
         
         	Assets.skill_wheel.setPosition(-1024, -1024);
-        	Assets.skill_wheel.draw(Main.batch_static);
+        	Assets.skill_wheel.draw(GScreen.batch_static);
         
         Assets.skill_wheel.setColor(Color.WHITE);
         
 		if (!GScreen.show_skills_wheel){remove_this();}
 		if (main_skill_picked)
 		{
-			Main.batch_static.draw(Assets.round, skill_x-256, skill_y-256);
+			GScreen.batch_static.draw(Assets.round, skill_x-256, skill_y-256);
 		}
 
 	}

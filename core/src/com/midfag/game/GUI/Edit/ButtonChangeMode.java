@@ -57,7 +57,7 @@ public class ButtonChangeMode extends Button {
 		edit_spr.setSize(edit_spr.getWidth()*scal, edit_spr.getHeight()*scal);
 		edit_spr.setPosition(pos.x-edit_spr.getWidth()/2f*1,pos.y-edit_spr.getHeight()/2);
 		
-		edit_spr.draw(Main.batch_static);
+		edit_spr.draw(GScreen.batch_static);
 	}
 	
 	
@@ -96,8 +96,8 @@ public class ButtonChangeMode extends Button {
 				
 				
 				//GScreen.Button_list.add(new ButtonPutterTile(50,50,-1,gui));
-	    		for (int i=0; i<50; i++)
-	    		if (Assets.tile[i+12]!=null)
+	    		for (int i=0; i<30; i++)
+	    		if (GScreen.tile[i+12]!=null)
 	    		{GScreen.Button_list.add(new ButtonPutterTile(50+i*60,50,i+12,gui));}
 			}
 			
@@ -110,11 +110,12 @@ public class ButtonChangeMode extends Button {
 	    		GScreen.Button_list.add(new ButtonPutter(150,50,new EntityPyra(new Vector2(),false),gui));
 	    		GScreen.Button_list.add(new ButtonPutter(250,50,new DecorStonePilon(new Vector2(),false),gui));//MB 12.03.2017 01:43:36
 	    		GScreen.Button_list.add(new ButtonPutter(350,50,new DecorStoneWall2(new Vector2(),true),gui));
-	    		GScreen.Button_list.add(new ButtonPutter(450,50,new EntityPyraFriend(new Vector2(),true),gui));
+	    		GScreen.Button_list.add(new ButtonPutter(450,50,new DecorTubeCystern(new Vector2(),true),gui));
 	    		GScreen.Button_list.add(new ButtonPutter(550,50,new DecorCystern(new Vector2(),true),gui));
 	    		GScreen.Button_list.add(new ButtonPutter(650,50,new EntityWheel(new Vector2(),false),gui));
 	    		GScreen.Button_list.add(new ButtonPutter(750,50,new DecorStoneBarak(new Vector2(),true),gui));
 	    		GScreen.Button_list.add(new ButtonPutter(850,50,new EntityEliteWheel(new Vector2(),true),gui));
+	    		GScreen.Button_list.add(new ButtonPutter(950,50,new DecorTubeBig(new Vector2(),true),gui));
 			}
 			
 			if ((em==EditMode.PATTERN.ordinal())&&(!gui.pattern_mode))

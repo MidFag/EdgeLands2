@@ -7,9 +7,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.midfag.entity.Entity;
-import com.midfag.equip.energoshield.attr.ESAttribute;
 import com.midfag.equip.module.attr.ModuleAttribute;
 import com.midfag.equip.module.attr.ModuleAttributeDuration;
 import com.midfag.equip.module.attr.ModuleAttributeFastCooldown;
@@ -167,33 +165,33 @@ public class ModuleUnit {
 	{
 		
 
-		Main.batch_static.draw(tex, _x-22, _y-22);
+		GScreen.batch_static.draw(tex, _x-22, _y-22);
 		
 		
 		if (total_cooldown>0)
 		{
-			//Main.batch_static.setColor(Color.RED);
-			Main.batch_static.draw(Assets.icon_cooldown, _x-25, _y-25+25*(1-cooldown/total_cooldown),50f,50f*cooldown/total_cooldown);
+			//GScreen.batch_static.setColor(Color.RED);
+			GScreen.batch_static.draw(Assets.icon_cooldown, _x-25, _y-25+25*(1-cooldown/total_cooldown),50f,50f*cooldown/total_cooldown);
 		}
 		
 		if (total_duration>0)
 		{
-			//Main.batch_static.setColor(Color.RED);
-			Main.batch_static.draw(Assets.icon_duration, _x-25, _y-25+25*(1-duration/total_duration),50f,50f*duration/total_duration);
+			//GScreen.batch_static.setColor(Color.RED);
+			GScreen.batch_static.draw(Assets.icon_duration, _x-25, _y-25+25*(1-duration/total_duration),50f,50f*duration/total_duration);
 		}
 		
 		if (highlight_value>0)
 		{
 			float col=1f-Math.abs(0.25f-highlight_value)*4f;
 					
-			Main.batch_static.setBlendFunction(GL20.GL_ONE, GL20.GL_ONE);
+			GScreen.batch_static.setBlendFunction(GL20.GL_ONE, GL20.GL_ONE);
 			
-			Main.batch_static.setColor(col, col, col, 1);
+			GScreen.batch_static.setColor(col, col, col, 1);
 			highlight_value-=_d;
-			Main.batch_static.draw(Assets.highlight, _x-50, _y-50);
-			Main.batch_static.setColor(Color.WHITE);
+			GScreen.batch_static.draw(Assets.highlight, _x-50, _y-50);
+			GScreen.batch_static.setColor(Color.WHITE);
 					
-			Main.batch_static.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+			GScreen.batch_static.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 		}
 		
 		

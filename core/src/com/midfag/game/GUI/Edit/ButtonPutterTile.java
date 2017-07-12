@@ -41,7 +41,7 @@ public class ButtonPutterTile extends Button {
 		
 		if (tile_id>=0)
 		{
-			edit_spr.setTexture(Assets.tile[tile_id]);
+			edit_spr.setTexture(GScreen.tile[tile_id]);
 		}
 	}
 	
@@ -52,7 +52,7 @@ public class ButtonPutterTile extends Button {
 		{
 			edit_spr.setPosition(pos.x-edit_spr.getWidth()/2,pos.y-edit_spr.getHeight()/2);
 			edit_spr.draw(
-					Main.batch_static
+					GScreen.batch_static
 					);
 		}
 	}

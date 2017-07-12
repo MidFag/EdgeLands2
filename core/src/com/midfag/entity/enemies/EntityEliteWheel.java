@@ -9,9 +9,6 @@ import com.midfag.entity.AnimationEffectExpl;
 import com.midfag.entity.Entity;
 import com.midfag.entity.Shd;
 import com.midfag.entity.ShdFire;
-import com.midfag.entity.ShdMove;
-
-
 import com.midfag.game.Assets;
 import com.midfag.game.GScreen;
 import com.midfag.game.Phys;
@@ -206,18 +203,18 @@ public class EntityEliteWheel extends Entity {
 		spr.translate(-5,-50);
 		spr.setSize(100, 200);
 		spr.setTexture(Assets.shadow);
-		spr.draw(Main.batch);
+		spr.draw(GScreen.batch);
 		spr.translate(5,30);
 		
 		spr.setSize(100, 100);
 		
 		spr.setColor(Color.BLACK);
 		spr.setTexture(Assets.wheel_elite_body[bottom_draw]);
-		spr.draw(Main.batch);
+		spr.draw(GScreen.batch);
 		
 		spr.setColor(Color.WHITE);
 		spr.setTexture(Assets.wheel_elite_body[bottom_draw]);
-		spr.draw(Main.batch);
+		spr.draw(GScreen.batch);
 		
 		
 	}

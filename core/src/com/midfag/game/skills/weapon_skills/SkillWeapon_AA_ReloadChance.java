@@ -1,16 +1,9 @@
 package com.midfag.game.skills.weapon_skills;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.midfag.entity.Entity;
-import com.midfag.equip.energoshield.Energoshield;
-import com.midfag.equip.weapon.Weapon;
-import com.midfag.game.Assets;
-import com.midfag.game.GScreen;
-import com.midfag.game.Main;
 import com.midfag.game.skills.Skill;
 
 public class SkillWeapon_AA_ReloadChance extends Skill {

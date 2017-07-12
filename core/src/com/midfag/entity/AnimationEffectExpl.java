@@ -3,6 +3,7 @@ package com.midfag.entity;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.math.Vector2;
 import com.midfag.game.Assets;
+import com.midfag.game.GScreen;
 import com.midfag.game.Main;
 
 
@@ -35,22 +36,22 @@ public class AnimationEffectExpl extends AnimationEffect {
 	public void do_animation(float _d)
 	{
 		
-		Main.batch.setBlendFunction(GL20.GL_ONE, GL20.GL_ONE);
+		GScreen.batch.setBlendFunction(GL20.GL_ONE, GL20.GL_ONE);
 		
 		float c=timer/(base_timer*1.0f);
 		
-		Main.batch.setColor(c, c, c, 1);
-		Main.batch.draw(tex[frame],v.x+offset_x,v.y+offset_y,size_x,size_y);
+		GScreen.batch.setColor(c, c, c, 1);
+		GScreen.batch.draw(tex[frame],v.x+offset_x,v.y+offset_y,size_x,size_y);
 		
 		c=1-c;
 		
 		if (frame<max_frame)
 		{
-			Main.batch.setColor(c, c, c, 1);
-			Main.batch.draw(tex[frame+1],v.x+offset_x,v.y+offset_y,size_x,size_y);
+			GScreen.batch.setColor(c, c, c, 1);
+			GScreen.batch.draw(tex[frame+1],v.x+offset_x,v.y+offset_y,size_x,size_y);
 		}
 		
-		Main.batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+		GScreen.batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 		
 		
 		timer-=_d;

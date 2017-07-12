@@ -92,37 +92,37 @@ public class GUIEdit extends GUI {
 		
 
 		
-		Main.batch.begin();
+		GScreen.batch.begin();
 			if (pattern_edit)
-				{Main.batch.draw(Assets.point_start,(int)(InputHandler.posx/30)*30,(int)(InputHandler.posy/30)*30);}
+				{GScreen.batch.draw(Assets.point_start,(int)(InputHandler.posx/30)*30,(int)(InputHandler.posy/30)*30);}
 			
 			if (indicate_pattern!=null)
 			{
-				Main.batch.setColor(1, 0.8f, 0.6f, 0.5f);
+				GScreen.batch.setColor(1, 0.8f, 0.6f, 0.5f);
 				
 				for (int i=0; i<indicate_pattern.size_y; i++)
 				for (int j=0; j<indicate_pattern.size_x; j++)
 				{
 					if (indicate_pattern.layer_main[j][i]>=0)
 					
-					Main.batch.draw(Assets.tile[indicate_pattern.layer_main[j][i]],(int)(InputHandler.posx/30)*30+j*30-15,(int)(InputHandler.posy/30)*30+i*30-15);
+					GScreen.batch.draw(GScreen.tile[indicate_pattern.layer_main[j][i]],(int)(InputHandler.posx/30)*30+j*30-15,(int)(InputHandler.posy/30)*30+i*30-15);
 				}
 				
 				for (int i=0; i<indicate_pattern.size_y; i++)
 				for (int j=0; j<indicate_pattern.size_x; j++)
 				{
 					if (indicate_pattern.layer_top[j][i]>=0)
-					Main.batch.draw(Assets.tile[indicate_pattern.layer_top[j][i]],(int)(InputHandler.posx/30)*30+j*30-15,(int)(InputHandler.posy/30)*30+i*30-15);
+					GScreen.batch.draw(GScreen.tile[indicate_pattern.layer_top[j][i]],(int)(InputHandler.posx/30)*30+j*30-15,(int)(InputHandler.posy/30)*30+i*30-15);
 				}
 				
-				Main.batch.setColor(1, 1, 1, 1);
+				GScreen.batch.setColor(1, 1, 1, 1);
 			}
 			
-			Main.batch.draw(Assets.point_start,pattern_first_point.x*30,pattern_first_point.y*30);
+			GScreen.batch.draw(Assets.point_start,pattern_first_point.x*30,pattern_first_point.y*30);
 			if (pattern_first_point.x>0)
-			{Main.batch.draw(Assets.rama,pattern_first_point.x*30,pattern_first_point.y*30,InputHandler.posx-pattern_first_point.x*30,InputHandler.posy-pattern_first_point.y*30);}
+			{GScreen.batch.draw(Assets.rama,pattern_first_point.x*30,pattern_first_point.y*30,InputHandler.posx-pattern_first_point.x*30,InputHandler.posy-pattern_first_point.y*30);}
 			
-		Main.batch.end();
+		GScreen.batch.end();
 		
 		if ((InputHandler.realy>70)&&(InputHandler.realy<700-70))
 		{
@@ -225,7 +225,7 @@ public class GUIEdit extends GUI {
 			if (InputHandler.realx<850)
 			{
 				if (!top_layer) {Main.font.setColor(0.5f, 0.5f, 0.5f, 0.5f);}else{Main.font.setColor(0.25f, 1.0f, 0.5f, 1.0f);}
-				Main.font.draw(Main.batch_static, "TOP LAYER: ", 170, 530);
+				Main.font.draw(GScreen.batch_static, "TOP LAYER: ", 170, 530);
 			}
 			
 			if (
@@ -264,10 +264,10 @@ public class GUIEdit extends GUI {
 				int cx=(int)(xx/300f);
 				int cy=(int)(yy/300f);
 				
-				Main.batch.begin();
+				GScreen.batch.begin();
 					
-					Main.batch.draw(Assets.mech_foot,xx,yy);
-				Main.batch.end();
+					GScreen.batch.draw(Assets.mech_foot,xx,yy);
+				GScreen.batch.end();
 				
 				float near_dist=9999;
 				
@@ -280,14 +280,14 @@ public class GUIEdit extends GUI {
 				selected_cluster=null;
 				
 				
-				Main.batch.begin();
+				GScreen.batch.begin();
 				for (int i=cx-1; i<=cx+1; i++)
 				for (int j=cy-1; j<=cy+1; j++)
 				if ((i>=0)&&(j>=0))
 				{
 					
 					
-						Main.batch.draw(Assets.mech_foot,cx*300+150,cy*300+150);
+						GScreen.batch.draw(Assets.mech_foot,cx*300+150,cy*300+150);
 					
 					
 					for (int k=0; k<GScreen.cluster[i][j].Entity_list.size(); k++)
@@ -301,7 +301,7 @@ public class GUIEdit extends GUI {
 						}
 					}
 				}
-				Main.batch.end();
+				GScreen.batch.end();
 				
 				if (selected_object!=null){selected_object.spr.setColor(Color.GREEN);}
 			}
@@ -324,11 +324,11 @@ public class GUIEdit extends GUI {
 		}
 		
 		if (indicate_entity!=null)
-		{Main.batch.begin();
+		{GScreen.batch.begin();
 			indicate_entity.spr.setPosition(xx-indicate_entity.spr.getOriginX(), yy-indicate_entity.spr.getOriginY());
-			//Main.batch.draw(edit_spr.getTexture(), edit_spr.getVertices(), 10, 20);
-			indicate_entity.spr.draw(Main.batch);
-		Main.batch.end();}
+			//GScreen.batch.draw(edit_spr.getTexture(), edit_spr.getVertices(), 10, 20);
+			indicate_entity.spr.draw(GScreen.batch);
+		GScreen.batch.end();}
 		
 	}
 }

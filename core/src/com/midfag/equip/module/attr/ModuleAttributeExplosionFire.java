@@ -2,12 +2,8 @@ package com.midfag.equip.module.attr;
 
 import java.util.List;
 
-import com.badlogic.gdx.math.Vector2;
 import com.midfag.entity.AnimationEffectExpl;
 import com.midfag.entity.Entity;
-import com.midfag.equip.energoshield.Energoshield;
-import com.midfag.equip.module.ModuleUnit;
-import com.midfag.equip.module.ModuleUnitPush;
 import com.midfag.game.Assets;
 import com.midfag.game.GScreen;
 

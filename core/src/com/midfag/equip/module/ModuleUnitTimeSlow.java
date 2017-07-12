@@ -1,21 +1,10 @@
 package com.midfag.equip.module;
 
-import java.util.List;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.math.Vector2;
 import com.midfag.entity.Entity;
-import com.midfag.entity.Shd;
-import com.midfag.entity.ShdMove;
-import com.midfag.equip.module.attr.ModuleAttributeDuration;
 import com.midfag.equip.module.attr.ModuleAttributeExplosionIce;
-import com.midfag.equip.module.attr.ModuleAttributePushDamage;
-import com.midfag.game.Assets;
 import com.midfag.game.GScreen;
-import com.midfag.game.Main;
-import com.midfag.game.Phys;
 import com.midfag.game.Enums.Rarity;
 
 public class ModuleUnitTimeSlow extends ModuleUnit {

@@ -1,11 +1,10 @@
 package com.midfag.entity.friends;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.midfag.entity.Entity;
-import com.midfag.equip.weapon.WeaponRobofirle;
 import com.midfag.equip.weapon.WeaponSimpleShotgun;
 import com.midfag.game.Assets;
+import com.midfag.game.GScreen;
 import com.midfag.game.Main;
 
 public class EntityTurret extends Entity {
@@ -103,7 +102,7 @@ public class EntityTurret extends Entity {
 		spr.translate(-25,-80);
 		spr.setSize(100, 200);
 		spr.setTexture(Assets.shadow);
-		spr.draw(Main.batch);
+		spr.draw(GScreen.batch);
 		spr.translate(25,80);
 		
 		spr.setSize(100, 100);
@@ -111,7 +110,7 @@ public class EntityTurret extends Entity {
 		spr.translate(-5,-30);
 		
 		spr.setTexture(Assets.turret_body[bottom_draw]);
-		spr.draw(Main.batch);
+		spr.draw(GScreen.batch);
 		spr.translate(5,30);
 		draw_hp();
 		

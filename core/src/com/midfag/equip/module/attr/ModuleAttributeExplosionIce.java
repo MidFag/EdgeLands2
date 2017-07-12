@@ -2,11 +2,8 @@ package com.midfag.equip.module.attr;
 
 import java.util.List;
 
-import com.midfag.entity.AnimationEffectExpl;
 import com.midfag.entity.AnimationEffectFreeze;
 import com.midfag.entity.Entity;
-import com.midfag.equip.energoshield.Energoshield;
-import com.midfag.equip.module.*;
 import com.midfag.game.Assets;
 import com.midfag.game.GScreen;
 

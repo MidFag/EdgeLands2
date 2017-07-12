@@ -163,20 +163,20 @@ public class EntityPlayer extends Entity {
 		
 		
 		leg.setPosition(pos.x+5, pos.y+5+_y+1.2f);
-		leg.draw(Main.batch);
+		leg.draw(GScreen.batch);
 		
 		foot.setPosition(pos.x+leg1_anim*24*_dim+_x-7, pos.y+_y+up+10);
-		foot.draw(Main.batch);
+		foot.draw(GScreen.batch);
 		
 		foot_shadow.setPosition(pos.x+leg1_anim*24*_dim+_x-7, pos.y+_y+10);
-		foot_shadow.draw(Main.batch);
+		foot_shadow.draw(GScreen.batch);
 		
 		
 		
 		
 		
 		leg.setPosition(pos.x+5, pos.y+5+_y-1.2f);
-		leg.draw(Main.batch);
+		leg.draw(GScreen.batch);
 
 	}
 	
@@ -186,17 +186,17 @@ public class EntityPlayer extends Entity {
 		if (((leg2_anim_mode>=0)&&(_dim==1))||((leg2_anim_mode<0)&&(_dim==-1))){up=GScreen.sinR((1-leg2_anim)*90)*5;}
 		
 		foot.setPosition(pos.x+_x-7, pos.y+_y+up+leg2_anim*24*_dim);
-		foot.draw(Main.batch);
+		foot.draw(GScreen.batch);
 		
 		foot_shadow.setPosition(pos.x+_x-7, pos.y+_y+leg2_anim*24*_dim);
-		foot_shadow.draw(Main.batch);
+		foot_shadow.draw(GScreen.batch);
 		
 		
 		
 		leg.setRotation(0);
 		leg.setPosition(pos.x+5+_x, pos.y+5+_y);
 		leg.setScale(1, 1-leg2_anim/2*_dim);
-		leg.draw(Main.batch);
+		leg.draw(GScreen.batch);
 	}
 	
 	@Override
@@ -230,18 +230,18 @@ public class EntityPlayer extends Entity {
 		spr.translate(-5,-80);
 		spr.setSize(100, 200);
 		spr.setTexture(Assets.shadow);
-		spr.draw(Main.batch);
+		spr.draw(GScreen.batch);
 		spr.translate(5,80);
 		
 		spr.setSize(100, 100);
 		spr.translate(-10,-30);
 		spr.setTexture(bottom_tex[bottom_draw]);
-		spr.draw(Main.batch);
+		spr.draw(GScreen.batch);
 		spr.translate(10,30);
 		
 		spr.translate(-10,-25);
 		spr.setTexture(tex[draw_sprite]);
-		spr.draw(Main.batch);
+		spr.draw(GScreen.batch);
 		spr.translate(10,25);
 
 	}

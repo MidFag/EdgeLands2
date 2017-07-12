@@ -162,18 +162,18 @@ public class EntityWheel extends Entity {
 		spr.translate(-5,-50);
 		spr.setSize(100, 200);
 		spr.setTexture(Assets.shadow);
-		spr.draw(Main.batch);
+		spr.draw(GScreen.batch);
 		spr.translate(5,50);
 		
 		spr.setSize(100, 100);
 		
 		spr.setColor(Color.BLACK);
 		spr.setTexture(Assets.wheel_body[bottom_draw]);
-		spr.draw(Main.batch);
+		spr.draw(GScreen.batch);
 		
 		spr.setColor(Color.WHITE);
 		spr.setTexture(Assets.wheel_body[bottom_draw]);
-		spr.draw(Main.batch);
+		spr.draw(GScreen.batch);
 		
 		
 	}

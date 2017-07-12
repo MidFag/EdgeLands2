@@ -1,7 +1,6 @@
 package com.midfag.equip.module.attr;
 
 import com.midfag.entity.Entity;
-import com.midfag.equip.energoshield.Energoshield;
 import com.midfag.equip.module.ModuleUnit;
 
 public class ModuleAttribute {

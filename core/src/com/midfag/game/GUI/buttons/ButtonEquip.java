@@ -113,7 +113,7 @@ public class ButtonEquip extends Button {
 			Main.shapeRenderer_static.rect(info_x-10, info_y-10-200, 300, 220);*/
 			
 			Main.font.setColor(1.0f, 1.0f, 1.0f, 1);
-			Main.batch_static.draw(Assets.rect, info_x-10, info_y-10-230,650,300);
+			GScreen.batch_static.draw(Assets.rect, info_x-10, info_y-10-230,650,300);
 			
 			if (obj instanceof ModuleUnit)
 			{
@@ -160,7 +160,7 @@ public class ButtonEquip extends Button {
 				//if (Math.random()<0.01){((Weapon)obj).model.setPosition((float)(Math.random()*100),(float)(Math.random()*100));}
 				
 				((Weapon)obj).model.setPosition(info_x,info_y-300);
-				((Weapon)obj).model.draw(Main.batch_static);
+				((Weapon)obj).model.draw(GScreen.batch_static);
 				//model.
 				
 
@@ -263,7 +263,7 @@ public class ButtonEquip extends Button {
 			if (obj instanceof Energoshield)
 			{
 				((Energoshield)obj).spr.setPosition(pos.x-spr.getWidth()/2,pos.y-spr.getHeight()/2);
-				((Energoshield)obj).spr.draw(Main.batch_static);
+				((Energoshield)obj).spr.draw(GScreen.batch_static);
 				
 				
 			}
@@ -271,13 +271,13 @@ public class ButtonEquip extends Button {
 			if (obj instanceof Weapon)
 			{
 				((Weapon)obj).spr.setPosition(pos.x-spr.getWidth()/2,pos.y-spr.getHeight()/2);
-				((Weapon)obj).spr.draw(Main.batch_static);
+				((Weapon)obj).spr.draw(GScreen.batch_static);
 			}
 			
 			if (obj instanceof ModuleUnit)
 			{
-				Main.batch_static.setColor(((ModuleUnit)obj).color);
-				Main.batch_static.draw(((ModuleUnit)obj).tex, pos.x-spr.getWidth()/2,pos.y-spr.getHeight()/2);
+				GScreen.batch_static.setColor(((ModuleUnit)obj).color);
+				GScreen.batch_static.draw(((ModuleUnit)obj).tex, pos.x-spr.getWidth()/2,pos.y-spr.getHeight()/2);
 				
 			}
 		}
@@ -289,10 +289,10 @@ public class ButtonEquip extends Button {
 	
 	public void draw_info(String _s1, String _s2)
 	{
-		Main.font.draw(Main.batch_static, _s1, info_x, info_y-mov);
+		Main.font.draw(GScreen.batch_static, _s1, info_x, info_y-mov);
 		
 		if (!_s2.equals(""))
-		{Main.font.draw(Main.batch_static, "- "+_s2+" -", info_x+150, info_y-mov);}
+		{Main.font.draw(GScreen.batch_static, "- "+_s2+" -", info_x+150, info_y-mov);}
 		mov+=20;
 	}
 	

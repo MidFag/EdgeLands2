@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
+import com.midfag.game.GScreen;
 import com.midfag.game.InputHandler;
 import com.midfag.game.Main;
 
@@ -35,7 +36,7 @@ public class Button {
 		if ((!need_remove)&&(!off_bg)&&(is_active))
 		{
 			spr.setPosition(pos.x-(int)(spr.getWidth()/2),(int)(pos.y-spr.getHeight()/2));
-			spr.draw(Main.batch_static);
+			spr.draw(GScreen.batch_static);
 		}
 		after_draw();
 

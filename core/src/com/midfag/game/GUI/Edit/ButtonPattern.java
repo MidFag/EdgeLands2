@@ -67,14 +67,14 @@ public class ButtonPattern extends Button {
 			for (int j=0; j<tile_pattern.size_x; j++)
 			{
 				if (tile_pattern.layer_main[j][i]>=0)
-				{Main.batch_static.draw(Assets.tile[tile_pattern.layer_main[j][i]], pos.x+(j*5)*mul-50*mul/mulx,  pos.y+(i*5)*mul-50*mul/muly,10f*mul,10f*mul);}
+				{GScreen.batch_static.draw(GScreen.tile[tile_pattern.layer_main[j][i]], pos.x+(j*5)*mul-50*mul/mulx,  pos.y+(i*5)*mul-50*mul/muly,10f*mul,10f*mul);}
 			}
 			
 			for (int i=0; i<tile_pattern.size_y; i++)
 			for (int j=0; j<tile_pattern.size_x; j++)
 			{
 				if (tile_pattern.layer_top[j][i]>=0)
-				{Main.batch_static.draw(Assets.tile[tile_pattern.layer_top[j][i]], pos.x+(j*5)*mul-50*mul/mulx,  pos.y+(i*5)*mul-50*mul/muly,10f*mul,10f*mul);}
+				{GScreen.batch_static.draw(GScreen.tile[tile_pattern.layer_top[j][i]], pos.x+(j*5)*mul-50*mul/mulx,  pos.y+(i*5)*mul-50*mul/muly,10f*mul,10f*mul);}
 			}
 	}
 	

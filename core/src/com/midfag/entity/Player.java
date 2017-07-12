@@ -65,10 +65,10 @@ public class Player {
 	
 	public void draw()
 	{
-		Main.batch.begin();
+		GScreen.batch.begin();
 			spr.setPosition(pos.x-25, pos.y-10);
-			spr.draw(Main.batch);
-		Main.batch.end();
+			spr.draw(GScreen.batch);
+		GScreen.batch.end();
 	}
 	
 }

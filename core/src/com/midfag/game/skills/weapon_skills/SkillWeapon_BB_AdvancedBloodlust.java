@@ -3,7 +3,6 @@ package com.midfag.game.skills.weapon_skills;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
-import com.midfag.equip.energoshield.Energoshield;
 import com.midfag.equip.weapon.Weapon;
 import com.midfag.game.GScreen;
 import com.midfag.game.skills.Skill;

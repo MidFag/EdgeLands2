@@ -1,11 +1,7 @@
 package com.midfag.game.GUI.Edit;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
-import com.midfag.equip.module.ModuleUnitPush;
-import com.midfag.equip.module.ModuleUnitTimeSlow;
-import com.midfag.equip.module.ModuleUnitTurret;
 import com.midfag.game.GScreen;
 import com.midfag.game.InputHandler;
 import com.midfag.game.Main;
@@ -30,7 +26,7 @@ public class ButtonRandomizeTile extends Button {
 	@Override
 	public void second_draw()
 	{
-		Main.batch_static.draw(tex, pos.x-25, pos.y-25);
+		GScreen.batch_static.draw(tex, pos.x-25, pos.y-25);
 	}
 	
 	//@SuppressWarnings("static-access")

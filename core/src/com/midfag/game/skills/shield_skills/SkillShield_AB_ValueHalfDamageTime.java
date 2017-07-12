@@ -1,13 +1,9 @@
 package com.midfag.game.skills.shield_skills;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.midfag.entity.Entity;
-import com.midfag.game.Assets;
-import com.midfag.game.Main;
 import com.midfag.game.skills.Skill;
 
 public class SkillShield_AB_ValueHalfDamageTime extends Skill {

@@ -11,7 +11,6 @@ import com.midfag.equip.module.attr.*;
 
 import com.midfag.game.Assets;
 import com.midfag.game.GScreen;
-import com.midfag.game.Main;
 import com.midfag.game.Phys;
 import com.midfag.game.Enums.Rarity;
 

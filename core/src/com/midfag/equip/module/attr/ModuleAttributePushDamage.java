@@ -1,6 +1,5 @@
 package com.midfag.equip.module.attr;
 
-import com.midfag.equip.energoshield.Energoshield;
 import com.midfag.equip.module.ModuleUnit;
 import com.midfag.equip.module.ModuleUnitPush;
 

@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class Assets {
 	
-	public static Texture[] tile=new Texture[100];
+
 	
 	public static Texture panel;
 	public static Texture diod;
@@ -70,6 +70,10 @@ public class Assets {
 	public static Texture stone_wall_01=new Texture(Gdx.files.internal("stone_wall_01.png"));
 	public static Texture stone_pilon_01=new Texture(Gdx.files.internal("stone_pilon_01.png"));
 	public static Texture stone_barak=new Texture(Gdx.files.internal("decor_stone_barak.png"));
+	
+	public static Texture decor_tube_cystern=new Texture(Gdx.files.internal("decoration_tube_cystern.png"));
+	public static Texture decor_tube_big=new Texture(Gdx.files.internal("decoration_tube_big.png"));
+	
 	public static Texture cystern=new Texture(Gdx.files.internal("decoration_cystern.png"));
 	
 	public static Texture stone_wall_02=new Texture(Gdx.files.internal("stone_wall_02.png"));;
@@ -127,11 +131,11 @@ public class Assets {
 		for (int i=0; i<=21; i++)
 		{
 			if (i<10)
-			{tile[i]=new Texture(Gdx.files.internal("tile/tile0"+i+".png"));}
+			{GScreen.tile[i]=new Texture(Gdx.files.internal("tile/tile0"+i+".png"));}
 			else
-			{tile[i]=new Texture(Gdx.files.internal("tile/tile"+i+".png"));}
+			{GScreen.tile[i]=new Texture(Gdx.files.internal("tile/tile"+i+".png"));}
 			
-			tile[i].setFilter(TextureFilter.Linear, TextureFilter.Linear); 
+			GScreen.tile[i].setFilter(TextureFilter.Linear, TextureFilter.Linear); 
 		}
 		
 

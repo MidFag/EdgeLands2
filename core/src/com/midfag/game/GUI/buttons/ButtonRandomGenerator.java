@@ -41,8 +41,8 @@ public class ButtonRandomGenerator extends Button {
 	@Override
 	public void after_draw()
 	{
-		Main.batch_static.setColor(Color.WHITE);
-		Main.batch_static.draw(tex, pos.x-22, pos.y-22);
+		GScreen.batch_static.setColor(Color.WHITE);
+		GScreen.batch_static.draw(tex, pos.x-22, pos.y-22);
 	}
 	
 	public void some_update(float _d)

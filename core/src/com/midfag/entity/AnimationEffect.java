@@ -1,10 +1,10 @@
 package com.midfag.entity;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
+import com.midfag.game.GScreen;
 import com.midfag.game.Main;
+
 
 public class AnimationEffect {
 	
@@ -41,15 +41,15 @@ public class AnimationEffect {
 		
 
 		
-		Main.batch.setColor(1, 1, 1, alpha*timer/base_timer);
-		Main.batch.draw(tex[frame],v.x+offset_x,v.y+offset_y,size_x,size_y);
+		GScreen.batch.setColor(1, 1, 1, alpha*timer/base_timer);
+		GScreen.batch.draw(tex[frame],v.x+offset_x,v.y+offset_y,size_x,size_y);
 		
-		Main.font_big.draw(Main.batch, ""+alpha, v.x, v.y);
+		Main.font_big.draw(GScreen.batch, ""+alpha, v.x, v.y);
 		
 		if (frame<max_frame)
 		{
-			Main.batch.setColor(1, 1, 1, alpha*(1-timer/base_timer));
-			Main.batch.draw(tex[frame+1],v.x+offset_x,v.y+offset_y,size_x,size_y);
+			GScreen.batch.setColor(1, 1, 1, alpha*(1-timer/base_timer));
+			GScreen.batch.draw(tex[frame+1],v.x+offset_x,v.y+offset_y,size_x,size_y);
 		}
 		
 		
@@ -67,7 +67,7 @@ public class AnimationEffect {
 	/*
 	public void set_color()
 	{
-		Main.batch.setColor(1, 1, 1, alpha);
+		GScreen.batch.setColor(1, 1, 1, alpha);
 	}*/
 
 }

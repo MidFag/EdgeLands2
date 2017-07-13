@@ -26,7 +26,7 @@ public class ModuleUnitTimeSlow extends ModuleUnit {
 		base_cooldown=5;
 		base_time_slow=0.5f;
 		
-		level=1;
+		level=5;
 		
 
 		

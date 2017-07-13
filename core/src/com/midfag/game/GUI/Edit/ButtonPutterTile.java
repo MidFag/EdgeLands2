@@ -13,7 +13,6 @@ import com.midfag.game.GUI.buttons.Button;
 public class ButtonPutterTile extends Button {
 
 
-	public Sprite edit_spr=new Sprite(new Texture(Gdx.files.internal("decor_pilon.png"))); 
 	public int tile_id;
 	public GUIEdit gui;
 
@@ -31,29 +30,22 @@ public class ButtonPutterTile extends Button {
 		//off_bg=true;
 		
 		spr.setSize(55, 55);
-		edit_spr.setAlpha(0.95f);
-		edit_spr.setSize(50, 50);
+
 		tile_id=_tile;
 		
 		gui=_gui;
 		
 		System.out.println ("TILE BUTTON="+tile_id);
 		
-		if (tile_id>=0)
-		{
-			edit_spr.setTexture(GScreen.tile[tile_id]);
-		}
+
 	}
 	
 	@Override
 	public void second_draw()
 	{
-		if (tile_id>=0)
+		if ((tile_id>=0)&&(GScreen.tile[tile_id+gui.id_offset]!=null))
 		{
-			edit_spr.setPosition(pos.x-edit_spr.getWidth()/2,pos.y-edit_spr.getHeight()/2);
-			edit_spr.draw(
-					GScreen.batch_static
-					);
+			GScreen.batch_static.draw(GScreen.tile[tile_id+gui.id_offset], pos.x-25,pos.y-25,50,50);
 		}
 	}
 	
@@ -72,7 +64,8 @@ public class ButtonPutterTile extends Button {
 			
 			System.out.println ("TILE="+tile_id);
 			gui.indicate_entity=null;
-			gui.tile=tile_id;
+			gui.tile=tile_id+gui.id_offset;
+			
 			//gui.e.spr.setAlpha(0.2f);
 			
 			

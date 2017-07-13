@@ -27,17 +27,16 @@ public class EntityPyra extends Entity {
 	private float body_rotate_cooldown;
 	//private int body_rotate;
 	
-	public EntityPyra(Vector2 _v,boolean _custom)
+	public EntityPyra(Vector2 _v)
 	{
-		super (_v, _custom);
+		super (_v);
 		
 		spr.setTexture(Assets.pyra_body[0]);
 		pos=_v;
 		
-		custom_phys=_custom;
-		
 		id=this.getClass().getName();
 		Helper.log ("THIS ID="+id);
+		icon=Assets.entity_pyra_icon;
 		
 		armored[0]=new WeaponRobofirle();
 		armored[0].generate();

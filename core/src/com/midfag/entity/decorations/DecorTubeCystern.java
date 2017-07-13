@@ -9,10 +9,12 @@ import com.midfag.game.Phys;
 
 public class DecorTubeCystern extends DecorStoneWall {
 
-	public DecorTubeCystern(Vector2 _v,boolean _custom) {
+	public DecorTubeCystern(Vector2 _v) {
 		
-		super(_v, _custom);
+		super(_v);
 
+		custom_phys=true;
+		
 		
 		spr.setTexture(Assets.decor_tube_cystern);
 
@@ -33,7 +35,7 @@ public class DecorTubeCystern extends DecorStoneWall {
 	@Override
 	public Entity put() {
 		// TODO Auto-generated method stub
-		return new DecorTubeCystern(new Vector2(),true);
+		return new DecorTubeCystern(new Vector2());
 	}
 	
 	@Override

@@ -69,7 +69,7 @@ public class EntityPlayer extends Entity {
 	
 	public EntityPlayer(Vector2 _v, boolean _custom) {
 		
-		super(_v, _custom);
+		super(_v);
 		
 		id="player";
 		

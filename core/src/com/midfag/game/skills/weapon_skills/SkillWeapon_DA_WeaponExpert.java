@@ -53,7 +53,7 @@ public class SkillWeapon_DA_WeaponExpert extends Skill {
 		{
 			if (GScreen.pl.inventory[i] instanceof Weapon)
 			{
-				((Weapon)GScreen.pl.inventory[i]).update_attributes_bonus();
+				((Weapon)GScreen.pl.inventory[i]).update_attributes_bonus(GScreen.pl);
 			}
 		}
 	}

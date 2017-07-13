@@ -73,6 +73,9 @@ public class Assets {
 	
 	public static Texture decor_tube_cystern=new Texture(Gdx.files.internal("decoration_tube_cystern.png"));
 	public static Texture decor_tube_big=new Texture(Gdx.files.internal("decoration_tube_big.png"));
+	public static Texture decoration_train=new Texture(Gdx.files.internal("decoration_train.png"));
+	public static Texture decoration_train_vagon_rect=new Texture(Gdx.files.internal("decoration_train_vagon_rect.png"));
+	public static Texture decoration_train_vagon_open=new Texture(Gdx.files.internal("decoration_train_vagon_open.png"));
 	
 	public static Texture cystern=new Texture(Gdx.files.internal("decoration_cystern.png"));
 	
@@ -85,6 +88,21 @@ public class Assets {
 	public static Texture highlight=new Texture(Gdx.files.internal("highlight.png"));;
 	public static Texture icon_cooldown=new Texture(Gdx.files.internal("icon_cooldown.png"));;
 	public static Texture icon_duration=new Texture(Gdx.files.internal("icon_duration.png"));;
+	
+	public static Texture decoration_cystern_icon=new Texture(Gdx.files.internal("decoration_cystern_icon.png"));;
+	public static Texture decoration_tube_big_icon=new Texture(Gdx.files.internal("decoration_tube_big_icon.png"));;
+	public static Texture decoration_stone_barak_icon=new Texture(Gdx.files.internal("decoration_stone_barak_icon.png"));;
+	public static Texture decoration_stone_pilon_icon=new Texture(Gdx.files.internal("decoration_stone_pilon_icon.png"));;
+	public static Texture decoration_stone_wall_01_icon=new Texture(Gdx.files.internal("decoration_stone_wall_01_icon.png"));;
+	public static Texture decoration_stone_wall_02_icon=new Texture(Gdx.files.internal("decoration_stone_wall_02_icon.png"));;
+	public static Texture decoration_tube_cystern_icon=new Texture(Gdx.files.internal("decoration_tube_cystern_icon.png"));;
+	public static Texture entity_pyra_icon=new Texture(Gdx.files.internal("entity_pyra_icon.png"));;
+	public static Texture entity_wheel_icon=new Texture(Gdx.files.internal("entity_wheel_icon.png"));;
+	public static Texture entity_elite_wheel_icon=new Texture(Gdx.files.internal("entity_elite_wheel_icon.png"));;
+	
+	public static Texture decoration_train_icon=new Texture(Gdx.files.internal("decoration_train_icon.png"));;
+	public static Texture decoration_train_vagon_rect_icon=new Texture(Gdx.files.internal("decoration_train_vagon_rect_icon.png"));;
+	public static Texture decoration_train_vagon_open_icon=new Texture(Gdx.files.internal("decoration_train_vagon_open_icon.png"));;
 	/*
 	public static Texture mech_down=new Texture(Gdx.files.internal("mech01.png"));;
 	public static Texture mech_right=new Texture(Gdx.files.internal("mech02.png"));;
@@ -128,15 +146,7 @@ public class Assets {
 		stone_wall_01.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		stone_wall_02.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		stone_pilon_01.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		for (int i=0; i<=21; i++)
-		{
-			if (i<10)
-			{GScreen.tile[i]=new Texture(Gdx.files.internal("tile/tile0"+i+".png"));}
-			else
-			{GScreen.tile[i]=new Texture(Gdx.files.internal("tile/tile"+i+".png"));}
-			
-			GScreen.tile[i].setFilter(TextureFilter.Linear, TextureFilter.Linear); 
-		}
+		
 		
 
 		/*
@@ -159,8 +169,6 @@ public class Assets {
 		
 		
 		
-		tube=new Texture(Gdx.files.internal("decor_tube.png"));
-		tube_carcas=new Texture(Gdx.files.internal("decor_tube_carcas.png"));
 		
 		shoot00 = Gdx.audio.newSound(Gdx.files.internal("shoot00.wav"));
 		shoot01 = Gdx.audio.newSound(Gdx.files.internal("shoot01.wav"));
@@ -217,6 +225,17 @@ public class Assets {
 			
 			
 			GScreen.pl.tex[i].setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		}
+		
+		for (int i=0; i<=22; i++)
+		{
+			if (i<10)
+			{GScreen.tile[i]=new Texture(Gdx.files.internal("tile/tile0"+i+".png"));}
+			else
+			{GScreen.tile[i]=new Texture(Gdx.files.internal("tile/tile"+i+".png"));}
+			
+			
+			GScreen.tile[i].setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		}
 		
 		for (int i=0; i<16; i++)

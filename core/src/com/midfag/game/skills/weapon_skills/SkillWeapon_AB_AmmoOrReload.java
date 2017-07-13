@@ -57,7 +57,7 @@ public class SkillWeapon_AB_AmmoOrReload extends Skill {
 		{
 			if (GScreen.pl.inventory[i] instanceof Weapon)
 			{
-				((Weapon)GScreen.pl.inventory[i]).update_attributes_bonus();
+				((Weapon)GScreen.pl.inventory[i]).update_attributes_bonus(GScreen.pl);
 			}
 		}
 	}

@@ -48,7 +48,7 @@ public class SkillWeapon_BB_AdvancedBloodlust extends Skill {
 		{
 			if (GScreen.pl.inventory[i] instanceof Weapon)
 			{
-				((Weapon)GScreen.pl.inventory[i]).update_attributes_bonus();
+				((Weapon)GScreen.pl.inventory[i]).update_attributes_bonus(GScreen.pl);
 			}
 		}
 	}

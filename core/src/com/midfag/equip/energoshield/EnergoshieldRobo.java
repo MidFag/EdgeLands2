@@ -9,10 +9,10 @@ public class EnergoshieldRobo extends Energoshield {
 	public EnergoshieldRobo()
 	{
 		super();
-		base_value=100;
-		value=100;
-		base_regen_speed=10;
-		base_reflect=5;
+		base_value=300;
+		value=300;
+		base_regen_speed=30;
+		base_reflect=10;
 		
 		name="Roboshield";
 		gennable=false;

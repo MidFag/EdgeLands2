@@ -11,10 +11,12 @@ public class DecorBuildingWall extends DecorBuilding {
 	
 	//private float alpha=1;
 
-	public DecorBuildingWall(Vector2 _v,boolean _custom) {
+	public DecorBuildingWall(Vector2 _v) {
 		
-		super(_v, _custom);
+		super(_v);
 
+		custom_phys=true;
+		
 		id=this.getClass().getName();
 
 		
@@ -34,7 +36,7 @@ public class DecorBuildingWall extends DecorBuilding {
 	@Override
 	public Entity put() {
 		// TODO Auto-generated method stub
-		return new DecorBuildingWall(new Vector2(),true);
+		return new DecorBuildingWall(new Vector2());
 	}
 	
 	@Override

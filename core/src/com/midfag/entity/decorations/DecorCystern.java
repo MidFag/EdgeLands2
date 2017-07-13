@@ -10,14 +10,16 @@ import com.midfag.game.Phys;
 
 public class DecorCystern extends DecorStoneWall {
 
-	public DecorCystern(Vector2 _v,boolean _custom) {
+	public DecorCystern(Vector2 _v) {
 		
-		super(_v, _custom);
+		super(_v);
+
+		custom_phys=true;
 		
 		id=this.getClass().getName();
 		
 		spr.setTexture(Assets.cystern);
-
+		icon=Assets.decoration_cystern_icon;
 		
 		Helper.log("ID="+id);
 		
@@ -41,7 +43,7 @@ public class DecorCystern extends DecorStoneWall {
 	@Override
 	public Entity put() {
 		// TODO Auto-generated method stub
-		return new DecorCystern(new Vector2(),true);
+		return new DecorCystern(new Vector2());
 	}
 	
 	@Override

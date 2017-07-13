@@ -29,7 +29,7 @@ public class ModuleUnitTurret extends ModuleUnit {
 		base_cooldown=15;
 
 		
-		level=1;
+		level=5;
 		
 
 		
@@ -59,7 +59,7 @@ public class ModuleUnitTurret extends ModuleUnit {
 	{
 		duration=total_duration;
 		
-		Entity en=new EntityTurret(new Vector2(_e.pos), false);
+		Entity en=new EntityTurret(new Vector2(_e.pos));
 		en.armored[0]=weapon;
 		turret=en;
 		GScreen.add_entity_to_map(en);

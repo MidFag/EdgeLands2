@@ -26,6 +26,7 @@ import com.midfag.game.GUI.Edit.ButtonSaveMap;
 import com.midfag.game.GUI.Edit.GUIEdit;
 import com.midfag.game.GUI.buttons.ButtonEquip;
 import com.midfag.game.GUI.buttons.ButtonRandomGenerator;
+import com.midfag.game.GUI.buttons.ButtonVertical;
 
 import com.midfag.game.GUI.buttons.ButtonSkill;
 import com.midfag.game.skills.Skill;
@@ -90,16 +91,16 @@ public class InputHandler implements InputProcessor {
 	    		if (Math.random()>0.25f)
 	    		{
 	    			if (Math.random()>0.5f)
-	    			{en=GScreen.add_entity_to_map(new EntityPyra(new Vector2(),false));}
+	    			{en=GScreen.add_entity_to_map(new EntityPyra(new Vector2()));}
 	    			else
-	    			{en=GScreen.add_entity_to_map(new EntityTurret(new Vector2(),false)); en.is_enemy=true;}
+	    			{en=GScreen.add_entity_to_map(new EntityTurret(new Vector2())); en.is_enemy=true;}
 	    		}
 	    		else
 	    		{
 	    			if (Math.random()<0.9f)
-	    			{en=GScreen.add_entity_to_map(new EntityWheel(new Vector2(),false));}
+	    			{en=GScreen.add_entity_to_map(new EntityWheel(new Vector2()));}
 	    			else
-	    			{en=GScreen.add_entity_to_map(new EntityEliteWheel(new Vector2(),false));}
+	    			{en=GScreen.add_entity_to_map(new EntityEliteWheel(new Vector2()));}
 	    		}
 	    		
 	    		
@@ -131,6 +132,9 @@ public class InputHandler implements InputProcessor {
     		GScreen.Button_list.add(new ButtonChangeMode(300,650,EditMode.ENTITY,gui));
     		GScreen.Button_list.add(new ButtonChangeMode(400,650,EditMode.TILE,gui));
     		GScreen.Button_list.add(new ButtonChangeMode(500,650,EditMode.PATTERN,gui));
+    		
+			GScreen.Button_list.add(new ButtonVertical(650,40,gui,false));
+    		GScreen.Button_list.add(new ButtonVertical(650,65,gui,true));
     		
     		GScreen.GUI_list.add(gui);
     	}
@@ -227,6 +231,8 @@ public class InputHandler implements InputProcessor {
     			
     			gui.Button_list.add(new ButtonEquip(200,250,99));
     			//gui.Button_list.add(new ButtonSkill(30,30,GScreen.pl.Skills_list.get(0),gui));
+    			
+
     			
     			GScreen.GUI_list.add(gui);
     			

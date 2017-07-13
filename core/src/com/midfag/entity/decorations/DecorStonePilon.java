@@ -9,13 +9,15 @@ import com.midfag.game.Phys;
 
 public class DecorStonePilon extends DecorStoneWall {
 
-	public DecorStonePilon(Vector2 _v,boolean _custom) {
+	public DecorStonePilon(Vector2 _v) {
 		
-		super(_v, _custom);
+		super(_v);
 
+
+		custom_phys=true;
 		
 		spr.setTexture(Assets.stone_pilon_01);
-
+		icon=Assets.decoration_stone_pilon_icon;
 		id=this.getClass().getName();
 		
 		diagonal=false;
@@ -33,7 +35,7 @@ public class DecorStonePilon extends DecorStoneWall {
 	@Override
 	public Entity put() {
 		// TODO Auto-generated method stub
-		return new DecorStonePilon(new Vector2(),true);
+		return new DecorStonePilon(new Vector2());
 	}
 	
 	@Override

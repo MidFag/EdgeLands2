@@ -12,9 +12,11 @@ public class DecorBuilding extends Entity {
 	
 	private float alpha=1;
 
-	public DecorBuilding(Vector2 _v,boolean _custom) {
+	public DecorBuilding(Vector2 _v) {
 		
-		super(_v, _custom);
+		super(_v);
+		
+		custom_phys=true;
 
 		id=this.getClass().getName();
 		
@@ -39,7 +41,7 @@ public class DecorBuilding extends Entity {
 	@Override
 	public Entity put() {
 		// TODO Auto-generated method stub
-		return new DecorBuilding(new Vector2(),true);
+		return new DecorBuilding(new Vector2());
 	}
 	
 	@Override

@@ -42,7 +42,7 @@ public class ModuleUnitPush extends ModuleUnit {
 
 		rarity=Rarity.COMMON;
 		
-		level=1;
+		level=5;
 		
 		generate();
 		update_stats();
@@ -123,6 +123,7 @@ public class ModuleUnitPush extends ModuleUnit {
 				
 				for (int i=cx-1; i<=cx+1; i++)
 				for (int j=cy-1; j<=cy+1; j++)
+				if ((j>0)&&(j<30)&&(i>0)&&(i<30))
 				for (int k=0; k<GScreen.cluster[j][i].Entity_list.size(); k++)
 				{
 						if (_e.pos.dst(GScreen.cluster[j][i].Entity_list.get(k).pos)<80)

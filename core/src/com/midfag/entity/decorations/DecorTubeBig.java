@@ -9,10 +9,13 @@ import com.midfag.game.Phys;
 
 public class DecorTubeBig extends DecorStoneWall {
 
-	public DecorTubeBig(Vector2 _v,boolean _custom) {
+	public DecorTubeBig(Vector2 _v) {
 		
-		super(_v, _custom);
+		super(_v);
 
+
+		custom_phys=true;
+		icon=Assets.decoration_tube_big_icon;
 		
 		spr.setTexture(Assets.decor_tube_big);
 
@@ -33,7 +36,7 @@ public class DecorTubeBig extends DecorStoneWall {
 	@Override
 	public Entity put() {
 		// TODO Auto-generated method stub
-		return new DecorTubeBig(new Vector2(),true);
+		return new DecorTubeBig(new Vector2());
 	}
 	
 	@Override

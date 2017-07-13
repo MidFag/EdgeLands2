@@ -107,6 +107,8 @@ public class Entity {
 	public boolean rotate_block;
 	
 	public Entity target=null;
+
+	public Texture icon;
 	
 	public void use_module(int _id)
 	{
@@ -132,7 +134,7 @@ public class Entity {
 				;
 				
 				
-					Phys p=new Phys(new Vector2(pos.x-40f/1,pos.y),new Vector2(pos.x+40f/1,pos.y),false,this,true);
+					Phys p=new Phys(new Vector2(pos.x-30f/1,pos.y),new Vector2(pos.x+30/1,pos.y),false,this,true);
 					{p.move_block=false;}
 					
 					Phys_list_local.add(p);
@@ -140,7 +142,7 @@ public class Entity {
 					
 					
 					
-					p=new Phys(new Vector2(pos.x,pos.y-40f/1),new Vector2(pos.x,pos.y+40f/1),false,this,true);
+					p=new Phys(new Vector2(pos.x,pos.y-30f/1),new Vector2(pos.x,pos.y+30f/1),false,this,true);
 					{p.move_block=false;}
 					
 					Phys_list_local.add(p);
@@ -155,11 +157,10 @@ public class Entity {
 		
 	}
 	
-	public Entity(Vector2 _v,boolean _custom)
+	public Entity(Vector2 _v)
 	{
 		pos=_v;
 		
-		custom_phys=_custom;
 		
 		armored[0]=new WeaponRobofirle();
 		armored[1]=null;
@@ -420,6 +421,11 @@ public class Entity {
 				pos.x+=_x;
 				pos.y+=_y;
 				
+				if (pos.x>8900){pos.x=8900;}
+				if (pos.x<100){pos.x=100;}
+				
+				if (pos.y>8900){pos.y=8900;}
+				if (pos.y<100){pos.y=100;}
 				//spr.setColor((float)Math.random()*0.2f+0.8f,(float)Math.random()*0.2f+0.8f, (float)Math.random()*0.2f+0.8f, 1.0f);
 				
 				int ncx=(int)(pos.x/300f);
@@ -847,7 +853,11 @@ public class Entity {
 		GScreen.batch.draw(Assets.rect_white, pos.x-15, pos.y-40, 30f*armored_shield.value/armored_shield.total_value,10);
 	}
 	
+	
 	public void draw_action(float _d) {
+		draw_action(_d, 1f);
+	}
+	public void draw_action(float _d, float _siz) {
 		// TODO Auto-generated method stub
 		
 		if (!GScreen.show_edit)
@@ -859,6 +869,7 @@ public class Entity {
 		if (!is_decor)
 		{draw_hp();}
 		
+		spr.setScale(_siz);
 		spr.draw(GScreen.batch);
 		
 

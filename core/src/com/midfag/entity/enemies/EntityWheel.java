@@ -28,14 +28,14 @@ public class EntityWheel extends Entity {
 	private float prepare=(float) (Math.random()*2);
 	//private int body_rotate;
 	
-	public EntityWheel(Vector2 _v,boolean _custom)
+	public EntityWheel(Vector2 _v)
 	{
-		super (_v, _custom);
+		super (_v);
 		
 		spr.setTexture(Assets.wheel_body[0]);
 		pos=_v;
 		
-		custom_phys=_custom;
+		icon=Assets.entity_wheel_icon;
 		
 		id=this.getClass().getName();
 		

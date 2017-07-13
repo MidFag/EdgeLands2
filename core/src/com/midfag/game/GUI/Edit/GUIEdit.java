@@ -1,5 +1,7 @@
 package com.midfag.game.GUI.Edit;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +25,7 @@ public class GUIEdit extends GUI {
 	public List<Button> Button_list = new ArrayList<Button>();
 	public List<TilePattern> Pattern_list = new ArrayList<TilePattern>();
 	//public GScreen G=Main.screen;
-	public Entity indicate_entity=new Entity(new Vector2(),true);
+	public Entity indicate_entity=new Entity(new Vector2());
 	public static List<Entity> Object_list = new ArrayList<Entity>();
 	
 	public String id;
@@ -40,11 +42,13 @@ public class GUIEdit extends GUI {
 	public boolean pattern_edit=false;
 	
 	public Vector2 pattern_first_point=new Vector2(-777,-777);
+	public Vector2 temp_vector=new Vector2(0,0);
 	public TilePattern indicate_pattern;
+	public int id_offset;
 	 
 	public GUIEdit()
 	{
-		indicate_entity=new Entity(new Vector2(),true);
+		indicate_entity=new Entity(new Vector2());
 		//G=GScreen.get_this();
 		
 		for (int k=0; k<5; k++)
@@ -75,7 +79,7 @@ public class GUIEdit extends GUI {
 		
 		int mod=3;
 		
-		if (Gdx.input.isKeyPressed(112)&&(selected_object!=null)){selected_object.dead_action(true);}
+		if (Gdx.input.isKeyPressed(112)&&(selected_object!=null)){selected_object.dead_action(true); selected_object=null;}
 		
 		if (Gdx.input.isKeyPressed(Keys.SHIFT_LEFT)){mod=1;}
 		
@@ -98,29 +102,88 @@ public class GUIEdit extends GUI {
 			
 			if (indicate_pattern!=null)
 			{
-				GScreen.batch.setColor(1, 0.8f, 0.6f, 0.5f);
+				GScreen.batch.setColor(1, 1.0f, 1.0f, 0.5f);
 				
 				for (int i=0; i<indicate_pattern.size_y; i++)
 				for (int j=0; j<indicate_pattern.size_x; j++)
 				{
 					if (indicate_pattern.layer_main[j][i]>=0)
+					{	
+						int ty=(int)indicate_pattern.layer_main[j][i]/8;
+						int tx=indicate_pattern.layer_main[j][i]-ty*8;
 					
-					GScreen.batch.draw(GScreen.tile[indicate_pattern.layer_main[j][i]],(int)(InputHandler.posx/30)*30+j*30-15,(int)(InputHandler.posy/30)*30+i*30-15);
+					//GScreen.batch_static.draw(GScreen.tile_texture, pos.x+(j*5)*mul-50*mul/mulx,  pos.y+(i*5)*mul-50*mul/muly,10f*mul,10f*mul);
+						GScreen.batch.draw 
+							(
+							GScreen.tile_texture,
+							(int)(InputHandler.posx/30f)*30f+j*30f-15f,
+							(int)(InputHandler.posy/30f)*30f+i*30f-15f,
+							60,
+							60,
+							(tx*60f+tx+1)*0.001953f,
+							(ty*60f+ty+61)*0.001953f,
+							(tx*60f+tx+61)*0.001953f,
+							(ty*60f+ty+1)*0.001953f
+							);;
+					}
 				}
 				
+				for (int i=0; i<indicate_pattern.size_y; i++)
+				for (int j=0; j<indicate_pattern.size_x; j++)
+					{
+						if (indicate_pattern.layer_top[j][i]>=0)
+						{	
+							int ty=(int)indicate_pattern.layer_top[j][i]/8;
+							int tx=indicate_pattern.layer_top[j][i]-ty*8;
+						
+						//GScreen.batch_static.draw(GScreen.tile_texture, pos.x+(j*5)*mul-50*mul/mulx,  pos.y+(i*5)*mul-50*mul/muly,10f*mul,10f*mul);
+							GScreen.batch.draw 
+								(
+								GScreen.tile_texture,
+								(int)(InputHandler.posx/30f)*30f+j*30f-15f,
+								(int)(InputHandler.posy/30f)*30f+i*30f-15f,
+								60,
+								60,
+								(tx*60f+tx+1)*0.001953f,
+								(ty*60f+ty+61)*0.001953f,
+								(tx*60f+tx+61)*0.001953f,
+								(ty*60f+ty+1)*0.001953f
+								);;
+						}
+					}
+				
+
+				
+				for (int i=0; i<indicate_pattern.elist.size(); i++)
+				{
+					indicate_pattern.elist.get(i).spr.setPosition
+							(
+								indicate_pattern.elist.get(i).pos.x+InputHandler.posx-indicate_pattern.elist.get(i).spr.getOriginX(),
+								indicate_pattern.elist.get(i).pos.y+InputHandler.posy-indicate_pattern.elist.get(i).spr.getOriginY()
+							);
+					
+					indicate_pattern.elist.get(i).spr.setColor(1, 1, 1, 0.5f);
+					indicate_pattern.elist.get(i).draw_action(_d,1);
+					indicate_pattern.elist.get(i).spr.setColor(1, 1, 1, 1.0f);
+
+				}
+				
+				/*
 				for (int i=0; i<indicate_pattern.size_y; i++)
 				for (int j=0; j<indicate_pattern.size_x; j++)
 				{
 					if (indicate_pattern.layer_top[j][i]>=0)
 					GScreen.batch.draw(GScreen.tile[indicate_pattern.layer_top[j][i]],(int)(InputHandler.posx/30)*30+j*30-15,(int)(InputHandler.posy/30)*30+i*30-15);
-				}
+				}*/
 				
 				GScreen.batch.setColor(1, 1, 1, 1);
 			}
 			
-			GScreen.batch.draw(Assets.point_start,pattern_first_point.x*30,pattern_first_point.y*30);
+			GScreen.batch.draw(Assets.point_start,(int)(pattern_first_point.x/30f)*30f,(int)(pattern_first_point.y/30.0f)*30f);
+			
+			//GScreen.batch.draw(Assets.point_start,(pattern_first_point.x+InputHandler.posx)/2f-15,(pattern_first_point.y+InputHandler.posy)/2f-15);
 			if (pattern_first_point.x>0)
-			{GScreen.batch.draw(Assets.rama,pattern_first_point.x*30,pattern_first_point.y*30,InputHandler.posx-pattern_first_point.x*30,InputHandler.posy-pattern_first_point.y*30);}
+			{GScreen.batch.draw(Assets.rama,pattern_first_point.x,pattern_first_point.y,InputHandler.posx-pattern_first_point.x,InputHandler.posy-pattern_first_point.y);}
 			
 		GScreen.batch.end();
 		
@@ -159,8 +222,8 @@ public class GUIEdit extends GUI {
 			{
 				if (pattern_first_point.x==-777)
 				{
-					pattern_first_point.x=(int)(InputHandler.posx/30);
-					pattern_first_point.y=(int)(InputHandler.posy/30);
+					pattern_first_point.x=(int)(InputHandler.posx);
+					pattern_first_point.y=(int)(InputHandler.posy);
 				}
 				//if (1)
 			}
@@ -173,14 +236,33 @@ public class GUIEdit extends GUI {
 					GScreen.tile_map[(int)(InputHandler.posx/30)+j][(int)(InputHandler.posy/30)+i]=indicate_pattern.layer_main[j][i];
 					GScreen.tile_map_overlay[(int)(InputHandler.posx/30)+j][(int)(InputHandler.posy/30)+i]=indicate_pattern.layer_top[j][i];
 					
-					System.out.println("PUT_PATTERN");
+					
+				}
+				
+				System.out.println("PUT_PATTERN");
+				
+				if (indicate_pattern.elist.size()>0)
+				{
+					InputHandler.but=-1;
+					
+					
+					for (int i=0; i<indicate_pattern.elist.size(); i++)
+					{
+						Entity el=indicate_pattern.elist.get(i);
+						Entity en=Helper.get_object_from_id(el.id);
+						
+						en.pos.x=el.pos.x+InputHandler.posx-el.spr.getOriginX()*0;
+						en.pos.y=el.pos.y+InputHandler.posy-el.spr.getOriginY()*0;
+						
+						GScreen.add_entity_to_map(en);
+					}
 				}
 			}
 			
 			if ((InputHandler.but!=0)&&(pattern_edit)&&(pattern_first_point.x>0))
 			{
-				int sx=(int)(pattern_first_point.x);
-				int sy=(int)(pattern_first_point.y);
+				int sx=(int)(pattern_first_point.x/30.0f);
+				int sy=(int)(pattern_first_point.y/30.0f);
 				
 				int ex=(int)(InputHandler.posx/30f);
 				int ey=(int)(InputHandler.posy/30f);
@@ -216,6 +298,49 @@ public class GUIEdit extends GUI {
 					//GScreen.tile_map[sx+i][sy+j]=15;
 				}
 				
+				List<Entity> l=GScreen.get_entity_list(temp_vector.set(InputHandler.posx, InputHandler.posy));
+				
+				Helper.log("ENTITY ON LIST="+l.size());
+				
+				Pattern_list.get(0).elist.clear();
+				
+				if (l.size()>0)
+				{
+					float cx=(pattern_first_point.x+InputHandler.posx)/2f;
+					float cy=(pattern_first_point.y+InputHandler.posy)/2f;
+					
+					float dx=Math.abs(pattern_first_point.x-InputHandler.posx);
+					float dy=Math.abs(pattern_first_point.y-InputHandler.posy);
+					
+					try {
+						
+						for (int i=0; i<l.size(); i++)
+						{
+							if (
+									(Math.abs(l.get(i).pos.x-cx)<dx/2f)
+									&&
+									(Math.abs(l.get(i).pos.y-cy)<dy/2f)
+								)
+							{
+
+								Entity enn=Helper.get_object_from_id(l.get(i).id);
+								
+								enn.pos.x=l.get(i).pos.x-pattern_first_point.x;
+								enn.pos.y=l.get(i).pos.y-pattern_first_point.y;
+								
+								Pattern_list.get(0).elist.add(enn);
+								Helper.log("ELIST ADDED ["+i+"]");
+							}
+						}
+						
+						
+					} 
+					 catch (IllegalArgumentException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				
 				Pattern_list.get(0).size_x=ex-sx+1;
 				Pattern_list.get(0).size_y=ey-sy+1;
 				pattern_first_point.x=-777;
@@ -239,6 +364,7 @@ public class GUIEdit extends GUI {
 				
 				{
 					//System.out.println("PUT TILE!");
+					if (((int)(InputHandler.posx/30)>=0)&&((int)(InputHandler.posy/30)>=0)&&((int)(InputHandler.posx/30)<300)&&((int)(InputHandler.posy/30)<300))
 					if (!top_layer)
 					{GScreen.tile_map[(int)(InputHandler.posx/30)][(int)(InputHandler.posy/30)]=tile;}
 					else
@@ -303,7 +429,7 @@ public class GUIEdit extends GUI {
 				}
 				GScreen.batch.end();
 				
-				if (selected_object!=null){selected_object.spr.setColor(Color.GREEN);}
+				if (selected_object!=null){selected_object.spr.setColor(Color.GREEN); selected_object.spr.setAlpha(0.5f);}
 			}
 		}
 		

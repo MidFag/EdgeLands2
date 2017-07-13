@@ -128,7 +128,7 @@ public class Helper {
 			//System.out.println("CONSTRUCTOR[0]: "+constructor[0]);
 			//System.out.println("CONSTRUCTOR[1]: "+constructor[1]);
 			
-			Entity enn=(Entity) constructor[0].newInstance(new Vector2(), true);
+			Entity enn=(Entity) constructor[0].newInstance(new Vector2());
 			return enn;
 
 

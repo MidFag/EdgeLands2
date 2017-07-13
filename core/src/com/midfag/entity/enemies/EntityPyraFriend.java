@@ -4,8 +4,8 @@ import com.badlogic.gdx.math.Vector2;
 
 public class EntityPyraFriend extends EntityPyra {
 
-	public EntityPyraFriend(Vector2 _v, boolean _custom) {
-		super(_v, _custom);
+	public EntityPyraFriend(Vector2 _v) {
+		super(_v);
 		
 		is_enemy=false;
 		id=this.getClass().getName();

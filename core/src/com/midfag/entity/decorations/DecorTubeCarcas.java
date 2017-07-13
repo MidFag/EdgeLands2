@@ -8,9 +8,11 @@ import com.midfag.game.Assets;
 
 public class DecorTubeCarcas extends DecorTube {
 
-	public DecorTubeCarcas(Vector2 _v,boolean _custom) {
+	public DecorTubeCarcas(Vector2 _v) {
 		
-		super(_v,_custom);
+		super(_v);
+
+		custom_phys=true;
 		
 		isCarcas=true;
 		armored[0]=null;

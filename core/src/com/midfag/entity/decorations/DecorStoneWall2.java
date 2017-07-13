@@ -9,14 +9,18 @@ import com.midfag.game.Phys;
 
 public class DecorStoneWall2 extends DecorStoneWall {
 
-	public DecorStoneWall2(Vector2 _v,boolean _custom) {
+	public DecorStoneWall2(Vector2 _v) {
 		
-		super(_v, _custom);
+		super(_v);
 
+
+		custom_phys=true;
 		
 		spr.setTexture(Assets.stone_wall_02);
 
-		id="stone_wall2";
+		icon=Assets.decoration_stone_wall_02_icon;
+		
+		
 		
 		spr.setSize(spr.getTexture().getWidth(), spr.getTexture().getHeight());
 		spr.setOrigin(11.0f, 5f);
@@ -33,7 +37,7 @@ public class DecorStoneWall2 extends DecorStoneWall {
 	@Override
 	public Entity put() {
 		// TODO Auto-generated method stub
-		return new DecorStoneWall2(new Vector2(),true);
+		return new DecorStoneWall2(new Vector2());
 	}
 	
 	@Override

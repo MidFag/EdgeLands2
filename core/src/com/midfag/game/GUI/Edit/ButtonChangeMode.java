@@ -1,10 +1,14 @@
 package com.midfag.game.GUI.Edit;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 
+import com.midfag.entity.Entity;
 import com.midfag.entity.decorations.*;
 
 import com.midfag.entity.enemies.*;
@@ -17,6 +21,7 @@ import com.midfag.game.InputHandler;
 import com.midfag.game.Main;
 
 import com.midfag.game.GUI.buttons.Button;
+import com.midfag.game.GUI.buttons.ButtonVertical;
 
 
 public class ButtonChangeMode extends Button {
@@ -26,6 +31,8 @@ public class ButtonChangeMode extends Button {
 	public String id;
 	public GUIEdit gui;
 	public int em;
+	
+	public List<Entity> entity_list=new ArrayList<Entity>();
 	
 	public Vector2 off=new Vector2();
 	
@@ -96,9 +103,13 @@ public class ButtonChangeMode extends Button {
 				
 				
 				//GScreen.Button_list.add(new ButtonPutterTile(50,50,-1,gui));
-	    		for (int i=0; i<30; i++)
-	    		if (GScreen.tile[i+12]!=null)
-	    		{GScreen.Button_list.add(new ButtonPutterTile(50+i*60,50,i+12,gui));}
+	    		for (int i=0; i<10; i++)
+	    		if (GScreen.tile[i]!=null)
+	    		{GScreen.Button_list.add(new ButtonPutterTile(50+i*60,50,i,gui));}
+	    		
+	    		
+	    		
+	    		
 			}
 			
 			if ((em==EditMode.ENTITY.ordinal())&&(!gui.entity_mode))
@@ -106,23 +117,33 @@ public class ButtonChangeMode extends Button {
 				clear_GUI();
 				gui.entity_mode=true;
 				
-	    		GScreen.Button_list.add(new ButtonPutter(50,50,new DecorStoneWall(new Vector2(),true),gui));
-	    		GScreen.Button_list.add(new ButtonPutter(150,50,new EntityPyra(new Vector2(),false),gui));
-	    		GScreen.Button_list.add(new ButtonPutter(250,50,new DecorStonePilon(new Vector2(),false),gui));//MB 12.03.2017 01:43:36
-	    		GScreen.Button_list.add(new ButtonPutter(350,50,new DecorStoneWall2(new Vector2(),true),gui));
-	    		GScreen.Button_list.add(new ButtonPutter(450,50,new DecorTubeCystern(new Vector2(),true),gui));
-	    		GScreen.Button_list.add(new ButtonPutter(550,50,new DecorCystern(new Vector2(),true),gui));
-	    		GScreen.Button_list.add(new ButtonPutter(650,50,new EntityWheel(new Vector2(),false),gui));
-	    		GScreen.Button_list.add(new ButtonPutter(750,50,new DecorStoneBarak(new Vector2(),true),gui));
-	    		GScreen.Button_list.add(new ButtonPutter(850,50,new EntityEliteWheel(new Vector2(),true),gui));
-	    		GScreen.Button_list.add(new ButtonPutter(950,50,new DecorTubeBig(new Vector2(),true),gui));
+				entity_list.add(new DecorStoneWall(new Vector2()));
+				entity_list.add(new EntityPyra(new Vector2()));
+				entity_list.add(new DecorStonePilon(new Vector2()));
+				entity_list.add(new DecorStoneWall2(new Vector2()));
+				entity_list.add(new DecorTubeCystern(new Vector2()));
+				entity_list.add(new DecorCystern(new Vector2()));
+				entity_list.add(new EntityWheel(new Vector2()));
+				entity_list.add(new DecorStoneBarak(new Vector2()));
+				entity_list.add(new EntityEliteWheel(new Vector2()));
+				entity_list.add(new DecorTubeBig(new Vector2()));
+				entity_list.add(new DecorTrain(new Vector2()));
+				entity_list.add(new DecorTrainVagonRect(new Vector2()));
+				entity_list.add(new DecorTrainVagonOpen(new Vector2()));
+				
+				for (int i=0; i<10; i++)
+				if (i<entity_list.size())
+	    		{
+					GScreen.Button_list.add(new ButtonPutter(50+55*i,50,i,gui,entity_list));
+				}
+	    		
 			}
 			
 			if ((em==EditMode.PATTERN.ordinal())&&(!gui.pattern_mode))
 			{
 				clear_GUI();
 				gui.pattern_mode=true;
-				
+				//unreal 13.07.2017 11:01:47
 				for (int i=0; i<5; i++)
 				{GScreen.Button_list.add(new ButtonPattern(50+120*i,50,gui.Pattern_list.get(i),gui));}
 				

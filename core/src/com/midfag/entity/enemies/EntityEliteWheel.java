@@ -29,14 +29,14 @@ public class EntityEliteWheel extends Entity {
 	private float boom_cooldown=5f;
 	//private int body_rotate;
 	
-	public EntityEliteWheel(Vector2 _v,boolean _custom)
+	public EntityEliteWheel(Vector2 _v)
 	{
-		super (_v, _custom);
+		super (_v);
 		
 		spr.setTexture(Assets.wheel_elite_body[0]);
 		pos=_v;
 		
-		custom_phys=_custom;
+		icon=Assets.entity_elite_wheel_icon;
 		
 		id=this.getClass().getName();
 		

@@ -9,15 +9,17 @@ import com.midfag.game.Phys;
 
 public class DecorStoneBarak extends Entity {
 
-	public DecorStoneBarak(Vector2 _v,boolean _custom) {
+	public DecorStoneBarak(Vector2 _v) {
 		
-		super(_v, _custom);
+		super(_v);
 
+		custom_phys=true;
+		
 		id=this.getClass().getName();
 		
 		spr.setTexture(Assets.stone_barak);
 		//id="stone_barak";
-		
+		icon=Assets.decoration_stone_barak_icon;
 		diagonal=false;
 		
 		spr.setSize(300, 300);
@@ -49,7 +51,7 @@ public class DecorStoneBarak extends Entity {
 	public Entity put() {
 		// TODO Auto-generated method stub
 
-		return new DecorStoneBarak(new Vector2(),true);
+		return new DecorStoneBarak(new Vector2());
 		
 	}
 	

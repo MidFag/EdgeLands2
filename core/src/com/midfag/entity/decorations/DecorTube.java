@@ -20,9 +20,10 @@ public class DecorTube extends Entity {
 	public float fall_speed=-100;
 	public boolean is_fallen=false;
 	
-	public DecorTube(Vector2 _v,boolean _custom) {
+	public DecorTube(Vector2 _v) {
 		
-		super(_v,_custom);
+		super(_v);
+
 		
 		armored[0]=null;
 		armored[1]=null;

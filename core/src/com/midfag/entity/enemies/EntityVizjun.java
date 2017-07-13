@@ -21,9 +21,9 @@ public class EntityVizjun extends Entity {
 	
 	Sprite spr_dust=new Sprite(new Texture(Gdx.files.internal("dust.png")));
 	
-	public EntityVizjun(Vector2 _v, boolean _custom) {
+	public EntityVizjun(Vector2 _v) {
 		
-		super(_v, _custom);
+		super(_v);
 		
 		is_AI=true;
 		is_player=false;

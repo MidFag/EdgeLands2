@@ -9,12 +9,16 @@ import com.midfag.game.Phys;
 
 public class DecorStoneWall extends Entity {
 
-	public DecorStoneWall(Vector2 _v,boolean _custom) {
+	public DecorStoneWall(Vector2 _v) {
 		
-		super(_v, _custom);
+		super(_v);
+
+		custom_phys=true;
 		
 		is_AI=false;
 		is_player=false;
+		
+		icon=Assets.decoration_stone_wall_01_icon;
 		
 		armored_shield.value=10000;
 		armored_shield.total_value=10000;
@@ -45,7 +49,7 @@ public class DecorStoneWall extends Entity {
 	@Override
 	public Entity put() {
 		// TODO Auto-generated method stub
-		return new DecorStoneWall(new Vector2(),true);
+		return new DecorStoneWall(new Vector2());
 	}
 	
 	@Override

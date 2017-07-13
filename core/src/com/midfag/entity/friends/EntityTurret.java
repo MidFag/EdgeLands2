@@ -13,14 +13,14 @@ public class EntityTurret extends Entity {
 	private float body_rotate_cooldown;
 
 
-	public EntityTurret(Vector2 _v,boolean _custom)
+	public EntityTurret(Vector2 _v)
 	{
-		super (_v, _custom);
+		super (_v);
 		
 		spr.setTexture(Assets.pyra_body[0]);
 		pos=_v;
 		
-		custom_phys=_custom;
+
 		
 		id="pyra";
 		

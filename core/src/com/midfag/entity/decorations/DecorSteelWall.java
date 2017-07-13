@@ -7,9 +7,11 @@ import com.midfag.entity.Entity;
 
 public class DecorSteelWall extends Entity {
 
-	public DecorSteelWall(Vector2 _v,boolean _custom) {
+	public DecorSteelWall(Vector2 _v) {
 		
-		super(_v, _custom);
+		super(_v);
+
+		custom_phys=true;
 		
 		id=this.getClass().getName();
 		
@@ -28,7 +30,7 @@ public class DecorSteelWall extends Entity {
 	@Override
 	public Entity put() {
 		// TODO Auto-generated method stub
-		return new DecorSteelWall(new Vector2(),true);
+		return new DecorSteelWall(new Vector2());
 	}
 
 }

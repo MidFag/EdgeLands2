@@ -124,7 +124,7 @@ public class GScreen implements Screen {
 
 	public boolean path_visualisation=false;
 
-	private Texture tile_texture=new Texture(Gdx.files.internal("tile/tile_texture.png"));;
+	public static Texture tile_texture=new Texture(Gdx.files.internal("tile/tile_texture.png"));;
 
 	public static Texture[] tile= new Texture[50];
 
@@ -366,7 +366,7 @@ public class GScreen implements Screen {
        // float tubes_count
         DecorTube o=null;
         
-        add_entity_to_map(new DecorStoneWall(new Vector2(200,200),true));
+        add_entity_to_map(new DecorStoneWall(new Vector2(200,200)));
         
         for (int k=0; k<0; k++)
         {
@@ -375,7 +375,7 @@ public class GScreen implements Screen {
 	        for (int j=0; j<3; j++)
 	        {
 	        	
-	        	Entity tub=add_entity_to_map(new DecorTubeCarcas(new Vector2(200+j*440,300+k*55),true));
+	        	Entity tub=add_entity_to_map(new DecorTubeCarcas(new Vector2(200+j*440,300+k*55)));
 	        	//Entity_list.add();
 	        	
 	        	if (o!=null){((DecorTube)tub).left=o;}
@@ -388,7 +388,7 @@ public class GScreen implements Screen {
 		        {
 		        	if ((Math.random()<1.9)||(i==0)||(i==9))
 		        	{
-		        		tub=add_entity_to_map(new DecorTube(new Vector2(200+j*440+40+i*40,300+k*55),true));
+		        		tub=add_entity_to_map(new DecorTube(new Vector2(200+j*440+40+i*40,300+k*55)));
 		        		
 		        		((DecorTube)tub).left=o;
 		        		((DecorTube)o).right=((DecorTube)tub);
@@ -480,9 +480,9 @@ public class GScreen implements Screen {
         for (int i=0; i<enemy_gen_count; i++)
         {
         	if (Math.random()>0.75f)
-        	add_entity_to_map(new EntityVizjun(new Vector2(350+rnd(3000),300+rnd(3000)),false));
+        	add_entity_to_map(new EntityVizjun(new Vector2(350+rnd(3000),300+rnd(3000))));
         	else
-        	add_entity_to_map(new Entity(new Vector2(350+rnd(3000),300+rnd(3000)),false));
+        	add_entity_to_map(new Entity(new Vector2(350+rnd(3000),300+rnd(3000))));
         }
         
         //Entity_list.add(new DecorStoneBarak(new Vector2(100,200)));
@@ -566,6 +566,7 @@ public class GScreen implements Screen {
 		//for (int k=0; k<80; k++)
 		for (int i=plposy-draw_distance; i<plposy+draw_distance; i++)
 		for (int j=plposx-draw_distance; j<plposx+draw_distance; j++)
+		if ((j>0)&&(j<300)&&(i>0)&&(i<300))
 	 	{
 			int ty=(int)tile_map[j][i]/8;
 			int tx=tile_map[j][i]-ty*8;
@@ -821,18 +822,20 @@ public class GScreen implements Screen {
  		
  		game.shapeRenderer.end();
  		
-		game.shapeRenderer.begin(ShapeType.Line);
-		Gdx.gl.glEnable(GL20.GL_BLEND);
-        Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
-        
-		game.shapeRenderer.setColor(0.15f, 0.16f, 0.17f, 0.01f);
-		for (int i=0; i<30; i++)
-		for (int j=0; j<30; j++)
-		{		
-		game.shapeRenderer.rect(0, 0, j*30*10,i*30*10);
-		}
-		game.shapeRenderer.end();
- 		
+ 		if (show_edit)
+ 		{
+			game.shapeRenderer.begin(ShapeType.Line);
+			Gdx.gl.glEnable(GL20.GL_BLEND);
+	        Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+	        
+			game.shapeRenderer.setColor(0.15f, 0.16f, 0.17f, 0.05f);
+			for (int i=0; i<30; i++)
+			for (int j=0; j<30; j++)
+			{		
+				game.shapeRenderer.rect(0, 0, j*30*10,i*30*10);
+			}
+			game.shapeRenderer.end();
+ 		}
 
 
  		for (int i=plposy-40; i<plposy+40; i++)
@@ -1106,28 +1109,28 @@ public class GScreen implements Screen {
 	            
 	        	if ((fx>0)&&(fy>0)&&(fx<299)&&(fy<299))
 	        	{
-	        		if ((path[fx][fy+1]<path[fx][fy-1]-0)&&(path[fx][fy+1]>=5)&&(path[fx][fy+1]<900))
+	        		if ((path[fx][fy+1]<path[fx][fy-1]-0)&&(path[fx][fy+1]>=10)&&(path[fx][fy+1]<900))
 		        	{e.add_impulse(0, e.speed,delta);}
 		        	
-		        	if ((path[fx][fy-1]<path[fx][fy+1]-0)&&(path[fx][fy-1]>=5)&&(path[fx][fy-1]<900))
+		        	if ((path[fx][fy-1]<path[fx][fy+1]-0)&&(path[fx][fy-1]>=10)&&(path[fx][fy-1]<900))
 		        	{e.add_impulse(0, -e.speed,delta);}
 		        	
-		        	if ((path[fx+1][fy]<path[fx-1][fy]-0)&&(path[fx+1][fy]>=5)&&(path[fx+1][fy]<900))
+		        	if ((path[fx+1][fy]<path[fx-1][fy]-0)&&(path[fx+1][fy]>=10)&&(path[fx+1][fy]<900))
 		        	{e.add_impulse(e.speed, 0,delta);}
 		        	
-		        	if ((path[fx-1][fy]<path[fx+1][fy]-0)&&(path[fx-1][fy]>=5)&&(path[fx-1][fy]<900))
+		        	if ((path[fx-1][fy]<path[fx+1][fy]-0)&&(path[fx-1][fy]>=10)&&(path[fx-1][fy]<900))
 		        	{e.add_impulse(-e.speed, 0,delta);}
 		        	
-		        	if ((path[fx][fy+1]<path[fx][fy-1]-0)&&(path[fx][fy+1]<5)&&(path[fx][fy+1]<130))
+		        	if ((path[fx][fy+1]<path[fx][fy-1]-0)&&(path[fx][fy+1]<10)&&(path[fx][fy+1]<130))
 		        	{e.add_impulse(0, -e.speed,delta);}
 		        	
-		        	if ((path[fx][fy-1]<path[fx][fy+1]-0)&&(path[fx][fy-1]<5)&&(path[fx][fy-1]<130))
+		        	if ((path[fx][fy-1]<path[fx][fy+1]-0)&&(path[fx][fy-1]<10)&&(path[fx][fy-1]<130))
 		        	{e.add_impulse(0, e.speed,delta);}
 		        	
-		        	if ((path[fx+1][fy]<path[fx-1][fy]-0)&&(path[fx+1][fy]<5)&&(path[fx+1][fy]<130))
+		        	if ((path[fx+1][fy]<path[fx-1][fy]-0)&&(path[fx+1][fy]<10)&&(path[fx+1][fy]<130))
 		        	{e.add_impulse(-e.speed, 0,delta);}
 		        	
-		        	if ((path[fx-1][fy]<path[fx+1][fy]-0)&&(path[fx-1][fy]<5)&&(path[fx-1][fy]<130))
+		        	if ((path[fx-1][fy]<path[fx+1][fy]-0)&&(path[fx-1][fy]<10)&&(path[fx-1][fy]<130))
 		        	{e.add_impulse(e.speed, 0,delta);}
 		        	
 		        	if (path[(int)(e.pos.x/path_cell)][(int)(e.pos.y/path_cell)]<100)
@@ -1170,7 +1173,7 @@ public class GScreen implements Screen {
         	if (show_edit)
 	      	for (int x=cluster_x-3; x<cluster_x+3; x++)
 	      	for (int y=cluster_y-3; y<cluster_y+3; y++)
-	      	if ((x>=0)&&(y>=0))
+	      	if ((x>=0)&&(y>=0)&&(x<30)&&(y<30))
 	      	{
 	      		for (int i=0; i<cluster[x][y].Phys_list.size(); i++)
 	      		{cluster[x][y].Phys_list.get(i).draw();}

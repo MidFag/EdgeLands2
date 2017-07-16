@@ -63,6 +63,10 @@ public class ButtonSaveMap extends Button {
 					s+="angle"+"\n";
 					s+=Math.round(GScreen.cluster[j][i].Entity_list.get(k).spr.getRotation())+"\n";
 					
+					if (!GScreen.cluster[j][i].Entity_list.get(k).id_for_script.equals(""))
+					{s+="script_id"+"\n";
+					s+=GScreen.cluster[j][i].Entity_list.get(k).id_for_script+"\n";}
+					
 					s+="PUT"+"\n";
 					
 					s+="\n";

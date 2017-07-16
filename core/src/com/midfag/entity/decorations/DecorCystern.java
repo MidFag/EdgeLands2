@@ -21,7 +21,7 @@ public class DecorCystern extends DecorStoneWall {
 		spr.setTexture(Assets.cystern);
 		icon=Assets.decoration_cystern_icon;
 		
-		Helper.log("ID="+id);
+		//Helper.log("ID="+id);
 		
 		diagonal=false;
 		
@@ -53,33 +53,25 @@ public class DecorCystern extends DecorStoneWall {
 		int y=(int)(pos.y/300);
 		
 		
-		Phys p=new Phys(new Vector2(pos.x-80,pos.y-80),new Vector2(pos.x+80,pos.y-80),true,this,true);
+		Phys p=new Phys(new Vector2(pos.x,pos.y+80),new Vector2(pos.x-80,pos.y),true,this,true);
 		GScreen.cluster[x][y].Phys_list.add(p);
 		Phys_list_local.add(p);
 		
-		p=new Phys(new Vector2(pos.x+80,pos.y-80),new Vector2(pos.x+80,pos.y+80),true,this,true);
+		p=new Phys(new Vector2(pos.x-80,pos.y),new Vector2(pos.x,pos.y-80),true,this,true);
 		GScreen.cluster[x][y].Phys_list.add(p);
 		Phys_list_local.add(p);
 		
-		p=new Phys(new Vector2(pos.x+80,pos.y+80),new Vector2(pos.x-80,pos.y+80),true,this,true);
+		p=new Phys(new Vector2(pos.x,pos.y-80),new Vector2(pos.x+80,pos.y),true,this,true);
 		GScreen.cluster[x][y].Phys_list.add(p);
 		Phys_list_local.add(p);
 		
-		p=new Phys(new Vector2(pos.x-80,pos.y+80),new Vector2(pos.x-80,pos.y-80),true,this,true);
+		p=new Phys(new Vector2(pos.x+80,pos.y),new Vector2(pos.x,pos.y+80),true,this,true);
 		GScreen.cluster[x][y].Phys_list.add(p);
 		Phys_list_local.add(p);
 		
 	}
 	
-	public void fill_path()
-	{
-		if (path)
-		for (int i=0; i<1; i++)
-		for (int j=0; j<1; j++)
-		{
-			GScreen.path[Math.round(pos.x/30f)+j][Math.round(pos.y/30f)+i]=900;
-		}
-	}
+
 	
 
 }

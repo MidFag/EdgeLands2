@@ -1,5 +1,7 @@
 package com.midfag.game;
 
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
 
 public class Phys {
@@ -41,6 +43,8 @@ public class Phys {
 		start=_s;
 		end=_e;
 		
+		angle=(float) (Math.toDegrees(Math.atan2(start.x-end.x, start.y-end.y))+90f);
+		
     	if (start.x==end.x)
     	{start.x-=0.1f;}
     	
@@ -59,22 +63,28 @@ public class Phys {
 		dy=b/a;//-100*0.1=-1 000
 		
     	//float c=(float) Math.sqrt((a*a)+(b*b));
-    	 angle=(float) (Math.toDegrees(Math.atan2(a, b))+90);
+    	//angle=(float) (Math.toDegrees(Math.atan2(a, b))+90);
     	 
     	normal=new Vector2(start.x-(start.x-end.x)/2+(float)Math.sin(Math.toRadians(angle))*5,start.y-(start.y-end.y)/2+(float)Math.cos(Math.toRadians(angle))*5);
     	
+    	
+    	
     	int ps=GScreen.path_cell;
+    	
+
+    	
     	if (_path)
     	for (float i=0; i<=1; i+=ps/len)
     	{
-    		/*
+    		
     		if ((Math.round((start.x+(end.x-start.x)*i)/ps)>=0)&&( Math.round((start.x+(end.x-start.x)*i)/ps)<300 ))
     		if (( Math.round((start.y+(end.y-start.y)*i)/ps)>=0 )&&( Math.round((start.y+(end.y-start.y)*i)/ps)<300 ))
     		{
     			
-    			GScreen.path[Math.round((start.x+(end.x-start.x)*i)/ps)][Math.round((start.y+(end.y-start.y)*i)/ps)]=999;
+    			GScreen.path[(int)((start.x+(end.x-start.x)*i)/ps)][(int)((start.y+(end.y-start.y)*i)/ps)]=920;
+    			GScreen.path[(int)((start.x+(end.x-start.x)*i)/ps)][(int)((start.y+(end.y-start.y)*i)/ps)]=920;
     		}
-    		*/
+    		
     	}
 		
 		display=_display;
@@ -85,14 +95,14 @@ public class Phys {
 		int ps=GScreen.path_cell;
     	for (float i=0; i<=1; i+=ps/len)
     	{
-    		/*
+    		
     		if (( (int)((start.x+(end.x-start.x)*i)/ps)>=0 )&&( (int)((start.x+(end.x-start.x)*i)/ps)<300 ))
     		if (( (int)((start.y+(end.y-start.y)*i)/ps)>=0 )&&( (int)((start.y+(end.y-start.y)*i)/ps)<300 ))
     		{
     			
     			GScreen.path[(int)((start.x+(end.x-start.x)*i)/ps)][(int)((start.y+(end.y-start.y)*i)/ps)]=0;
     		}
-    		*/
+    		
     	}
 	}
 	
@@ -136,9 +146,9 @@ public class Phys {
 			{
 				/*
 				Main.shapeRenderer.begin(ShapeType.Filled);
-					Main.shapeRenderer.circle(goal_x,goal_y,10);
-				Main.shapeRenderer.end();*/
-	
+					Main.shapeRenderer.circle(goal_x,goal_y,1);
+				Main.shapeRenderer.end();
+	*/
 	
 			return this;
 			}
@@ -155,10 +165,28 @@ public class Phys {
 			if (display)
 			{
 				
+
+				Main.shapeRenderer.setColor(Color.WHITE);
+				Main.shapeRenderer.rectLine(start,end,GScreen.camera.zoom/2.f);
 				
-				Main.shapeRenderer.rectLine(start,end,0.5f);
+				Main.shapeRenderer.setColor(Color.BLACK);
+				Main.shapeRenderer.rectLine(
+											start.x-(start.x-end.x)/2,
+											start.y-(start.y-end.y)/2,
+											start.x-(start.x-end.x)/2-GScreen.sinR(angle)*10, 
+											start.y-(start.y-end.y)/2-GScreen.cosR(angle)*10,
+											1.0f
+											);
 				
-				
+				Main.shapeRenderer.setColor(Color.GREEN);
+				Main.shapeRenderer.rectLine(
+											start.x-(start.x-end.x)/2,
+											start.y-(start.y-end.y)/2,
+											start.x-(start.x-end.x)/2-GScreen.sinR(angle)*10, 
+											start.y-(start.y-end.y)/2-GScreen.cosR(angle)*10,
+											0.5f
+											);
+				Main.shapeRenderer.setColor(Color.WHITE);
 				//Main.shapeRenderer.line(start.x-(start.x-end.x)/2,start.y-(start.y-end.y)/2,normal.x,normal.y);
 			
 				//Main.shapeRenderer.line(end,normal);

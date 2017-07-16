@@ -64,15 +64,7 @@ public class DecorStoneWall2 extends DecorStoneWall {
 		
 	}
 	
-	public void fill_path()
-	{
-		if (path)
-		for (int i=-2; i<3; i++)
-		for (int j=-1; j<1; j++)
-		{
-			GScreen.path[Math.round(pos.x/30f)+j][Math.round(pos.y/30f)+i]=900;
-		}
-	}
+
 	
 
 }

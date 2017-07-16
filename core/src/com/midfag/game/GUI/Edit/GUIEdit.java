@@ -17,15 +17,17 @@ import com.midfag.game.GScreen;
 import com.midfag.game.Helper;
 import com.midfag.game.InputHandler;
 import com.midfag.game.Main;
+import com.midfag.game.TextInput;
 import com.midfag.game.GUI.GUI;
 import com.midfag.game.GUI.buttons.Button;
+import com.midfag.game.script.ScriptSystem;
 
 public class GUIEdit extends GUI {
 	
 	public List<Button> Button_list = new ArrayList<Button>();
 	public List<TilePattern> Pattern_list = new ArrayList<TilePattern>();
 	//public GScreen G=Main.screen;
-	public Entity indicate_entity=new Entity(new Vector2());
+	public Entity indicate_entity=null;
 	public static List<Entity> Object_list = new ArrayList<Entity>();
 	
 	public String id;
@@ -45,10 +47,12 @@ public class GUIEdit extends GUI {
 	public Vector2 temp_vector=new Vector2(0,0);
 	public TilePattern indicate_pattern;
 	public int id_offset;
+	
+	public TextInput listener;
 	 
 	public GUIEdit()
 	{
-		indicate_entity=new Entity(new Vector2());
+		//indicate_entity=new Entity(new Vector2());
 		//G=GScreen.get_this();
 		
 		for (int k=0; k<5; k++)
@@ -90,6 +94,15 @@ public class GUIEdit extends GUI {
 			*/
 		if (InputHandler.key==Keys.COMMA){top_layer=false;}
 		if (InputHandler.key==Keys.PERIOD){top_layer=true;}
+		
+		if ((InputHandler.key==Keys.X)&&(listener==null)&&(selected_object!=null))
+		{
+	    	listener = new TextInput(this,selected_object);
+	    	
+	    	Gdx.input.getTextInput(listener, "Введите имя для энтити", selected_object.id_for_script, "");
+	    	
+		}
+		
 			
 		float xx=(int)(InputHandler.posx/mod)*mod;
 		float yy=(int)(InputHandler.posy/mod)*mod;
@@ -439,6 +452,8 @@ public class GUIEdit extends GUI {
 			
 			selected_object.order++;
 			if (selected_object.order>2){selected_object.order=0;}
+			
+
 			/*selected_cluster.Entity_list.remove(selected_object);
 			selected_cluster.Entity_list.add(selected_object);*/
 		}

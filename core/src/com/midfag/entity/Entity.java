@@ -17,6 +17,7 @@ import com.midfag.equip.weapon.Weapon;
 import com.midfag.equip.weapon.WeaponRobofirle;
 import com.midfag.game.Assets;
 import com.midfag.game.GScreen;
+import com.midfag.game.Helper;
 import com.midfag.game.InputHandler;
 import com.midfag.game.Main;
 import com.midfag.game.Phys;
@@ -73,7 +74,7 @@ public class Entity {
 	
 	public boolean have_ability=false;
 	
-	public String id=this.getClass().getName();
+	public String id;
 	
 	public int order=0;
 	
@@ -99,16 +100,26 @@ public class Entity {
 	
 	public float look_cooldown=0.5f;
 	public boolean is_see=false;
-	
+
 	public int multiply_missile_count=1;
-
 	public ModuleUnit[] armored_module=new ModuleUnit[5];
-
 	public boolean rotate_block;
-	
 	public Entity target=null;
-
 	public Texture icon;
+	
+	public boolean active=true;
+	
+	public boolean hidden=false;
+	
+	
+	
+	public float constant_move_x=0;
+	public float constant_move_y=0;
+	
+	public float constant_speed_x=0;
+	public float constant_speed_y=0;
+
+	public String id_for_script="";
 	
 	public void use_module(int _id)
 	{
@@ -120,8 +131,8 @@ public class Entity {
 	
 	public void init(String _point)
 	{
+    	
 		
-		System.out.println("PHYS ADDED ["+_point+"]");
 			Phys_list_local.clear();
 			if (!custom_phys)
 			{
@@ -134,19 +145,21 @@ public class Entity {
 				;
 				
 				
-					Phys p=new Phys(new Vector2(pos.x-30f/1,pos.y),new Vector2(pos.x+30/1,pos.y),false,this,true);
+					Phys p=new Phys(new Vector2(pos.x,pos.y+30),new Vector2(pos.x-30,pos.y),false,this,true);
 					{p.move_block=false;}
-					
 					Phys_list_local.add(p);
-					GScreen.cluster[x][y].Phys_list.add(p);
 					
-					
-					
-					p=new Phys(new Vector2(pos.x,pos.y-30f/1),new Vector2(pos.x,pos.y+30f/1),false,this,true);
+					p=new Phys(new Vector2(pos.x-30,pos.y),new Vector2(pos.x,pos.y-30),false,this,true);
 					{p.move_block=false;}
-					
 					Phys_list_local.add(p);
-					GScreen.cluster[x][y].Phys_list.add(p);
+					
+					p=new Phys(new Vector2(pos.x,pos.y-30),new Vector2(pos.x+30,pos.y),false,this,true);
+					{p.move_block=false;}
+					Phys_list_local.add(p);
+					
+					p=new Phys(new Vector2(pos.x+30,pos.y),new Vector2(pos.x,pos.y+30),false,this,true);
+					{p.move_block=false;}
+					Phys_list_local.add(p);
 				
 			}
 			else
@@ -154,12 +167,31 @@ public class Entity {
 				do_custom_phys();
 				//System.out.println("create CUSTOM phys ");
 			}
+			
+			/*
+			for (int i=-5; i<5; i++)
+		    for (int j=-5; j<5; j++)
+		    	{
+		    		if (
+		    				(((int)(pos.x/GScreen.path_cell)+i)>=0)
+		    				&&
+		    				((int)(pos.x/GScreen.path_cell)+i<300)
+		    				&&
+		    				((int)(pos.y/GScreen.path_cell)+j>=0)
+		    				&&
+		    				((int)(pos.y/GScreen.path_cell)+j<300)
+		    			)
+		    		
+		    			if(GScreen.path[(int)(pos.x/GScreen.path_cell)+j][(int)(pos.y/GScreen.path_cell)+i]<800)
+		    			{GScreen.path[(int)(pos.x/GScreen.path_cell)+j][(int)(pos.y/GScreen.path_cell)+i]=800;}
+		    	}*/
 		
 	}
 	
 	public Entity(Vector2 _v)
 	{
 		pos=_v;
+		
 		
 		
 		armored[0]=new WeaponRobofirle();
@@ -349,6 +381,9 @@ public class Entity {
 	
 	public void dead_action( boolean need_dead_anim)
 	{
+		
+		Helper.log("ID--------------"+id);
+		
 		if ((need_dead_anim))
 		{
 			for (int v=0; v<3; v++)
@@ -604,6 +639,8 @@ public class Entity {
 	
 	public void update(float _d)
 	{
+
+		
 		rotate_block=false;
 		
 		float cold_rating=1-buff_cold/(buff_cold+100);
@@ -702,8 +739,15 @@ public class Entity {
 		
 		
 		
+		/*if (Math.abs(impulse.x)<2){impulse.x=0;}
+		if (Math.abs(impulse.y)<2){impulse.y=0;}*/
+		
 		float mx=impulse.x*cold_rating;
 		float my=impulse.y*cold_rating;
+		
+		/*
+		if (mx>0){mx+=20;} else if (mx<0){mx-=20;}
+		if (my>0){my+=20;} else if(my<0){my-=20;}*/
 		
 		Phys near_object=null;
 		float spd=(float) (Math.sqrt(mx*mx+my*my));
@@ -712,23 +756,63 @@ public class Entity {
 		
 		
 		if ((!is_player)||(!GScreen.show_edit))
-		near_object=GScreen.get_contact(pos.x,pos.y,pos.x+mx*_d,pos.y+my*_d,mx/spd,my/spd,spd*_d,true,false,true);
+		near_object=GScreen.get_contact(pos.x,pos.y,pos.x+mx*_d,pos.y+my*_d,mx/spd,my/spd,spd*_d,false,false,true);
 		
 
 		
 		if (near_object==null)
 		{
-			move (mx,my,_d);
+			move (impulse.x*cold_rating,impulse.y*cold_rating,_d);
 			
 			//hit_action(99999);
 			
 		}
 		else
 		{
-			impulse.x*=0.75f;
-			impulse.y*=0.75f;
+
+			impulse.scl(0.75f);
+			/*
+			pos.x=near_object.goal_x;
+			pos.y=near_object.goal_y;*/
+			
+			/*
+			move(
+					-GScreen.sinR(near_object.angle)/100f,
+					-GScreen.cosR(near_object.angle)/100f,
+					1f
+				);*/
+			
+			//pos.x=near_object.goal_x-GScreen.sinR(near_object.angle);
+			//pos.y=near_object.goal_y-GScreen.cosR(near_object.angle);
+			
 			//System.out.println("###"+near_object.move_block);
 		}
+		
+		float cmx=0;
+		float cmy=0;
+		
+		if (constant_move_x>0)
+		{
+			constant_move_x-=Math.abs(constant_speed_x*_d);
+			cmx=constant_speed_x;
+		}
+		else
+		{
+			constant_speed_x=0;
+		}
+		
+		
+		if (constant_move_y>0)
+		{
+			constant_move_y-=Math.abs(constant_speed_y*_d);
+			cmy=constant_speed_y;
+		}
+		else
+		{
+			constant_speed_y=0;
+		}
+		
+		move(cmx,cmy,_d);
 		
 
 		
@@ -856,6 +940,10 @@ public class Entity {
 	
 	public void draw_action(float _d) {
 		draw_action(_d, 1f);
+		
+
+		
+		Main.font.draw(GScreen.batch, ""+constant_move_y, pos.x, pos.y);
 	}
 	public void draw_action(float _d, float _siz) {
 		// TODO Auto-generated method stub
@@ -869,8 +957,18 @@ public class Entity {
 		if (!is_decor)
 		{draw_hp();}
 		
+		Color temp_color=spr.getColor();
+		
+		spr.setColor(0.1f, 0.1f, 0.1f, 0.1f);
+		spr.setScale(_siz, _siz*1.52f);
+		spr.draw(GScreen.batch);
+		
+		spr.setColor(temp_color);
+		
 		spr.setScale(_siz);
 		spr.draw(GScreen.batch);
+		
+
 		
 
 		
@@ -879,12 +977,13 @@ public class Entity {
 	
 	public void fill_path()
 	{
+		/*
 		if (path)
 		for (int i=-0; i<=5; i++)
 		for (int j=-5; j<=4; j++)
 		{
 			GScreen.path[Math.round(pos.x/30f)+j][Math.round(pos.y/30f)+i]=900;
-		}
+		}*/
 	}
 
 

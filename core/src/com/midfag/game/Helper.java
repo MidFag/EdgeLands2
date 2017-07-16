@@ -2,10 +2,16 @@ package com.midfag.game;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+
+import sun.rmi.runtime.Log;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.math.Vector2;
 import com.midfag.entity.Entity;
+import com.midfag.entity.EntityHuman;
+import com.midfag.entity.EntityPlayer;
+import com.midfag.game.script.ScriptSystem;
 
 public class Helper {
 	
@@ -46,7 +52,7 @@ public class Helper {
 				String id=ss[i];
 				
 				e=get_object_from_id(id);
-				System.out.println("ID="+id);	
+				//System.out.println("ID="+id);	
 			}
 			
 			if (e!=null)
@@ -63,10 +69,24 @@ public class Helper {
 					e.pos.y=Integer.parseInt(ss[i]);
 				}
 				
+				if (ss[i].equals("script_id"))
+				{
+					
+					i++;
+					e.id_for_script=ss[i];
+					
+					ScriptSystem.Entity_with_id_list.add(e);
+				}
+				
 				if (ss[i].equals("PUT"))
 				{
 					
 					GScreen.add_entity_to_map(e);
+					
+					
+					if (e.getClass().equals(EntityHuman.class)){log("!!!!!!!!!!!!!!!!!!!!!!!!"); GScreen.pl_human=e;GScreen.pl=e;}
+					if (e.getClass().equals(EntityPlayer.class)){log("!!!!!!!!!!!!!!!!!!!!!!!!"); GScreen.pl_mech=e;}
+					
 					e.fill_path();
 				}
 			}
@@ -77,14 +97,14 @@ public class Helper {
 		s=file.readString();
 		ss=s.split("\n");
 		
-		System.out.println("FIRST DATA="+ss[0]);
+		//System.out.println("FIRST DATA="+ss[0]);
 		
 		for (int i=0; i<300; i++)
 		for (int j=0; j<300; j++)
 		{
 			String sub_s=ss[i].substring(j*2, j*2+2);
 			
-			if ((i==0)&(j==0)){System.out.println("TWO LETTER="+sub_s);}
+			//if ((i==0)&(j==0)){System.out.println("TWO LETTER="+sub_s);}
 			
 			if (!sub_s.equals("no"))
 				{
@@ -97,14 +117,14 @@ public class Helper {
 		s=file.readString();
 		ss=s.split("\n");
 		
-		System.out.println("FIRST DATA="+ss[0]);
+		//System.out.println("FIRST DATA="+ss[0]);
 		
 		for (int i=0; i<300; i++)
 		for (int j=0; j<300; j++)
 		{
 			String sub_s=ss[i].substring(j*2, j*2+2);
 			
-			if ((i==0)&(j==0)){System.out.println("TWO LETTER (overlay)="+sub_s);}
+			//if ((i==0)&(j==0)){System.out.println("TWO LETTER (overlay)="+sub_s);}
 			
 			if (!sub_s.equals("no"))
 				{

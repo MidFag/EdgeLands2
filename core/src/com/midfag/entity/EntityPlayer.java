@@ -67,11 +67,11 @@ public class EntityPlayer extends Entity {
 	
 	
 	
-	public EntityPlayer(Vector2 _v, boolean _custom) {
+	public EntityPlayer(Vector2 _v) {
 		
 		super(_v);
 		
-		id="player";
+		id=this.getClass().getName();
 		
 		is_AI=false;
 		is_player=true;
@@ -236,7 +236,10 @@ public class EntityPlayer extends Entity {
 		spr.setSize(100, 100);
 		spr.translate(-10,-30);
 		spr.setTexture(bottom_tex[bottom_draw]);
-		spr.draw(GScreen.batch);
+		
+		spr.draw
+		(GScreen.batch);
+		
 		spr.translate(10,30);
 		
 		spr.translate(-10,-25);

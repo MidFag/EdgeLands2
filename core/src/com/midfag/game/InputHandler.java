@@ -21,6 +21,8 @@ import com.midfag.game.GUI.GUIInventory;
 import com.midfag.game.GUI.GUISkillsWheel;
 import com.midfag.game.GUI.Edit.ButtonChangeMode;
 import com.midfag.game.GUI.Edit.ButtonLoadMap;
+import com.midfag.game.GUI.Edit.ButtonPathVisualize;
+import com.midfag.game.GUI.Edit.ButtonPhysVisualize;
 import com.midfag.game.GUI.Edit.ButtonRandomizeTile;
 import com.midfag.game.GUI.Edit.ButtonSaveMap;
 import com.midfag.game.GUI.Edit.GUIEdit;
@@ -63,6 +65,8 @@ public class InputHandler implements InputProcessor {
     public static float dy;
     
     public static boolean press=false;
+
+	public static boolean keyF_release=false;
     // Ask for a reference to the Bird when InputHandler is created.
     public InputHandler() {
         // myBird now represents the gameWorld's bird.
@@ -112,6 +116,8 @@ public class InputHandler implements InputProcessor {
     		}
     	}
     	
+    	//if (key!=Keys.F){keyF_release=true;}
+    	
     	if (key==Keys.Z)
     	{
     		GScreen.main_control=GScreen.show_edit;
@@ -128,6 +134,8 @@ public class InputHandler implements InputProcessor {
     		GScreen.Button_list.add(new ButtonLoadMap(150,650,gui));
     		
     		GScreen.Button_list.add(new ButtonRandomizeTile(650,650));
+    		GScreen.Button_list.add(new ButtonPathVisualize(710,650));
+    		GScreen.Button_list.add(new ButtonPhysVisualize(770,650));
     		
     		GScreen.Button_list.add(new ButtonChangeMode(300,650,EditMode.ENTITY,gui));
     		GScreen.Button_list.add(new ButtonChangeMode(400,650,EditMode.TILE,gui));
@@ -252,6 +260,7 @@ public class InputHandler implements InputProcessor {
     @Override
     public boolean keyUp(int keycode) {
     	key=-777;
+    	keyF_release=true;
     	
         return false;
     }
@@ -319,7 +328,23 @@ public class InputHandler implements InputProcessor {
 
     @Override
     public boolean scrolled(int amount) {
-    	if (GScreen.main_control){GScreen.camera.zoom+=amount/10f;}
+    	if ((GScreen.main_control)||(GScreen.show_edit))
+    	{
+    		if(amount>0)
+    		{
+    			GScreen.camera.zoom+=0.05f;
+    			GScreen.camera.zoom*=1.05f;
+    		}
+    		
+    		if(amount<0)
+    		{
+    			
+    			GScreen.camera.zoom*=0.95f;
+    		}
+    		
+    		
+    	}
+    	
     	if (GScreen.show_skills_wheel)
     	{
     		GScreen.skills_camera.zoom+=amount/100.0f;

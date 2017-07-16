@@ -18,6 +18,11 @@ public class ButtonRandomizeTile extends Button {
 		pos.x=_x;
 		pos.y=_y;
 		
+		size_x=55;
+		size_y=55;
+		
+		spr.setSize(55, 55);
+		
 		tex=new Texture(Gdx.files.internal("button_randomize_tile.png"));
 		
 		

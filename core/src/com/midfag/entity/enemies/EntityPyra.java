@@ -35,7 +35,7 @@ public class EntityPyra extends Entity {
 		pos=_v;
 		
 		id=this.getClass().getName();
-		Helper.log ("THIS ID="+id);
+		//Helper.log ("THIS ID="+id);
 		icon=Assets.entity_pyra_icon;
 		
 		armored[0]=new WeaponRobofirle();

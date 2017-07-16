@@ -77,14 +77,6 @@ public class DecorStoneWall extends Entity {
 		
 	}
 	
-	public void fill_path()
-	{
-		if (path)
-		for (int i=-1; i<0; i++)
-		for (int j=-2; j<3; j++)
-		{
-			GScreen.path[Math.round(pos.x/30f)+j][Math.round(pos.y/30f)+i]=900;
-		}
-	}
+
 
 }

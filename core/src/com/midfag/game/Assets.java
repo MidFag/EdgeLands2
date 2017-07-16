@@ -58,6 +58,8 @@ public class Assets {
 	
 	public static Sound freeze=Gdx.audio.newSound(Gdx.files.internal("freeze.wav"));;
 	
+	public static Sound gate=Gdx.audio.newSound(Gdx.files.internal("gate.wav"));
+	
 	public static Sprite skill_wheel=new Sprite(new Texture(Gdx.files.internal("eye.png")));
 	public static Sprite select_sprite=new Sprite(new Texture(Gdx.files.internal("selected_skill.png")));
 
@@ -71,11 +73,37 @@ public class Assets {
 	public static Texture stone_pilon_01=new Texture(Gdx.files.internal("stone_pilon_01.png"));
 	public static Texture stone_barak=new Texture(Gdx.files.internal("decor_stone_barak.png"));
 	
+	public static Texture human=new Texture(Gdx.files.internal("human.png"));
+	
+	
+	
+	
+	
+	public static Texture[] human_head=new Texture[4];
+	
+	public static Texture[] human_body=new Texture[12];
+	public static Texture[] human_pants=new Texture[12];
+	
 	public static Texture decor_tube_cystern=new Texture(Gdx.files.internal("decoration_tube_cystern.png"));
 	public static Texture decor_tube_big=new Texture(Gdx.files.internal("decoration_tube_big.png"));
 	public static Texture decoration_train=new Texture(Gdx.files.internal("decoration_train.png"));
 	public static Texture decoration_train_vagon_rect=new Texture(Gdx.files.internal("decoration_train_vagon_rect.png"));
 	public static Texture decoration_train_vagon_open=new Texture(Gdx.files.internal("decoration_train_vagon_open.png"));
+	
+	public static Texture decoration_tree=new Texture(Gdx.files.internal("decoration_tree.png"));
+	public static Texture decoration_tree_icon=new Texture(Gdx.files.internal("decoration_tree_icon.png"));
+	
+	public static Texture decoration_power_line=new Texture(Gdx.files.internal("decoration_power_line.png"));
+	public static Texture decoration_power_line_icon=new Texture(Gdx.files.internal("decoration_power_line_icon.png"));
+	
+	public static Texture decoration_steel_box=new Texture(Gdx.files.internal("decoration_steel_box.png"));
+	public static Texture decoration_steel_box_icon=new Texture(Gdx.files.internal("decoration_steel_box_icon.png"));
+	
+	public static Texture decoration_steel_box_cap=new Texture(Gdx.files.internal("decoration_steel_box_cap.png"));
+	public static Texture decoration_steel_box_cap_icon=new Texture(Gdx.files.internal("decoration_steel_box_cap_icon.png"));
+	
+	public static Texture decoration_steel_box_door=new Texture(Gdx.files.internal("decoration_steel_box_door.png"));
+	public static Texture decoration_steel_box_door_icon=new Texture(Gdx.files.internal("decoration_steel_box_door_icon.png"));
 	
 	public static Texture cystern=new Texture(Gdx.files.internal("decoration_cystern.png"));
 	
@@ -99,6 +127,7 @@ public class Assets {
 	public static Texture entity_pyra_icon=new Texture(Gdx.files.internal("entity_pyra_icon.png"));;
 	public static Texture entity_wheel_icon=new Texture(Gdx.files.internal("entity_wheel_icon.png"));;
 	public static Texture entity_elite_wheel_icon=new Texture(Gdx.files.internal("entity_elite_wheel_icon.png"));;
+	
 	
 	public static Texture decoration_train_icon=new Texture(Gdx.files.internal("decoration_train_icon.png"));;
 	public static Texture decoration_train_vagon_rect_icon=new Texture(Gdx.files.internal("decoration_train_vagon_rect_icon.png"));;
@@ -219,12 +248,12 @@ public class Assets {
 		for (int i=0; i<16; i++)
 		{
 			if (i<10)
-			{GScreen.pl.tex[i]=new Texture(Gdx.files.internal("mech/mech00"+i+".png"));}
+			{GScreen.pl_mech.tex[i]=new Texture(Gdx.files.internal("mech/mech00"+i+".png"));}
 			else
-			{GScreen.pl.tex[i]=new Texture(Gdx.files.internal("mech/mech0"+i+".png"));}
+			{GScreen.pl_mech.tex[i]=new Texture(Gdx.files.internal("mech/mech0"+i+".png"));}
 			
 			
-			GScreen.pl.tex[i].setFilter(TextureFilter.Linear, TextureFilter.Linear);
+			GScreen.pl_mech.tex[i].setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		}
 		
 		for (int i=0; i<=22; i++)
@@ -241,11 +270,34 @@ public class Assets {
 		for (int i=0; i<16; i++)
 		{
 			if (i<10)
-			{GScreen.pl.bottom_tex[i]=new Texture(Gdx.files.internal("mech/bot0"+i+".png"));}
+			{GScreen.pl_mech.bottom_tex[i]=new Texture(Gdx.files.internal("mech/bot0"+i+".png"));}
 			else
-			{GScreen.pl.bottom_tex[i]=new Texture(Gdx.files.internal("mech/bot"+i+".png"));}
+			{GScreen.pl_mech.bottom_tex[i]=new Texture(Gdx.files.internal("mech/bot"+i+".png"));}
 			
-			GScreen.pl.bottom_tex[i].setFilter(TextureFilter.Linear, TextureFilter.Linear);
+			GScreen.pl_mech.bottom_tex[i].setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		}
+		
+		for (int i=0; i<4; i++)
+		{
+			human_head[i]=new Texture(Gdx.files.internal("human/head"+i+".png"));
+			
+
+		}
+		
+		for (int i=0; i<3; i++)
+		{
+			human_body[0+i*4]=new Texture(Gdx.files.internal("human/body_up_"+i+".png"));
+			human_body[1+i*4]=new Texture(Gdx.files.internal("human/body_right_"+i+".png"));
+			human_body[2+i*4]=new Texture(Gdx.files.internal("human/body_bottom_"+i+".png"));
+			human_body[3+i*4]=new Texture(Gdx.files.internal("human/body_left_"+i+".png"));
+		}
+		
+		for (int i=0; i<3; i++)
+		{
+			human_pants[0+i*4]=new Texture(Gdx.files.internal("human/pants_up_"+i+".png"));
+			human_pants[1+i*4]=new Texture(Gdx.files.internal("human/pants_right_"+i+".png"));
+			human_pants[2+i*4]=new Texture(Gdx.files.internal("human/pants_bottom_"+i+".png"));
+			human_pants[3+i*4]=new Texture(Gdx.files.internal("human/pants_left_"+i+".png"));
 		}
 		
 		for (int i=0; i<16; i++)

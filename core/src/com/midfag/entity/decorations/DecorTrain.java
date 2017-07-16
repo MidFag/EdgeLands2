@@ -9,7 +9,7 @@ import com.midfag.game.GScreen;
 import com.midfag.game.Helper;
 import com.midfag.game.Phys;
 
-public class DecorTrain extends DecorStoneWall {
+public class DecorTrain extends Entity {
 
 	public DecorTrain(Vector2 _v) {
 		
@@ -23,12 +23,27 @@ public class DecorTrain extends DecorStoneWall {
 		spr.getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		icon=Assets.decoration_train_icon;
 		
-		Helper.log("ID="+id);
+		//Helper.log("ID="+id);
 		
 		diagonal=false;
 		
+		is_AI=false;
+		is_player=false;
+		is_enemy=false;
+		is_decor=true;
+		
 		spr.setSize(200, 200);
-		spr.setOrigin(100, 5);
+		spr.setOrigin(100, 75);
+		
+		friction=0.95f;
+		
+		/*
+		constant_move_x=100;
+		constant_move_y=0;
+		
+		constant_speed_x=-10;
+		constant_speed_y=0;
+		*/
 		
 		path=true;
 		//spr.setOrigin(80.0f, 10f);
@@ -37,7 +52,10 @@ public class DecorTrain extends DecorStoneWall {
 		// TODO Auto-generated constructor stub
 	}
 	
-	
+	public void some_update(float _d)
+	{
+		//add_impulse(-30f, 0, _d);
+	}
 
 			
 	
@@ -55,7 +73,7 @@ public class DecorTrain extends DecorStoneWall {
 		int y=(int)(pos.y/300);
 		
 		
-		Phys p=new Phys(new Vector2(pos.x-80,pos.y-80),new Vector2(pos.x+80,pos.y-80),true,this,true);
+		Phys p=new Phys(new Vector2(pos.x-90,pos.y-20),new Vector2(pos.x+90,pos.y-20),true,this,true);
 		GScreen.cluster[x][y].Phys_list.add(p);
 		Phys_list_local.add(p);
 		
@@ -73,15 +91,7 @@ public class DecorTrain extends DecorStoneWall {
 		
 	}
 	
-	public void fill_path()
-	{
-		if (path)
-		for (int i=0; i<1; i++)
-		for (int j=0; j<1; j++)
-		{
-			GScreen.path[Math.round(pos.x/30f)+j][Math.round(pos.y/30f)+i]=900;
-		}
-	}
+
 	
 
 }

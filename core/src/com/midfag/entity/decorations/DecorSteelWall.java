@@ -14,9 +14,7 @@ public class DecorSteelWall extends Entity {
 		custom_phys=true;
 		
 		id=this.getClass().getName();
-		
-		is_AI=false;
-		is_player=false;
+
 		
 		spr.setTexture(new Texture(Gdx.files.internal("decor_steel_wall.png")));
 		spr.setSize(155, 44);

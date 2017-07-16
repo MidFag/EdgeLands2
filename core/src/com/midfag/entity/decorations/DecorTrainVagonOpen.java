@@ -23,12 +23,12 @@ public class DecorTrainVagonOpen extends DecorStoneWall {
 		spr.getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		icon=Assets.decoration_train_vagon_open_icon;
 		
-		Helper.log("ID="+id);
+		//Helper.log("ID="+id);
 		
 		diagonal=false;
 		
 		spr.setSize(200, 200);
-		spr.setOrigin(100, 5);
+		spr.setOrigin(100, 75);
 		
 		path=true;
 		//spr.setOrigin(80.0f, 10f);
@@ -73,15 +73,7 @@ public class DecorTrainVagonOpen extends DecorStoneWall {
 		
 	}
 	
-	public void fill_path()
-	{
-		if (path)
-		for (int i=0; i<1; i++)
-		for (int j=0; j<1; j++)
-		{
-			GScreen.path[Math.round(pos.x/30f)+j][Math.round(pos.y/30f)+i]=900;
-		}
-	}
+
 	
 
 }

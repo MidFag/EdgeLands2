@@ -63,15 +63,7 @@ public class DecorStonePilon extends DecorStoneWall {
 		
 	}
 	
-	public void fill_path()
-	{
-		if (path)
-		for (int i=0; i<1; i++)
-		for (int j=0; j<1; j++)
-		{
-			GScreen.path[Math.round(pos.x/30f)+j][Math.round(pos.y/30f)+i]=900;
-		}
-	}
+
 	
 
 }

@@ -14,7 +14,10 @@ public class ScriptActionDialogExitPoint extends ScriptAction {
 	public void action()
 	{
 		if (ScriptSystem.dialog_gui!=null)
-		{ScriptSystem.dialog_gui.exit_point=data[1];}
+		{
+			ScriptSystem.dialog_gui.exit_point=data[1];
+			ScriptSystem.dialog_gui.current_pool=0;
+		}
 		else
 		{
 			Helper.log("ERROR: DIALOG GUI IS EMPTY");

@@ -56,7 +56,7 @@ public class Energoshield {
 		Available_attribute_list.add(new ESAttributeValue());
 		Available_attribute_list.add(new ESAttributeRegen());
 		Available_attribute_list.add(new ESAttributeReflect());
-		Available_attribute_list.add(new ESAttributeCharge());
+		//Available_attribute_list.add(new ESAttributeCharge());
 		
 		name="Simple shield";
 		

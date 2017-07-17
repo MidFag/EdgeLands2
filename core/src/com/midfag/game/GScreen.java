@@ -84,7 +84,7 @@ public class GScreen implements Screen {
     public static float time_speed=1;
     public static float real_delta;
     
-    static OrthographicCamera camera;
+    public static OrthographicCamera camera;
     public static OrthographicCamera skills_camera;
 
    // public 
@@ -128,6 +128,8 @@ public class GScreen implements Screen {
     
     public boolean keypress=false;
 
+	public static boolean camera_auto_zoom=false;
+
 	public static float wave_time;
 
 	public static boolean path_visualisation=false;
@@ -155,8 +157,8 @@ public class GScreen implements Screen {
 	{
 		List<Entity> l=new ArrayList<Entity>();
 		
-		int cluster_x=(int)(_v.x/300);
-	    int cluster_y=(int)(_v.y/300);
+		int cluster_x=(int)(_v.x/300f);
+	    int cluster_y=(int)(_v.y/300f);
 	        
 	  
 	    for (int x=cluster_x-2; x<=cluster_x+2; x++)
@@ -323,7 +325,7 @@ public class GScreen implements Screen {
        
     	ScriptSystem.add_script("test");
     	//ScriptSystem.add_script("test");
-    	ScriptSystem.Timer_list.add(new ScriptTimer("test_timer",			"test",			1.0f));
+    	ScriptSystem.Timer_list.add(new ScriptTimer("test_timer",			"test",			1.0f/100f));
     	
     	
     	//ScriptSystem.add_script("test");
@@ -469,6 +471,7 @@ public class GScreen implements Screen {
         camera = new OrthographicCamera();
 		camera.setToOrtho(false, 1000/1, 700/1);
 		camera.position.set(new Vector3(500,350,0));
+		//camera.zoom=0.001f;
 		
 		skills_camera = new OrthographicCamera();
 		skills_camera.setToOrtho(false, 1000/1, 700/1);
@@ -494,7 +497,7 @@ public class GScreen implements Screen {
 
         }
 
-		camera.zoom=1;
+		camera.zoom=7000f;
 		
 
 		
@@ -598,10 +601,14 @@ public class GScreen implements Screen {
     	if (delta>0.1f){delta=0.1f;}
 
     	
-        Gdx.gl.glClearColor(0.45f, 0.5f, 0.55f, 0.5f);
+        Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT | (Gdx.graphics.getBufferFormat().coverageSampling?GL20.GL_COVERAGE_BUFFER_BIT_NV:0));
         //Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
+        
+        /*batch.begin();
+        	batch.draw(Assets.planet0, 5000-256000, 5000-256000, 512000,512000);
+        batch.end();*/
+        
     	cooldown--;
     	overlay_cooldown--;
     	
@@ -613,11 +620,13 @@ public class GScreen implements Screen {
     	int plposx=(int)(camera.position.x/30f);
     	int plposy=(int)(camera.position.y/30f);
     	int draw_distance=Math.round(camera.zoom*(scr_w/55));
+    	draw_distance=Math.min(draw_distance, 150);
     	
 
     	
     	
     	fbo.begin();
+    
     	Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT | (Gdx.graphics.getBufferFormat().coverageSampling?GL20.GL_COVERAGE_BUFFER_BIT_NV:0));
     	
 
@@ -625,7 +634,9 @@ public class GScreen implements Screen {
 
     	
     	batch.begin();
-
+    	batch.draw(Assets.planet0, camera.position.x-2000000, camera.position.y-2000000, 4000000,4000000);
+    	batch.draw(Assets.planet1, camera.position.x-200000, camera.position.y-200000, 400000,400000);
+    	
     	
     	wave_time+=real_delta;
     	
@@ -682,8 +693,8 @@ public class GScreen implements Screen {
 		add_timer("missile_trail");
 		
 		batch.begin();
-        int cluster_x=(int)(pl.pos.x/300);
-        int cluster_y=(int)(pl.pos.y/300);
+        int cluster_x=(int)(pl.pos.x/300f);
+        int cluster_y=(int)(pl.pos.y/300f);
         
 
     	for (int x=cluster_x-4; x<=cluster_x+4; x++)
@@ -733,7 +744,8 @@ public class GScreen implements Screen {
 		fbo.end();
 		
 
-    	
+
+	
 		batch_static.begin();
 
 
@@ -757,6 +769,8 @@ public class GScreen implements Screen {
 				Main.shader_time_slow.setUniformf("value", 1-time_slow);
 		    }
 			//Main.shader_time_slow.set("value", time_speed_value+(time_speed-time_speed_value));
+			
+	
 			
 				batch_static.setColor(1.0f, 1.0f, 1.0f, 1.0f);
 				batch_static.draw(t,0,scr_h,scr_w,-scr_h);
@@ -1229,7 +1243,7 @@ public class GScreen implements Screen {
     	   }
        }*/
 
-        
+      	batch.draw(Assets.planet2, camera.position.x-20000, camera.position.y-20000, 40000,40000);
         batch.end();
         
     	
@@ -1427,6 +1441,8 @@ public class GScreen implements Screen {
 
 		/*camera.position.x=Math.round(camera.position.x);
 		camera.position.y=Math.round(camera.position.y);*/
+		
+		if ((camera.zoom>1)&&(camera_auto_zoom)){camera.zoom*=0.99f;}
 		
         batch.setProjectionMatrix(camera.combined);
         

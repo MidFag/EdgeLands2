@@ -396,7 +396,7 @@ public class GUIEdit extends GUI {
 				
 			if ((InputHandler.but==1))
 			{
-				if (selected_object!=null){selected_object.spr.setColor(Color.WHITE);}
+				if (selected_object!=null){selected_object.spr.setColor(Color.WHITE); selected_object.selected=false;}
 				
 				indicate_entity=null;
 				
@@ -442,7 +442,7 @@ public class GUIEdit extends GUI {
 				}
 				GScreen.batch.end();
 				
-				if (selected_object!=null){selected_object.spr.setColor(Color.GREEN); selected_object.spr.setAlpha(0.5f);}
+				if (selected_object!=null){selected_object.spr.setColor(Color.GREEN); selected_object.spr.setAlpha(0.5f); selected_object.selected=true;}
 			}
 		}
 		

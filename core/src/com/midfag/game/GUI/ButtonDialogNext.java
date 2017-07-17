@@ -38,9 +38,12 @@ public class ButtonDialogNext extends Button {
 			gui.current_pool++;
 			if (gui.current_pool>=gui.dialog_pool.size())
 			{
+				/*
 				GScreen.show_dialog=false;
 				GScreen.main_control=true;
-				GScreen.pl.active=true;
+				GScreen.pl.active=true;*/
+				
+				gui.dialog_pool.clear();
 				
 				ScriptSystem.execute(gui.exit_point);
 			}

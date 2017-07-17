@@ -1,14 +1,136 @@
+=======================\
 ENTRY_POINT test
-say ololo
+say test
+
+cinematic_init
 dialog_gui_init
 
+cinematic_add_film intro_01
+
+dialog_add_text intro_00 button_next
+dialog_exit_point film_A
+
+END
+
+
+
+========================\
+ENTRY_POINT film_A
+say zzzzzzzzz
+say film_A
+dialog_add_text intro_01 button_next
+dialog_exit_point film_B
+END
+========================/
+
+
+
+
+========================\
+ENTRY_POINT film_B
+say film_B
+cinematic_add_film intro_02
+dialog_add_text intro_02 button_next
+
+dialog_exit_point film_C
+
+END
+========================/
+
+
+
+========================\
+ENTRY_POINT film_C
+
+cinematic_add_film intro_03
+dialog_add_text intro_03 button_next
+dialog_exit_point film_D
+
+END
+=======================/
+
+
+
+
+
+=======================\
+ENTRY_POINT film_D
+
+cinematic_add_film intro_04
+dialog_add_text intro_04 button_next
+dialog_exit_point film_E
+
+END
+=======================/
+
+
+=======================\
+ENTRY_POINT film_E
+
+cinematic_add_film intro_05
+dialog_add_text intro_05 button_next
+dialog_add_text intro_06 button_next
+dialog_exit_point film_F
+
+END
+=======================/
+
+
+
+=======================\
+ENTRY_POINT film_F
+
+cinematic_add_film intro_06
+dialog_add_text intro_07 button_next
+dialog_exit_point film_G
+
+END
+=======================/
+
+
+
+=======================\
+ENTRY_POINT film_G
+
+cinematic_add_film intro_07
+dialog_add_text intro_08 button_next
+dialog_add_text intro_09 button_next
+dialog_add_text intro_10 button_next
+
+dialog_exit_point main
+
+END
+=======================/
+
+ENTRY_POINT null
+
+END
+
+
+
+
+ENTRY_POINT main
+cinematic_close
+camera_zoom 10000
+dialog_add_text provincial_2_text button_next
+dialog_exit_point zoom_on
+END
+
+
+ENTRY_POINT zoom_on
+camera_auto_zoom on
+add_timer door_timer main_dialog 14.0
+END
+
+
+ENTRY_POINT main_dialog
 dialog_add_text begin_text_intro_01 button_next
 dialog_add_text begin_text_intro_02 button_next
-dialog_add_text begin_text_01 button_next
-dialog_add_text begin_text_02 button_next
-dialog_add_text begin_text_03 button_next
-dialog_add_text begin_text_04 button_next
-dialog_add_text begin_text_05 button_next
+dialog_add_text begin_text_01 button_next JeffNPC
+dialog_add_text begin_text_02 button_next player
+dialog_add_text begin_text_03 button_next JeffNPC
+dialog_add_text begin_text_04 button_next player
+dialog_add_text begin_text_05 button_next JeffNPC
 
 dialog_exit_point create_open_door_timer
 END
@@ -32,34 +154,33 @@ add_timer player_push_timer after_mech_rollout 3.0
 END
 
 ENTRY_POINT after_mech_rollout
-dialog_gui_init
-dialog_add_text begin_text_06 button_next
-dialog_add_text begin_text_07 button_next
-dialog_add_text begin_text_08 button_next
-dialog_add_text begin_text_09 button_next
-dialog_add_text begin_text_10 button_next
-dialog_add_text begin_text_11 button_next
-dialog_add_text begin_text_12 button_next
-dialog_add_text begin_text_13 button_next
-dialog_add_text begin_text_14 button_next
-dialog_add_text begin_text_15 button_next
-dialog_add_text begin_text_16 button_next
-dialog_add_text begin_text_17 button_next
-dialog_add_text begin_text_18 button_next
-dialog_add_text begin_text_19 button_next
-dialog_add_text begin_text_20 button_next
-dialog_add_text begin_text_21 button_next
-dialog_add_text begin_text_22 button_next
-dialog_add_text begin_text_23 button_next
-dialog_add_text begin_text_24 button_next
-dialog_add_text begin_text_25 button_next
-dialog_add_text begin_text_26 button_next
-dialog_add_text begin_text_27 button_next
-dialog_add_text begin_text_28 button_next
-dialog_add_text begin_text_29 button_next
-dialog_add_text begin_text_30 button_next
-dialog_add_text begin_text_31 button_next
-dialog_add_text begin_text_32 button_next
+dialog_add_text begin_text_06 button_next player
+dialog_add_text begin_text_07 button_next JeffNPC
+dialog_add_text begin_text_08 button_next player
+dialog_add_text begin_text_09 button_next JeffNPC
+dialog_add_text begin_text_10 button_next player
+dialog_add_text begin_text_11 button_next JeffNPC
+dialog_add_text begin_text_12 button_next player
+dialog_add_text begin_text_13 button_next JeffNPC
+dialog_add_text begin_text_14 button_next player
+dialog_add_text begin_text_15 button_next JeffNPC
+dialog_add_text begin_text_16 button_next player
+dialog_add_text begin_text_17 button_next JeffNPC
+dialog_add_text begin_text_18 button_next player
+dialog_add_text begin_text_19 button_next JeffNPC
+dialog_add_text begin_text_20 button_next player
+dialog_add_text begin_text_21 button_next JeffNPC
+dialog_add_text begin_text_22 button_next player
+dialog_add_text begin_text_23 button_next JeffNPC
+dialog_add_text begin_text_24 button_next player
+dialog_add_text begin_text_25 button_next JeffNPC
+dialog_add_text begin_text_26 button_next player
+dialog_add_text begin_text_27 button_next JeffNPC
+dialog_add_text begin_text_28 button_next player
+dialog_add_text begin_text_29 button_next JeffNPC
+dialog_add_text begin_text_30 button_next player
+dialog_add_text begin_text_31 button_next JeffNPC
+dialog_add_text begin_text_32 button_next player
 dialog_exit_point none
 END
 

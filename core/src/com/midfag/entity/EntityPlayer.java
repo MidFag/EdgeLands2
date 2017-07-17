@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
 
+import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.midfag.equip.energoshield.Energoshield;
@@ -70,6 +71,28 @@ public class EntityPlayer extends Entity {
 	public EntityPlayer(Vector2 _v) {
 		
 		super(_v);
+		
+		
+		for (int i=0; i<16; i++)
+		{
+			if (i<10)
+			{tex[i]=new Texture(Gdx.files.internal("mech/mech00"+i+".png"));}
+			else
+			{tex[i]=new Texture(Gdx.files.internal("mech/mech0"+i+".png"));}
+			
+			
+			tex[i].setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		}
+		
+		for (int i=0; i<16; i++)
+		{
+			if (i<10)
+			{bottom_tex[i]=new Texture(Gdx.files.internal("mech/bot0"+i+".png"));}
+			else
+			{bottom_tex[i]=new Texture(Gdx.files.internal("mech/bot"+i+".png"));}
+			
+			bottom_tex[i].setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		}
 		
 		id=this.getClass().getName();
 		

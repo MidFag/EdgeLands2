@@ -34,6 +34,7 @@ public class EntityHuman extends Entity {
 		
 		//foot.setSize(30, 6);
 		
+		icon=Assets.human;
 		
 		armored[0]=null;
 		
@@ -81,13 +82,14 @@ public class EntityHuman extends Entity {
 		if (anim_state==3){as=2;}
     	
 		//if (dir==0){}
-		GScreen.batch.setColor(leg_color);
+		if (selected){GScreen.batch.setColor(Color.GREEN);}
+		if (!selected){GScreen.batch.setColor(leg_color);}
 		GScreen.batch.draw(Assets.human_pants[dir+as*4], pos.x-25+mov, pos.y-2);
 		
-		GScreen.batch.setColor(body_color);
+		if (!selected)GScreen.batch.setColor(body_color);
 		GScreen.batch.draw(Assets.human_body[dir+as*4], pos.x-25+mov, pos.y);
 		
-		GScreen.batch.setColor(head_color);
+		if (!selected)GScreen.batch.setColor(head_color);
 		GScreen.batch.draw(Assets.human_head[dir], pos.x-25+mov, pos.y);
 		
 		GScreen.batch.setColor(Color.WHITE);

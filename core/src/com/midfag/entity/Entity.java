@@ -120,6 +120,8 @@ public class Entity {
 	public float constant_speed_y=0;
 
 	public String id_for_script="";
+
+	public boolean selected=false;
 	
 	public void use_module(int _id)
 	{
@@ -468,7 +470,7 @@ public class Entity {
 				
 				if ((cx!=ncx)||(cy!=ncy))
 				{
-					if (!is_player)
+					
 						{GScreen.cluster[cx][cy].Entity_list.remove(this);
 						GScreen.cluster[ncx][ncy].Entity_list.add(this);}
 					
@@ -939,11 +941,12 @@ public class Entity {
 	
 	
 	public void draw_action(float _d) {
+		
 		draw_action(_d, 1f);
 		
 
 		
-		Main.font.draw(GScreen.batch, ""+constant_move_y, pos.x, pos.y);
+		//Main.font.draw(GScreen.batch, ""+constant_move_y, pos.x, pos.y);
 	}
 	public void draw_action(float _d, float _siz) {
 		// TODO Auto-generated method stub

@@ -73,6 +73,10 @@ public class Assets {
 	public static Texture stone_pilon_01=new Texture(Gdx.files.internal("stone_pilon_01.png"));
 	public static Texture stone_barak=new Texture(Gdx.files.internal("decor_stone_barak.png"));
 	
+	public static Texture planet0=new Texture(Gdx.files.internal("planet_00.png"));
+	public static Texture planet1=new Texture(Gdx.files.internal("planet_01.png"));
+	public static Texture planet2=new Texture(Gdx.files.internal("planet_02.png"));
+	
 	public static Texture human=new Texture(Gdx.files.internal("human.png"));
 	
 	
@@ -176,8 +180,9 @@ public class Assets {
 		stone_wall_02.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		stone_pilon_01.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		
-		
-
+		planet0.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		planet1.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		planet2.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		/*
 		mech_right.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		mech_down.setFilter(TextureFilter.Linear, TextureFilter.Linear);
@@ -245,16 +250,7 @@ public class Assets {
 	
 	public static void post_load_assets()
 	{
-		for (int i=0; i<16; i++)
-		{
-			if (i<10)
-			{GScreen.pl_mech.tex[i]=new Texture(Gdx.files.internal("mech/mech00"+i+".png"));}
-			else
-			{GScreen.pl_mech.tex[i]=new Texture(Gdx.files.internal("mech/mech0"+i+".png"));}
-			
-			
-			GScreen.pl_mech.tex[i].setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		}
+		
 		
 		for (int i=0; i<=22; i++)
 		{
@@ -267,15 +263,7 @@ public class Assets {
 			GScreen.tile[i].setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		}
 		
-		for (int i=0; i<16; i++)
-		{
-			if (i<10)
-			{GScreen.pl_mech.bottom_tex[i]=new Texture(Gdx.files.internal("mech/bot0"+i+".png"));}
-			else
-			{GScreen.pl_mech.bottom_tex[i]=new Texture(Gdx.files.internal("mech/bot"+i+".png"));}
-			
-			GScreen.pl_mech.bottom_tex[i].setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		}
+		
 		
 		for (int i=0; i<4; i++)
 		{

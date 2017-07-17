@@ -10,6 +10,7 @@ import com.badlogic.gdx.math.Vector2;
 
 import com.midfag.entity.Entity;
 import com.midfag.entity.EntityHuman;
+import com.midfag.entity.EntityHumanNPC;
 import com.midfag.entity.decorations.*;
 
 import com.midfag.entity.enemies.*;
@@ -139,6 +140,7 @@ public class ButtonChangeMode extends Button {
 				entity_list.add(new DecorSteelBoxCap(new Vector2()));
 				entity_list.add(new DecorSteelBoxDoor(new Vector2()));
 				entity_list.add(new EntityHuman(new Vector2()));
+				entity_list.add(new EntityHumanNPC(new Vector2()));
 				
 				for (int i=0; i<10; i++)
 				if (i<entity_list.size())

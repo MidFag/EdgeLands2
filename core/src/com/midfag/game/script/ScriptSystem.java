@@ -20,8 +20,13 @@ import com.midfag.game.Localisation;
 import com.midfag.game.GUI.ButtonDialogNext;
 import com.midfag.game.GUI.DialogPool;
 import com.midfag.game.GUI.GUIDialog;
+import com.midfag.game.GUI.cinematic.GUICinematic;
 import com.midfag.game.script.actions.ScriptAction;
 import com.midfag.game.script.actions.ScriptActionAddTimer;
+import com.midfag.game.script.actions.ScriptActionCameraZoom;
+import com.midfag.game.script.actions.ScriptActionCinematicAddFilm;
+import com.midfag.game.script.actions.ScriptActionCinematicClose;
+import com.midfag.game.script.actions.ScriptActionCinematicInit;
 import com.midfag.game.script.actions.ScriptActionDialogAddText;
 import com.midfag.game.script.actions.ScriptActionDialogExitPoint;
 import com.midfag.game.script.actions.ScriptActionDialogInit;
@@ -43,6 +48,7 @@ public class ScriptSystem {
 	public static int execute_line;
 	public static GUIDialog dialog_gui; 
 	public static DialogPool pool;
+	public static GUICinematic cinematic_gui;
 	
 	public ScriptSystem()
 	{
@@ -100,7 +106,7 @@ public class ScriptSystem {
 				{Actions_list.add(new ScriptActionSay(data[1]));}
 				
 				if (action.equals("dialog_gui_init"))
-				{Actions_list.add(new ScriptActionDialogInit());}
+				{Actions_list.add(new ScriptActionDialogInit()); Helper.log("DIALOG INIT "+i);}
 				
 				if (action.equals("dialog_add_text"))
 				{Actions_list.add(new ScriptActionDialogAddText(data));}
@@ -118,6 +124,21 @@ public class ScriptSystem {
 				
 				if (action.equals("play_sound"))
 				{Actions_list.add(new ScriptActionPlaySound(data));}
+				
+				if (action.equals("cinematic_init"))
+				{Actions_list.add(new ScriptActionCinematicInit(data));}
+				
+				if (action.equals("cinematic_add_film"))
+				{Actions_list.add(new ScriptActionCinematicAddFilm(data));}
+				
+				if (action.equals("cinematic_close"))
+				{Actions_list.add(new ScriptActionCinematicClose(data));}
+				
+				if (action.equals("camera_zoom"))
+				{Actions_list.add(new ScriptActionCameraZoom(data));}
+				
+				if (action.equals("camera_auto_zoom"))
+				{Actions_list.add(new ScriptActionCameraAutoZoom(data));}
 				
 			}
 		}
@@ -185,5 +206,21 @@ public class ScriptSystem {
 				}
 			}
 		}
+	}
+	
+	public static Entity find_entity(String _id)
+	{
+		if (_id.equals("player")){return GScreen.pl;}
+		if (_id.equals("player_human")){return GScreen.pl_human;}
+		if (_id.equals("player_mech")){return GScreen.pl_mech;}
+		
+		for (Entity entity:ScriptSystem.Entity_with_id_list)
+		{
+			if (entity.id_for_script.equals(_id)){return entity;}
+		}
+		
+
+		return null;
+		
 	}
 }

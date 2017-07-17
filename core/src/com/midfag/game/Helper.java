@@ -141,7 +141,7 @@ public class Helper {
     {
 		try {
 			Class<?> c = Class.forName(_id);
-			log("INVOKED ID="+_id);
+			//log("INVOKED ID="+_id);
 			Constructor<?>[] constructor=c.getConstructors(); 
 			
 			

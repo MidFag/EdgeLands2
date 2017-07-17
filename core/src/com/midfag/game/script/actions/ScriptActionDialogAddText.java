@@ -1,5 +1,6 @@
 package com.midfag.game.script.actions;
 
+import com.midfag.entity.Entity;
 import com.midfag.game.GScreen;
 import com.midfag.game.Helper;
 import com.midfag.game.Localisation;
@@ -23,8 +24,21 @@ public class ScriptActionDialogAddText extends ScriptAction {
 		ScriptSystem.pool=new DialogPool();
 		ScriptSystem.pool.text=Localisation.get_value_from_id(data[1]);
 		ScriptSystem.dialog_gui.dialog_pool.add(ScriptSystem.pool);
+		
+		if (data.length>=4)
+		{
+			Entity en=ScriptSystem.find_entity(data[3]);
+			if (en!=null)
+			{
+				ScriptSystem.pool.entity=en;
+			}
+			else
+			{
+				Helper.log("ERROR: ENTITY WITH ID <"+data[3]+"> NOT REGISTERED");
+			}
+		}
 
-		GScreen.Button_list.add(new ButtonDialogNext(500, 170, ScriptSystem.dialog_gui, Localisation.get_value_from_id(data[2])));
+		GScreen.Button_list.add(new ButtonDialogNext(500, 17, ScriptSystem.dialog_gui, Localisation.get_value_from_id(data[2])));
 	}
 
 }

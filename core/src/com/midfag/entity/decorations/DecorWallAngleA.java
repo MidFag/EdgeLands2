@@ -5,8 +5,10 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.midfag.entity.Entity;
 import com.midfag.game.Assets;
+import com.midfag.game.GScreen;
+import com.midfag.game.Phys;
 
-public class DecorWallAngleA extends DecorStoneWall {
+public class DecorWallAngleA extends DecorBuilding {
 
 	public DecorWallAngleA(Vector2 _v) {
 		
@@ -33,6 +35,13 @@ public class DecorWallAngleA extends DecorStoneWall {
 	public Entity put() {
 		// TODO Auto-generated method stub
 		return new DecorWallAngleA(new Vector2());
+	}
+	
+	@Override
+	public void do_custom_phys()
+	{
+
+		
 	}
 
 }

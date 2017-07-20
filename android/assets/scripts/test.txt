@@ -156,9 +156,69 @@ ENTRY_POINT create_open_door_timer
 add_timer door_timer open_door 1.0
 END
 
+
+ENTRY_POINT steel_door_knock
+play_sound knock
+control player off
+control main off
+find_and_change_data SteelBoxDoor interact remove
+add_timer knock knock_jeff 1.5
+END
+
+
+ENTRY_POINT knock_jeff
+dialog_gui_init
+dialog_add_text player_call_jeff button_next player
+dialog_add_text jeff_call_answer button_next JeffNPC
+dialog_exit_point jeff_out_of_building_timer remove
+END
+
+ENTRY_POINT jeff_out_of_building_timer
+add_timer ! jeff_out_of_building 1.0
+add_timer ! jeff_out_of_building_down 3.0
+add_timer ! jeff_already_out_of_building 5.0
+play_sound door
+END
+
+ENTRY_POINT jeff_out_of_building
+find_and_push_entity JeffNPC x 50 20
+END
+
+ENTRY_POINT jeff_already_out_of_building
+control main on
+control player on
+find_and_change_data JeffNPC interact jeff_dialog_01
+END
+
+ENTRY_POINT jeff_dialog_01
+dialog_gui_init
+
+dialog_add_text jeff_01 button_next JeffNPC
+dialog_add_text to_jeff_01 button_next player
+dialog_add_text to_jeff_02 button_next player
+dialog_add_text jeff_02 button_next JeffNPC
+
+
+dialog_exit_point jeff_walk_to_open_door remove
+END
+
+ENTRY_POINT jeff_walk_to_open_door
+find_and_push_entity JeffNPC y 20 -20
+find_and_push_entity JeffNPC x 80 -20
+add_timer ! prepare_open_door 4.0
+add_timer ! open_door 7.0
+END
+
+ENTRY_POINT prepare_open_door
+find_and_push_entity JeffNPC y 5 20
+END
+
+ENTRY_POINT jeff_out_of_building_down
+find_and_push_entity JeffNPC y 40 -20
+END
+
 ENTRY_POINT open_door
 //открываем двери
-camera_zoom 1
 find_and_push_entity SteelBoxDoor x 80 -30
 play_sound gate
 //таймер на движение бота
@@ -168,7 +228,7 @@ END
 ENTRY_POINT push_mech
 //толкаем бота
 find_and_push_entity player_mech y 60 -30
-add_timer after_mech_push_timer after_mech_rollout 3.0
+add_timer after_mech_push_timer null 3.0
 END
 
 ENTRY_POINT after_mech_rollout

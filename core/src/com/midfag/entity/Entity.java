@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.TimeUtils;
 import com.midfag.entity.missiles.MissileExplosion;
 import com.midfag.entity.missiles.MissileParticlePiece;
 import com.midfag.equip.energoshield.Energoshield;
@@ -125,6 +126,9 @@ public class Entity {
 
 	public boolean selected=false;
 	public float z;
+	
+	public boolean is_interact=false;
+	public String interact_entry_point="";
 	
 	public void use_module(int _id)
 	{
@@ -294,7 +298,7 @@ public class Entity {
 	public void hit_action(float _damage, boolean _sound)
 	{
 		
-		stun+=1;
+		//stun+=1;
 		
 		
 		
@@ -364,7 +368,7 @@ public class Entity {
 		{
 		
 			
-				
+				spr.setPosition(pos.x-spr.getOriginX(),pos.y-spr.getOriginY()+z);
 				GScreen.Draw_list.add(this);
 				//spr.draw(GScreen.batch);
 				//Main.font.draw(GScreen.batch, "!"+iso(0), pos.x, pos.y+100);
@@ -649,7 +653,13 @@ public class Entity {
 	
 	public void update(float _d)
 	{
-
+			GScreen.batch.setColor(1,1,1,(float) ((Math.sin(TimeUtils.millis()/100))+1)/2f);
+			
+			if ((is_interact)&&(Math.abs(pos.x-GScreen.pl.pos.x)+Math.abs(pos.y-GScreen.pl.pos.y)<80))
+			{GScreen.batch.draw(Assets.button_e, GScreen.pl.pos.x-7+20, GScreen.pl.pos.y-7+55);}
+			
+			if ((is_interact))
+			{GScreen.batch.draw(Assets.quest, pos.x-4, pos.y+55);}
 		
 		rotate_block=false;
 		
@@ -977,12 +987,13 @@ public class Entity {
 		
 		Color temp_color=spr.getColor();
 		
+
 		/*
 		spr.setColor(0.1f, 0.1f, 0.1f, 0.1f);
 		spr.setScale(_siz, _siz*1.52f);
 		spr.draw(GScreen.batch);*/
 		
-		spr.setPosition(pos.x-spr.getOriginX(),pos.y-spr.getOriginY()+z);
+		
 		spr.setColor(temp_color);
 		
 		spr.setScale(_siz);
@@ -991,6 +1002,8 @@ public class Entity {
 
 		
 
+		
+		
 		
 		GScreen.batch.setColor(Color.WHITE);
 	}

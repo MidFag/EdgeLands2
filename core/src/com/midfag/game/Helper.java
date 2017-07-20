@@ -96,6 +96,15 @@ public class Helper {
 					ScriptSystem.Entity_with_id_list.add(e);
 				}
 				
+				if (ss[i].equals("interact_entry_point"))
+				{
+					
+					i++;
+					e.interact_entry_point=ss[i];
+					e.is_interact=true;
+					
+				}
+				
 				if (ss[i].equals("PUT"))
 				{
 					

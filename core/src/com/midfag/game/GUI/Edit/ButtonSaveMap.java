@@ -70,6 +70,10 @@ public class ButtonSaveMap extends Button {
 					{s+="script_id"+"\n";
 					s+=GScreen.cluster[j][i].Entity_list.get(k).id_for_script+"\n";}
 					
+					if (!GScreen.cluster[j][i].Entity_list.get(k).interact_entry_point.equals(""))
+					{s+="interact_entry_point"+"\n";
+					s+=GScreen.cluster[j][i].Entity_list.get(k).interact_entry_point+"\n";}
+					
 					s+="PUT"+"\n";
 					
 					s+="\n";

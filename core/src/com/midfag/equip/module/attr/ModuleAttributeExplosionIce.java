@@ -29,6 +29,7 @@ public class ModuleAttributeExplosionIce extends ModuleAttribute {
 		_e.Effect.add(new AnimationEffectFreeze(_e.pos,0,0));
 		
 		for (int i=0; i<l.size(); i++)
+		if (l.get(i).is_enemy!=_e.is_enemy)
 		{
 			l.get(i).freeze_it(		2f*level/(1f+_e.pos.dst(l.get(i).pos)/100f)		);
 		}

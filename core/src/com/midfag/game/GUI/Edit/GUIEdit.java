@@ -13,6 +13,7 @@ import com.midfag.entity.Entity;
 
 import com.midfag.game.Assets;
 import com.midfag.game.Cluster;
+import com.midfag.game.Enums.TextInputMode;
 import com.midfag.game.GScreen;
 import com.midfag.game.Helper;
 import com.midfag.game.InputHandler;
@@ -110,9 +111,17 @@ public class GUIEdit extends GUI {
 		
 		if ((InputHandler.key==Keys.X)&&(listener==null)&&(selected_object!=null))
 		{
-	    	listener = new TextInput(this,selected_object);
+	    	listener = new TextInput(this,selected_object,TextInputMode.SCRIPT_ID);
 	    	
 	    	Gdx.input.getTextInput(listener, "Введите имя для энтити", selected_object.id_for_script, "");
+	    	
+		}
+		
+		if ((InputHandler.key==Keys.E)&&(listener==null)&&(selected_object!=null))
+		{
+	    	listener = new TextInput(this,selected_object,TextInputMode.INTERACT_ENTRY);
+	    	
+	    	Gdx.input.getTextInput(listener, "Точка входа взаимодействия", selected_object.interact_entry_point, "");
 	    	
 		}
 		

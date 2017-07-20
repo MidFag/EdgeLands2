@@ -378,6 +378,7 @@ public class EntityPlayer extends Entity {
 				}
 	        }
 		}
+		/*
 		if ((teleport_cooldown<=0)&(Gdx.input.isKeyPressed(Keys.E)))
 		{
 			hard_move(GScreen.sinR(360-rot)*200,GScreen.cosR(360-rot)*200,1);
@@ -385,7 +386,7 @@ public class EntityPlayer extends Entity {
 			teleport_cooldown=3;
 			
 			Assets.flash.play();
-		}
+		}*/
 		
 		if (teleport_cooldown>0){teleport_cooldown-=_d;}
 	}

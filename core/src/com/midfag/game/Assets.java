@@ -59,6 +59,8 @@ public class Assets {
 	public static Sound freeze=Gdx.audio.newSound(Gdx.files.internal("freeze.wav"));;
 	
 	public static Sound gate=Gdx.audio.newSound(Gdx.files.internal("gate.wav"));
+	public static Sound knock=Gdx.audio.newSound(Gdx.files.internal("knock.wav"));
+	public static Sound door=Gdx.audio.newSound(Gdx.files.internal("door.wav"));
 	
 	public static Sprite skill_wheel=new Sprite(new Texture(Gdx.files.internal("eye.png")));
 	public static Sprite select_sprite=new Sprite(new Texture(Gdx.files.internal("selected_skill.png")));
@@ -177,6 +179,10 @@ public class Assets {
 	
 	public static Texture noise=new Texture(Gdx.files.internal("noise.png"));
 	public static Texture normal_map=new Texture(Gdx.files.internal("normal_map.png"));
+	public static Texture dissolve=load("dissolve");
+	
+	public static Texture button_e=load("button_e");
+	public static Texture quest=load("quest");
 	
 	public static Texture[] pyra_body=new Texture[16];
 	public static Texture[] pyra_head=new Texture[16];
@@ -195,6 +201,13 @@ public class Assets {
 		
 	}
 	
+	private static Texture load(String _s) {
+		// TODO Auto-generated method stub
+		Texture tex=new Texture(Gdx.files.internal(_s+".png"));
+		tex.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		return tex;
+	}
+
 	public static void load_assets()
 	{
 		stone_wall_01.setFilter(TextureFilter.Linear, TextureFilter.Linear);

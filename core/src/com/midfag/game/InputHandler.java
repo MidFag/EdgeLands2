@@ -67,7 +67,7 @@ public class InputHandler implements InputProcessor {
     public static boolean press=false;
 
 	public static boolean keyF_release=false;
-
+	public static boolean keyE_release=false;
 	public static int scroll_amount;
     // Ask for a reference to the Bird when InputHandler is created.
     public InputHandler() {

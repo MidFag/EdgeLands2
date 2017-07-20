@@ -6,7 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.midfag.entity.Entity;
 import com.midfag.game.Assets;
 
-public class DecorBuildingFloor extends DecorStoneWall {
+public class DecorBuildingFloor extends DecorBuilding {
 
 	public DecorBuildingFloor(Vector2 _v) {
 		
@@ -33,6 +33,13 @@ public class DecorBuildingFloor extends DecorStoneWall {
 	public Entity put() {
 		// TODO Auto-generated method stub
 		return new DecorBuildingFloor(new Vector2());
+	}
+	
+	@Override
+	public void do_custom_phys()
+	{
+
+		
 	}
 
 }

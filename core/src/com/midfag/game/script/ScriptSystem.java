@@ -32,6 +32,7 @@ import com.midfag.game.script.actions.ScriptActionDialogAddText;
 import com.midfag.game.script.actions.ScriptActionDialogExitPoint;
 import com.midfag.game.script.actions.ScriptActionDialogInit;
 import com.midfag.game.script.actions.ScriptActionEntryPoint;
+import com.midfag.game.script.actions.ScriptActionFindAndChangeData;
 import com.midfag.game.script.actions.ScriptActionFindAndPushEntity;
 import com.midfag.game.script.actions.ScriptActionID;
 import com.midfag.game.script.actions.ScriptActionPlaySound;
@@ -143,6 +144,9 @@ public class ScriptSystem {
 				
 				if (action.equals("control"))
 				{Actions_list.add(new ScriptActionControl(data));}
+				
+				if (action.equals("find_and_change_data"))
+				{Actions_list.add(new ScriptActionFindAndChangeData(data));}
 				
 			}
 		}

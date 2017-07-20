@@ -22,5 +22,10 @@ public class Enums {
 	    MODULE
 	}
 	
+	public enum TextInputMode {
+	    SCRIPT_ID,
+	    INTERACT_ENTRY
+	}
+	
 	
 }

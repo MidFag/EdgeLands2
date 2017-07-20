@@ -60,7 +60,7 @@ public class EntityHuman extends Entity {
 		float spd=Math.abs(impulse.x+Math.abs(constant_speed_x))+Math.abs(impulse.y+Math.abs(constant_speed_y));
 		if (spd>5)
 		{
-			float c=(float) Math.toDegrees(Math.atan2(impulse.x, impulse.y));
+			float c=(float) Math.toDegrees(Math.atan2(impulse.x+constant_speed_x, impulse.y+constant_speed_y));
 			if (c<0){c=360+c;}
 	    	
 	    	if (c>360){c=c-360;}
@@ -69,6 +69,10 @@ public class EntityHuman extends Entity {
 			{dir=0;}
 	    	else
 	    	{dir=(int) Math.round(c/90f);}
+		}
+		else
+		{
+			anim_state=0;	
 		}
 		
 		anim_timer+=spd*_d;

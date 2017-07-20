@@ -329,7 +329,7 @@ public class GScreen implements Screen {
     	ScriptSystem.add_script("test");
     	//ScriptSystem.add_script("test");
     	//ScriptSystem.Timer_list.add(new ScriptTimer("open_door_timer",			"open_door",			1.0f/100f));
-    	ScriptSystem.Timer_list.add(new ScriptTimer("test_timer",			"test",			1.0f/100f));
+    	ScriptSystem.Timer_list.add(new ScriptTimer("test_timer",			"start",			1.0f/100f));
        }
     	
     	//ScriptSystem.add_script("test");
@@ -872,8 +872,8 @@ public class GScreen implements Screen {
 
 	    
 	
- 		for (int i=plposy-20; i<plposy+20; i++)
- 		for (int j=plposx-20; j<plposx+20; j++)
+ 		for (int i=plposy-30; i<plposy+30; i++)
+ 		for (int j=plposx-30; j<plposx+30; j++)
  		if ((i>=0)&&(i<300)&&(j>=0)&&(j<300))
  		{
  			
@@ -995,15 +995,17 @@ public class GScreen implements Screen {
       
        	 boolean is_press=false;
        	
-       	 if (InputHandler.MB){is_press=true; /*time_speed+=real_delta*1;*//* System.out.println("MB");*/}
+       	
+       	 float sp=1;
+       	 if (show_edit){sp=5;}
        	 
        	 if ((((pl.armored_shield!=null)&&(pl.armored_shield.value>0))||(pl.armored_shield==null))&&(pl.active))
        	 {
-	       	 if (Gdx.input.isKeyPressed(Keys.W)){pl.add_impulse(0, pl.speed,delta); /*time_speed+=real_delta*2;*/ is_press=true; pl.move_vert=true; pl.direction=0;}
-	       	 if (Gdx.input.isKeyPressed(Keys.S)){pl.add_impulse(0, -pl.speed,delta);/*time_speed+=real_delta*2;*/ is_press=true; pl.move_vert=true; pl.direction=2;}
+	       	 if (Gdx.input.isKeyPressed(Keys.W)){pl.add_impulse(0, pl.speed,delta*sp);  is_press=true; pl.move_vert=true; pl.direction=0;}
+	       	 if (Gdx.input.isKeyPressed(Keys.S)){pl.add_impulse(0, -pl.speed,delta*sp); is_press=true; pl.move_vert=true; pl.direction=2;}
 	       	 
-	       	 if (Gdx.input.isKeyPressed(Keys.A)){pl.add_impulse(-pl.speed, 0,delta);/*time_speed+=real_delta*2;*/ is_press=true; pl.move_vert=false; pl.direction=3;}
-	       	 if (Gdx.input.isKeyPressed(Keys.D)){pl.add_impulse( pl.speed, 0,delta);/*time_speed+=real_delta*2;*/ is_press=true; pl.move_vert=false; pl.direction=1;}
+	       	 if (Gdx.input.isKeyPressed(Keys.A)){pl.add_impulse(-pl.speed, 0,delta*sp); is_press=true; pl.move_vert=false; pl.direction=3;}
+	       	 if (Gdx.input.isKeyPressed(Keys.D)){pl.add_impulse( pl.speed, 0,delta*sp); is_press=true; pl.move_vert=false; pl.direction=1;}
        	 }
        	 
        	 if (time_speed>1.0){time_speed=1.0f;}
@@ -1018,22 +1020,7 @@ public class GScreen implements Screen {
        	
        	time_speed_value=1.0f;
        	
-       	time_speed+=(time_speed_value-time_speed)/50.0f;
-       	
-       
-       	
-       	if (time_speed<1.0f)
-       	{
-       		
-       		//System.out.println (""+);
-       		Assets.time_slow.setVolume(Assets.time_slow_id, Math.min(1,1.0f-time_speed)*5.0f);
-       		Assets.music.setVolume((1.0f-(1-time_speed)*5)/3f);
-       		Assets.time_slow.setPitch(Assets.time_slow_id, time_speed);
-       	}
-       	else
-       	{
-       		Assets.time_slow.setVolume(Assets.time_slow_id, 0.0f);
-       	}
+
        	
        	
        	
@@ -1192,6 +1179,13 @@ public class GScreen implements Screen {
         for (int i=0; i<cluster[x][y].Entity_list.size();i++)
         {
         	Entity e=cluster[x][y].Entity_list.get(i);
+        	
+        	 if ((e.is_interact)&&(Gdx.input.isKeyPressed(Keys.E))&&(Math.abs(pl.pos.x-GScreen.pl.pos.x)+Math.abs(pl.pos.y-GScreen.pl.pos.y)<80)&&(InputHandler.keyF_release))
+        	 {
+        		 InputHandler.keyF_release=false;
+        		 ScriptSystem.execute(e.interact_entry_point);
+        	}
+        	 
         	if (e.is_AI)
         	{	
         		if (!e.is_decor)
@@ -1238,7 +1232,23 @@ public class GScreen implements Screen {
 	    	if (!e.hidden)
 	    	{e.update(delta);}
         }
+     	
+     	
     	
+       	time_speed+=(time_speed_value-time_speed)/50.0f;
+       	if (time_speed<1.0f)
+       	{
+       		
+       		//System.out.println (""+);
+       		Assets.time_slow.setVolume(Assets.time_slow_id, Math.min(1,1.0f-time_speed)*5.0f);
+       		Assets.music.setVolume((1.0f-(1-time_speed)*5)/3f);
+       		Assets.time_slow.setPitch(Assets.time_slow_id, time_speed);
+       	}
+       	else
+       	{
+       		Assets.time_slow.setVolume(Assets.time_slow_id, 0.0f);
+       	}
+     	
       	 add_timer("entity_update");
       
 

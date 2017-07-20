@@ -6,7 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.midfag.entity.Entity;
 import com.midfag.game.Assets;
 
-public class DecorBuildingRoof extends DecorStoneWall {
+public class DecorBuildingRoof extends DecorBuilding {
 
 	public DecorBuildingRoof(Vector2 _v) {
 		

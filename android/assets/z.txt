@@ -1117,9 +1117,9 @@ PUT
 ###ENTITY
 com.midfag.entity.EntityHuman
 pos.x
-5013
+5012
 pos.y
-4925
+4935
 y
 0
 angle
@@ -1652,6 +1652,8 @@ angle
 0
 script_id
 SteelBoxDoor
+interact_entry_point
+steel_door_knock
 PUT
 
 ###ENTITY
@@ -1683,9 +1685,9 @@ com.midfag.entity.EntityPlayer
 pos.x
 5012
 pos.y
-5395
+5392
 y
-74
+0
 angle
 0
 PUT

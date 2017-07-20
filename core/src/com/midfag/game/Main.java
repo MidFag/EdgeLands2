@@ -22,6 +22,8 @@ public class Main extends Game {
     public static ShapeRenderer shapeRenderer;
     public static ShapeRenderer shapeRenderer_static;
     
+    public static ShaderProgram shader_default;
+    public static ShaderProgram shader_dissolve;
     public static ShaderProgram shader_time_slow;
     public static ShaderProgram shader;
     
@@ -49,8 +51,10 @@ public class Main extends Game {
 			if (!shader.isCompiled()) {System.err.println(shader.getLog()); shader=GScreen.batch.getShader();}
 		
 	        shader_time_slow=new ShaderProgram(Gdx.files.internal("d.vert"),(Gdx.files.internal("time_slow.frag")));
-			if (!shader_time_slow.isCompiled()) {System.err.println(shader_time_slow.getLog()); shader=GScreen.batch.getShader();}
-       
+			if (!shader_time_slow.isCompiled()) {System.err.println(shader_time_slow.getLog()); shader_time_slow=GScreen.batch.getShader();}
+	        
+			shader_dissolve=new ShaderProgram(Gdx.files.internal("d.vert"),(Gdx.files.internal("dissolve.frag")));
+			if (!shader_dissolve.isCompiled()) {System.err.println(shader_dissolve.getLog()); shader_dissolve=GScreen.batch.getShader();}
         
         Texture texture = new Texture(Gdx.files.internal("fonts/big.png"));
         texture.setFilter(TextureFilter.Linear, TextureFilter.Linear);// true enables mipmaps
@@ -61,6 +65,7 @@ public class Main extends Game {
         font = new BitmapFont(Gdx.files.internal("rus.fnt"), new TextureRegion(texture), false);
         
         this.setScreen(new GScreen(this));
+        shader_default=GScreen.batch.getShader();
         
 
         

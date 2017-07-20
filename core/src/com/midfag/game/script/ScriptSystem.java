@@ -27,6 +27,7 @@ import com.midfag.game.script.actions.ScriptActionCameraZoom;
 import com.midfag.game.script.actions.ScriptActionCinematicAddFilm;
 import com.midfag.game.script.actions.ScriptActionCinematicClose;
 import com.midfag.game.script.actions.ScriptActionCinematicInit;
+import com.midfag.game.script.actions.ScriptActionControl;
 import com.midfag.game.script.actions.ScriptActionDialogAddText;
 import com.midfag.game.script.actions.ScriptActionDialogExitPoint;
 import com.midfag.game.script.actions.ScriptActionDialogInit;
@@ -46,7 +47,7 @@ public class ScriptSystem {
 	public static List<ScriptTimer> Timer_pool=new ArrayList<ScriptTimer>();
 	
 	public static int execute_line;
-	public static GUIDialog dialog_gui; 
+	public static GUIDialog last_dialog_gui; 
 	public static DialogPool pool;
 	public static GUICinematic cinematic_gui;
 	
@@ -140,6 +141,9 @@ public class ScriptSystem {
 				if (action.equals("camera_auto_zoom"))
 				{Actions_list.add(new ScriptActionCameraAutoZoom(data));}
 				
+				if (action.equals("control"))
+				{Actions_list.add(new ScriptActionControl(data));}
+				
 			}
 		}
 		else
@@ -208,19 +212,21 @@ public class ScriptSystem {
 		}
 	}
 	
-	public static Entity find_entity(String _id)
+	public static List<Entity> find_entity(String _id)
 	{
-		if (_id.equals("player")){return GScreen.pl;}
-		if (_id.equals("player_human")){return GScreen.pl_human;}
-		if (_id.equals("player_mech")){return GScreen.pl_mech;}
+		List<Entity> l=new ArrayList<Entity>();
+		
+		if (_id.equals("player")){l.add(GScreen.pl);}
+		if (_id.equals("player_human")){l.add(GScreen.pl_human);}
+		if (_id.equals("player_mech")){l.add(GScreen.pl_mech);}
 		
 		for (Entity entity:ScriptSystem.Entity_with_id_list)
 		{
-			if (entity.id_for_script.equals(_id)){return entity;}
+			if (entity.id_for_script.equals(_id)){l.add(entity);}
 		}
 		
 
-		return null;
+		return l;
 		
 	}
 }

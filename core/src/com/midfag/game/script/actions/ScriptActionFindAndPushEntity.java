@@ -1,6 +1,7 @@
 package com.midfag.game.script.actions;
 
 import java.lang.reflect.Field;
+import java.util.List;
 
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
@@ -32,39 +33,37 @@ public class ScriptActionFindAndPushEntity extends ScriptAction {
 		
 		
 		
-		for (Entity entity:ScriptSystem.Entity_with_id_list)
+		List<Entity> l=ScriptSystem.find_entity(data[1]);
+		if (l!=null)
 		{
-			if (entity.id_for_script.equals(data[1]))
+			for (Entity e:l)
 			{
-				wtf=entity;
-				break;
+				if (data[2].equals("x"))
+				{
+					e.constant_move_x=Integer.parseInt(data[3]);
+					e.constant_speed_x=Integer.parseInt(data[4]);
+				}
+				else
+				if (data[2].equals("y"))
+				{
+						e.constant_move_y=Integer.parseInt(data[3]);
+						e.constant_speed_y=Integer.parseInt(data[4]);
+				}
+				else
+				if (data[2].equals("z"))
+				{
+						e.constant_move_z=Integer.parseInt(data[3]);
+						e.constant_speed_z=Integer.parseInt(data[4]);
+				}
 			}
-		}
-		
-		if (data[1].equals("player")){wtf=GScreen.pl;}
-		if (data[1].equals("player_human")){wtf=GScreen.pl_human;}
-		if (data[1].equals("player_mech")){wtf=GScreen.pl_mech;}
-		
-		if (wtf!=null)
-		{
-			wtf.constant_move_x=Integer.parseInt(data[2]);
-			wtf.constant_move_y=Integer.parseInt(data[3]);
-			
-			wtf.constant_speed_x=Integer.parseInt(data[4]);
-			wtf.constant_speed_y=Integer.parseInt(data[5]);
-			
-			//wtf.dead_action(true);
-			
-			Helper.log(">>>>>>>>>>>"+wtf.id);
-			//GScreen.pl=wtf;
-			
-			//wtf.pos.x+=200;
-			
 		}
 		else
 		{
 			Helper.log("ERROR: ENTITY WITH ID <"+data[1]+"> NOT REGISTERED");
 		}
+		
+
+
 	}
 
 }

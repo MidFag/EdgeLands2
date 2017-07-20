@@ -1,5 +1,7 @@
 package com.midfag.game.script.actions;
 
+import java.util.List;
+
 import com.midfag.entity.Entity;
 import com.midfag.game.GScreen;
 import com.midfag.game.Helper;
@@ -23,14 +25,15 @@ public class ScriptActionDialogAddText extends ScriptAction {
 		//Helper.log("SCRIPT SAY <"+say+">");
 		ScriptSystem.pool=new DialogPool();
 		ScriptSystem.pool.text=Localisation.get_value_from_id(data[1]);
-		ScriptSystem.dialog_gui.dialog_pool.add(ScriptSystem.pool);
+		ScriptSystem.last_dialog_gui.dialog_pool.add(ScriptSystem.pool);
 		
 		if (data.length>=4)
 		{
-			Entity en=ScriptSystem.find_entity(data[3]);
-			if (en!=null)
+			List<Entity> l=ScriptSystem.find_entity(data[3]);
+			if (l!=null)
 			{
-				ScriptSystem.pool.entity=en;
+				for (Entity e:l)
+				ScriptSystem.pool.entity=e;
 			}
 			else
 			{
@@ -38,7 +41,7 @@ public class ScriptActionDialogAddText extends ScriptAction {
 			}
 		}
 
-		GScreen.Button_list.add(new ButtonDialogNext(500, 17, ScriptSystem.dialog_gui, Localisation.get_value_from_id(data[2])));
+		
 	}
 
 }

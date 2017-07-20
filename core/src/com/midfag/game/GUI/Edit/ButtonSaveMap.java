@@ -60,6 +60,9 @@ public class ButtonSaveMap extends Button {
 					s+="pos.y"+"\n";
 					s+=Math.round(GScreen.cluster[j][i].Entity_list.get(k).pos.y)+"\n";
 					
+					s+="y"+"\n";
+					s+=Math.round(GScreen.cluster[j][i].Entity_list.get(k).z)+"\n";
+					
 					s+="angle"+"\n";
 					s+=Math.round(GScreen.cluster[j][i].Entity_list.get(k).spr.getRotation())+"\n";
 					

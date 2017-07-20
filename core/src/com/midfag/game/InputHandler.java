@@ -67,6 +67,8 @@ public class InputHandler implements InputProcessor {
     public static boolean press=false;
 
 	public static boolean keyF_release=false;
+
+	public static int scroll_amount;
     // Ask for a reference to the Bird when InputHandler is created.
     public InputHandler() {
         // myBird now represents the gameWorld's bird.
@@ -328,7 +330,8 @@ public class InputHandler implements InputProcessor {
 
     @Override
     public boolean scrolled(int amount) {
-    	if ((GScreen.main_control)||(GScreen.show_edit))
+    	scroll_amount=amount;
+    	if (((GScreen.main_control)||(GScreen.show_edit))&&(!Gdx.input.isKeyPressed(Keys.SHIFT_LEFT)))
     	{
     		if(amount>0)
     		{

@@ -16,7 +16,9 @@ import com.midfag.game.script.ScriptSystem;
 public class Helper {
 	
 	//private static final String BUILDER_CLASS = "builder.class";
-
+	public static String alphabet[]=new String [16];
+	public static String hex[]={"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P"};
+	
 	public Helper()
 	{
 		
@@ -24,6 +26,14 @@ public class Helper {
 	
 	public static void LoadMap()
 	{
+
+		//for (int i=0; i<16; i++)
+		/*for (int j=0; j<16; j++)
+		{
+			alphabet[j]=hex[j];
+			//alphabet[j]=hex[j];
+		}*/
+		
 
 		
 		for (int i=0; i<30; i++)
@@ -37,6 +47,8 @@ public class Helper {
 		FileHandle file = Gdx.files.local("z.txt");
 		
 		String s=file.readString();
+		
+
 		String[] ss = s.split("\n");
 		
 		    // if file doesnt exists, then create it
@@ -69,6 +81,12 @@ public class Helper {
 					e.pos.y=Integer.parseInt(ss[i]);
 				}
 				
+				if (ss[i].equals("y"))
+				{
+					i++;
+					e.z=Integer.parseInt(ss[i]);
+				}
+				
 				if (ss[i].equals("script_id"))
 				{
 					
@@ -95,6 +113,63 @@ public class Helper {
 		file = Gdx.files.local("z_tile.txt");
 		
 		s=file.readString();
+		
+		
+		
+
+					String compress =s;
+					String temp=compress;
+					String dict="";
+					
+					/*
+					for (int i=0; i<alphabet.length; i++)
+					{
+						//dict+=temp.substring(0,4);
+						
+						String di=temp.substring(0,4);
+						
+						boolean free_space=true;
+						for (int z=0; z<16; z++)
+						{
+							
+							if (alphabet[i].equals(""))
+							{
+								alphabet[i]=di;
+							}
+						}
+						
+					}*/
+					
+
+					
+				
+					file = Gdx.files.local("z_tile_compress.txt");
+					file.writeString(compress, false);
+					
+					file = Gdx.files.local("z_tile_dict.txt");
+					file.writeString(dict, false);
+					
+					file = Gdx.files.local("z_tile_compress.txt");
+					compress=file.readString();
+					
+					file = Gdx.files.local("z_tile_dict.txt");
+					dict=file.readString();
+
+					String result=compress;
+					
+					/*
+					for (int i=15; i>=0; i--)
+					{
+						result=result.replace(alphabet[i], dict.substring(i*2,i*2+1));
+					}*/
+					
+					
+
+					
+					file = Gdx.files.local("z_tile_decode.txt");
+					file.writeString(result, false);
+		
+		
 		ss=s.split("\n");
 		
 		//System.out.println("FIRST DATA="+ss[0]);

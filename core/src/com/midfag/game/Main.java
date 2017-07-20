@@ -25,9 +25,14 @@ public class Main extends Game {
     public static ShaderProgram shader_time_slow;
     public static ShaderProgram shader;
     
-    
+	public static boolean script_activate=true;
 	//public static SpriteBatch batch_wheel;
     
+	public Main(boolean _script)
+	{
+		script_activate=_script;
+	}
+	
     public void create() {
 
 

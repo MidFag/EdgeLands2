@@ -57,7 +57,7 @@ public class EntityHuman extends Entity {
 		}
 		
 		
-		float spd=Math.abs(impulse.x)+Math.abs(impulse.y);
+		float spd=Math.abs(impulse.x+Math.abs(constant_speed_x))+Math.abs(impulse.y+Math.abs(constant_speed_y));
 		if (spd>5)
 		{
 			float c=(float) Math.toDegrees(Math.atan2(impulse.x, impulse.y));

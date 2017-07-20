@@ -37,7 +37,7 @@ public class Assets {
 	
 	public static long music_id;
 	
-	static Music music = Gdx.audio.newMusic(Gdx.files.internal("mus.mp3"));
+	static Music music = Gdx.audio.newMusic(Gdx.files.internal("music01.mp3"));
 
 	public static Sound flash;
 
@@ -113,8 +113,29 @@ public class Assets {
 	
 	public static Texture stone_wall_02=new Texture(Gdx.files.internal("stone_wall_02.png"));;
 	
-	public static Texture building_wall_out=new Texture(Gdx.files.internal("building_01.png"));;
+	public static Texture beton_wall=new Texture(Gdx.files.internal("beton_wall.png"));;
+	
+	public static Texture graffiti_01=new Texture(Gdx.files.internal("graffiti_01.png"));;
+	public static Texture graffiti_01_icon=new Texture(Gdx.files.internal("graffiti_01_icon.png"));;
+	
+	public static Texture beton_wall_icon=new Texture(Gdx.files.internal("beton_wall_icon.png"));;
+	
+	public static Texture beton_wall_window=new Texture(Gdx.files.internal("beton_wall_window.png"));;
+	public static Texture beton_wall_window_icon=new Texture(Gdx.files.internal("beton_wall_window_icon.png"));
+	
 	public static Texture building_wall_in=new Texture(Gdx.files.internal("building_02.png"));;
+	
+	public static Texture wall_angle_A=new Texture(Gdx.files.internal("wall_angle_A.png"));;
+	public static Texture wall_angle_B=new Texture(Gdx.files.internal("wall_angle_B.png"));;
+	
+	public static Texture building_floor=new Texture(Gdx.files.internal("building_floor.png"));;
+	public static Texture building_floor_icon=new Texture(Gdx.files.internal("building_floor_icon.png"));;
+	
+	public static Texture building_roof=new Texture(Gdx.files.internal("roof.png"));;
+	public static Texture building_roof_icon=new Texture(Gdx.files.internal("roof_icon.png"));;
+	
+	public static Texture building_roof_long=new Texture(Gdx.files.internal("roof_long.png"));;
+	public static Texture building_roof_long_icon=new Texture(Gdx.files.internal("roof_long_icon.png"));;
 	
 	public static Texture indicate_bg=new Texture(Gdx.files.internal("indicate_bg.png"));;
 	public static Texture highlight=new Texture(Gdx.files.internal("highlight.png"));;
@@ -236,7 +257,7 @@ public class Assets {
 		noise.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		
 		music.setLooping(true);
-		music.setVolume(0.033f);
+		music.setVolume(0.73f);
 		music.play();
 		
 		time_slow_id=time_slow.play();

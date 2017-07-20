@@ -6,12 +6,12 @@ import com.midfag.entity.Entity;
 import com.midfag.game.Assets;
 
 
-public class DecorBuildingWall extends DecorBuilding {
+public class DecorBuildingWallWindow extends DecorBuilding {
 	
 	
 	//private float alpha=1;
 
-	public DecorBuildingWall(Vector2 _v) {
+	public DecorBuildingWallWindow(Vector2 _v) {
 		
 		super(_v);
 
@@ -20,8 +20,8 @@ public class DecorBuildingWall extends DecorBuilding {
 		id=this.getClass().getName();
 
 		
-		spr.setTexture(Assets.beton_wall);
-		icon=Assets.beton_wall_icon;
+		spr.setTexture(Assets.beton_wall_window);
+		icon=Assets.beton_wall_window_icon;
 		spr.setSize(spr.getTexture().getWidth(), spr.getTexture().getHeight());
 		spr.setOrigin(47.0f, 0f);
 
@@ -37,7 +37,7 @@ public class DecorBuildingWall extends DecorBuilding {
 	@Override
 	public Entity put() {
 		// TODO Auto-generated method stub
-		return new DecorBuildingWall(new Vector2());
+		return new DecorBuildingWallWindow(new Vector2());
 	}
 	
 	@Override

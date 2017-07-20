@@ -29,7 +29,7 @@ public class Localisation {
 			String[] data = lines[i].split("\t");
 			
 			id.add(data[0]);
-			value.add(data[1]);
+			value.add(data[1].replace("###", "\n"));
 			
 			Helper.log("ID: ["+data[0]+"] value:"+data[1]);
 		}

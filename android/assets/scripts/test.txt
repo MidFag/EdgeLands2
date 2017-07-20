@@ -11,7 +11,7 @@ dialog_add_text intro_00 button_next
 dialog_exit_point film_A
 
 END
-
+========================/
 
 
 ========================\
@@ -28,12 +28,11 @@ END
 
 ========================\
 ENTRY_POINT film_B
-say film_B
+say film_B;
 cinematic_add_film intro_02
 dialog_add_text intro_02 button_next
 
 dialog_exit_point film_C
-
 END
 ========================/
 
@@ -41,11 +40,9 @@ END
 
 ========================\
 ENTRY_POINT film_C
-
 cinematic_add_film intro_03
 dialog_add_text intro_03 button_next
 dialog_exit_point film_D
-
 END
 =======================/
 
@@ -103,27 +100,47 @@ END
 =======================/
 
 ENTRY_POINT null
-
+say null
 END
 
 
+ENTRY_POINT start
+dialog_gui_init
+dialog_add_text act_1_01 button_next
+dialog_add_text act_1_02 button_next
+dialog_add_text act_1_03 button_next
+dialog_add_text act_1_04 button_next
+dialog_add_text quest_find_jeff button_next
+dialog_exit_point player_get_control remove
+END
 
+ENTRY_POINT player_get_control
+control player on
+control main on
+END
 
 ENTRY_POINT main
 cinematic_close
 camera_zoom 10000
 dialog_add_text provincial_2_text button_next
-dialog_exit_point zoom_on
+dialog_exit_point zoom_on remove
 END
 
 
 ENTRY_POINT zoom_on
 camera_auto_zoom on
-add_timer door_timer main_dialog 14.0
+add_timer door_timer start 14.0
+add_timer train_push_timer train_push 8.0
 END
 
 
+ENTRY_POINT train_push
+find_and_push_entity Train x 10000 -90
+find_and_push_entity player y 200 15
+END
+
 ENTRY_POINT main_dialog
+
 dialog_add_text begin_text_intro_01 button_next
 dialog_add_text begin_text_intro_02 button_next
 dialog_add_text begin_text_01 button_next JeffNPC
@@ -141,16 +158,17 @@ END
 
 ENTRY_POINT open_door
 //открываем двери
-find_and_push_entity SteelBoxDoor 0 60 0 20
+camera_zoom 1
+find_and_push_entity SteelBoxDoor x 80 -30
 play_sound gate
 //таймер на движение бота
-add_timer player_push_timer push_player 4.0
+add_timer mech_push_timer push_mech 4.0
 END
 
-ENTRY_POINT push_player
+ENTRY_POINT push_mech
 //толкаем бота
-find_and_push_entity player_mech 0 60 0 -30
-add_timer player_push_timer after_mech_rollout 3.0
+find_and_push_entity player_mech y 60 -30
+add_timer after_mech_push_timer after_mech_rollout 3.0
 END
 
 ENTRY_POINT after_mech_rollout
@@ -180,7 +198,8 @@ dialog_add_text begin_text_28 button_next player
 dialog_add_text begin_text_29 button_next JeffNPC
 dialog_add_text begin_text_30 button_next player
 dialog_add_text begin_text_31 button_next JeffNPC
-dialog_add_text begin_text_32 button_next player
+dialog_add_text begin_text_32 button_next JeffNPC
+
 dialog_exit_point none
 END
 

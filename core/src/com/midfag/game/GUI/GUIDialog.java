@@ -17,6 +17,7 @@ public class GUIDialog extends GUI {
 	public int current_pool=0;
 	public String exit_point;
 	public Sprite spr=new Sprite(new Texture(Gdx.files.internal("dialog_arrow.png")));
+	public boolean remove_if_end;
 	
 	//public List<>
 	
@@ -47,16 +48,16 @@ public class GUIDialog extends GUI {
 		{
 			if (dialog_pool.get(current_pool).entity==null)
 			{
-				GScreen.batch_static.draw(dialog_texture, (GScreen.scr_w-500f)/2f, 50,500,93);
+				GScreen.batch_static.draw(dialog_texture, 17, 50,GScreen.scr_w-34,93);
 				
 				Main.font.draw
 							(
 								GScreen.batch_static,
 								dialog_pool.get(current_pool).text,
-								(GScreen.scr_w-500f)/2f+15,
-								135,
-								480,
-								-1,
+								37,
+								125,
+								GScreen.scr_w-74,
+								1,
 								true
 							);
 			}

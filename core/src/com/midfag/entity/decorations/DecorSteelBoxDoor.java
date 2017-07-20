@@ -29,7 +29,7 @@ public class DecorSteelBoxDoor extends DecorStoneWall {
 		is_decor=true;
 		
 		spr.setSize(81, 71);
-		spr.setOrigin(81, -60);
+		spr.setOrigin(40, 0);
 		
 		friction=0.95f;
 		

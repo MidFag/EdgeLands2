@@ -85,7 +85,20 @@ public class GUIEdit extends GUI {
 		
 		if (Gdx.input.isKeyPressed(112)&&(selected_object!=null)){selected_object.dead_action(true); selected_object=null;}
 		
-		if (Gdx.input.isKeyPressed(Keys.SHIFT_LEFT)){mod=1;}
+		if ((Gdx.input.isKeyPressed(Keys.V))&&(selected_object!=null))
+		{
+			indicate_entity=Helper.get_object_from_id(selected_object.id);
+			indicate_entity.z=selected_object.z;
+			
+			selected_object=null;
+		}
+		
+		if ((selected_object!=null)&&(Gdx.input.isKeyPressed(Keys.SHIFT_LEFT)))
+		{
+			selected_object.z+=InputHandler.scroll_amount;
+			selected_object.move(0, -InputHandler.scroll_amount, 1);
+			mod=1;
+		}
 		
 		/*
 			if (InputHandler.key==Keys.COMMA){e.spr.rotate(-15);InputHandler.key=-1;}	
@@ -217,6 +230,7 @@ public class GUIEdit extends GUI {
 				{
 					Entity en=Helper.get_object_from_id(indicate_entity.id);
 					
+					
 					if (en!=null)
 					{
 						en.pos.x=xx;
@@ -226,6 +240,8 @@ public class GUIEdit extends GUI {
 						//en.init("gui edit");
 						GScreen.add_entity_to_map(en);
 						
+						en.z=indicate_entity.z;
+						en.pos.y-=indicate_entity.z;
 						en.fill_path();
 					}
 				}
@@ -431,6 +447,7 @@ public class GUIEdit extends GUI {
 					
 					for (int k=0; k<GScreen.cluster[i][j].Entity_list.size(); k++)
 					{
+						GScreen.temp_vectorA.y=yy-GScreen.cluster[i][j].Entity_list.get(k).z;
 						if (GScreen.temp_vectorA.dst(GScreen.cluster[i][j].Entity_list.get(k).pos)<near_dist)
 						{
 							near_dist=GScreen.temp_vectorA.dst(GScreen.cluster[i][j].Entity_list.get(k).pos);

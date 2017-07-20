@@ -115,13 +115,16 @@ public class Entity {
 	
 	public float constant_move_x=0;
 	public float constant_move_y=0;
+	public float constant_move_z=0;
 	
 	public float constant_speed_x=0;
 	public float constant_speed_y=0;
+	public float constant_speed_z=0;
 
 	public String id_for_script="";
 
 	public boolean selected=false;
+	public float z;
 	
 	public void use_module(int _id)
 	{
@@ -135,41 +138,46 @@ public class Entity {
 	{
     	
 		
+		
 			Phys_list_local.clear();
-			if (!custom_phys)
-			{
-				
-				int x=(int)(pos.x/300);
-				int y=(int)(pos.y/300);
-				x=Math.min(29, Math.max(x, 1));
-				y=Math.min(29, Math.max(y, 1));
-	
-				;
-				
-				
-					Phys p=new Phys(new Vector2(pos.x,pos.y+30),new Vector2(pos.x-30,pos.y),false,this,true);
-					{p.move_block=false;}
-					Phys_list_local.add(p);
-					
-					p=new Phys(new Vector2(pos.x-30,pos.y),new Vector2(pos.x,pos.y-30),false,this,true);
-					{p.move_block=false;}
-					Phys_list_local.add(p);
-					
-					p=new Phys(new Vector2(pos.x,pos.y-30),new Vector2(pos.x+30,pos.y),false,this,true);
-					{p.move_block=false;}
-					Phys_list_local.add(p);
-					
-					p=new Phys(new Vector2(pos.x+30,pos.y),new Vector2(pos.x,pos.y+30),false,this,true);
-					{p.move_block=false;}
-					Phys_list_local.add(p);
-				
-			}
-			else
-			{
-				do_custom_phys();
-				//System.out.println("create CUSTOM phys ");
-			}
 			
+			if (z<15)
+			{
+				if (!custom_phys)
+				{
+					
+					int x=(int)(pos.x/300);
+					int y=(int)(pos.y/300);
+					x=Math.min(29, Math.max(x, 1));
+					y=Math.min(29, Math.max(y, 1));
+		
+					;
+					
+					
+						Phys p=new Phys(new Vector2(pos.x,pos.y+30),new Vector2(pos.x-30,pos.y),false,this,true);
+						{p.move_block=false;}
+						Phys_list_local.add(p);
+						
+						p=new Phys(new Vector2(pos.x-30,pos.y),new Vector2(pos.x,pos.y-30),false,this,true);
+						{p.move_block=false;}
+						Phys_list_local.add(p);
+						
+						p=new Phys(new Vector2(pos.x,pos.y-30),new Vector2(pos.x+30,pos.y),false,this,true);
+						{p.move_block=false;}
+						Phys_list_local.add(p);
+						
+						p=new Phys(new Vector2(pos.x+30,pos.y),new Vector2(pos.x,pos.y+30),false,this,true);
+						{p.move_block=false;}
+						Phys_list_local.add(p);
+					
+				}
+				else
+				{
+					do_custom_phys();
+					//System.out.println("create CUSTOM phys ");
+				}
+			
+			}
 			/*
 			for (int i=-5; i<5; i++)
 		    for (int j=-5; j<5; j++)
@@ -356,7 +364,7 @@ public class Entity {
 		{
 		
 			
-				spr.setPosition(pos.x-spr.getOriginX(),pos.y-spr.getOriginY());
+				
 				GScreen.Draw_list.add(this);
 				//spr.draw(GScreen.batch);
 				//Main.font.draw(GScreen.batch, "!"+iso(0), pos.x, pos.y+100);
@@ -402,7 +410,7 @@ public class Entity {
 		}
 		
 		//if (!is_player)
-		//{
+		{
 			for (int i=0; i<Phys_list_local.size(); i++)
 			{
 				Phys_list_local.get(i).clear_path();
@@ -417,7 +425,7 @@ public class Entity {
 				GScreen.Entity_list.remove(this);
 				GScreen.cluster[(int)(pos.x/300f)][(int)(pos.y/300f)].Entity_list.remove(this);
 			
-		//}
+		}
 		
 		//m
 		Assets.metal_destroy.play(0.25f, (float) (Math.random()*0.1f+0.95f), 0);
@@ -814,6 +822,16 @@ public class Entity {
 			constant_speed_y=0;
 		}
 		
+		if (constant_move_z>0)
+		{
+			constant_move_z-=Math.abs(constant_speed_z*_d);
+			z+=constant_speed_z*_d;
+		}
+		else
+		{
+			constant_speed_z=0;
+		}
+		
 		move(cmx,cmy,_d);
 		
 
@@ -939,13 +957,10 @@ public class Entity {
 		GScreen.batch.draw(Assets.rect_white, pos.x-15, pos.y-40, 30f*armored_shield.value/armored_shield.total_value,10);
 	}
 	
-	
-	public void draw_action(float _d) {
-		
-		draw_action(_d, 1f);
-		
 
-		
+	public void draw_action(float _d)
+	{
+		draw_action(_d, 1f);
 		//Main.font.draw(GScreen.batch, ""+constant_move_y, pos.x, pos.y);
 	}
 	public void draw_action(float _d, float _siz) {
@@ -962,10 +977,12 @@ public class Entity {
 		
 		Color temp_color=spr.getColor();
 		
+		/*
 		spr.setColor(0.1f, 0.1f, 0.1f, 0.1f);
 		spr.setScale(_siz, _siz*1.52f);
-		spr.draw(GScreen.batch);
+		spr.draw(GScreen.batch);*/
 		
+		spr.setPosition(pos.x-spr.getOriginX(),pos.y-spr.getOriginY()+z);
 		spr.setColor(temp_color);
 		
 		spr.setScale(_siz);

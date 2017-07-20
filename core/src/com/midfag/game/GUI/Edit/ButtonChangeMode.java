@@ -141,6 +141,18 @@ public class ButtonChangeMode extends Button {
 				entity_list.add(new DecorSteelBoxDoor(new Vector2()));
 				entity_list.add(new EntityHuman(new Vector2()));
 				entity_list.add(new EntityHumanNPC(new Vector2()));
+				entity_list.add(new DecorBuildingWall(new Vector2()));
+				entity_list.add(new DecorWallAngleA(new Vector2()));
+				
+				entity_list.add(new DecorWallAngleB(new Vector2()));
+				entity_list.add(new DecorBuildingFloor(new Vector2()));
+				
+				entity_list.add(new DecorBuildingRoof(new Vector2()));
+				entity_list.add(new DecorBuildingRoofLong(new Vector2()));
+				
+				entity_list.add(new DecorBuildingWallWindow(new Vector2()));
+				
+				entity_list.add(new DecorGraffiti(new Vector2()));
 				
 				for (int i=0; i<10; i++)
 				if (i<entity_list.size())

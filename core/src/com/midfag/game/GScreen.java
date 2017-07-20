@@ -128,6 +128,8 @@ public class GScreen implements Screen {
     
     public boolean keypress=false;
 
+
+
 	public static boolean camera_auto_zoom=false;
 
 	public static float wave_time;
@@ -322,11 +324,13 @@ public class GScreen implements Screen {
 
        
         
-       
+       if (Main.script_activate)
+       {
     	ScriptSystem.add_script("test");
     	//ScriptSystem.add_script("test");
+    	//ScriptSystem.Timer_list.add(new ScriptTimer("open_door_timer",			"open_door",			1.0f/100f));
     	ScriptSystem.Timer_list.add(new ScriptTimer("test_timer",			"test",			1.0f/100f));
-    	
+       }
     	
     	//ScriptSystem.add_script("test");
     	
@@ -497,7 +501,7 @@ public class GScreen implements Screen {
 
         }
 
-		camera.zoom=7000f;
+		camera.zoom=1f;
 		
 
 		
@@ -1222,11 +1226,19 @@ public class GScreen implements Screen {
 	        	}
         	}
         	
-        	if (!e.hidden)
-        	{e.update(delta);}
+
         	
         }
       	
+     	for (int x=0; x<30; x++)
+        for (int y=0; y<30; y++)
+        for (int i=0; i<cluster[x][y].Entity_list.size();i++)
+        {
+            Entity e=cluster[x][y].Entity_list.get(i);
+	    	if (!e.hidden)
+	    	{e.update(delta);}
+        }
+    	
       	 add_timer("entity_update");
       
 
@@ -1255,13 +1267,25 @@ public class GScreen implements Screen {
         	{Phys_list.get(i).draw();}
         	
         	//if (show_edit)
-        	if(phys_visualisation)
+        
 	      	for (int x=cluster_x-3; x<cluster_x+3; x++)
 	      	for (int y=cluster_y-3; y<cluster_y+3; y++)
 	      	if ((x>=0)&&(y>=0)&&(x<30)&&(y<30))
 	      	{
+	      		if(phys_visualisation)
 	      		for (int i=0; i<cluster[x][y].Phys_list.size(); i++)
 	      		{cluster[x][y].Phys_list.get(i).draw();}
+	      		
+	      		if (show_edit)
+	      		for (int i=0; i<cluster[x][y].Entity_list.size(); i++)
+	      		{
+	      			if (cluster[x][y].Entity_list.get(i).selected)
+	      			{game.shapeRenderer.setColor(Color.GREEN);
+	      			game.shapeRenderer.circle(cluster[x][y].Entity_list.get(i).pos.x, cluster[x][y].Entity_list.get(i).pos.y, 1);
+	      			
+	      			game.shapeRenderer.setColor(Color.RED);
+	      			game.shapeRenderer.circle(cluster[x][y].Entity_list.get(i).pos.x, cluster[x][y].Entity_list.get(i).pos.y+cluster[x][y].Entity_list.get(i).z, 1);}
+	      		}
 	      	}
         	
         	if (pl.dead_time>0)
@@ -1414,7 +1438,7 @@ public class GScreen implements Screen {
 			
 			 if (Gdx.input.isKeyPressed(Keys.ESCAPE))
 			 {
-				 pl.armored_shield.value=1000;
+				 pl.armored_shield.value=10000;
 				 pl.dead_time=0;
 				 
 				 camera.direction.set(0, 0, -1);
@@ -1426,8 +1450,7 @@ public class GScreen implements Screen {
 			            
 			     //Entity_list.add(new DecorStoneBarak(new Vector2(100,200)));
 			     
-			     pl.pos.x=4000;
-			     pl.pos.y=4000;
+
 			     
 			    
 			     
@@ -1454,7 +1477,7 @@ public class GScreen implements Screen {
         game.shapeRenderer_static.setProjectionMatrix(skills_camera.combined);
         batch_static.setProjectionMatrix(skills_camera.combined);
       
-        
+        InputHandler.scroll_amount=0;
         //InputHandler.but=-1;
     }
 

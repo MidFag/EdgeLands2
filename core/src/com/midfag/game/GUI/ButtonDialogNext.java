@@ -44,7 +44,8 @@ public class ButtonDialogNext extends Button {
 				GScreen.pl.active=true;*/
 				
 				gui.dialog_pool.clear();
-				
+				//need_remove=true;
+				if (gui.remove_if_end){GScreen.show_dialog=false;}
 				ScriptSystem.execute(gui.exit_point);
 			}
 		}
